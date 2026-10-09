@@ -169,14 +169,15 @@
   .trace-note[hidden] { display: none; }
 
   /* ---------- walkthrough ---------- */
-  ol.walk { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: s; }
-  ol.walk li { counter-increment: s; display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; padding: 16px 18px; background: var(--glass); border: 1px solid var(--line); border-radius: 12px; }
-  ol.walk li::before { content: counter(s); font: 600 .95rem/1 var(--f-mono); width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--c); color: #fff; box-shadow: 0 10px 22px -10px var(--c); }
+  ol.walk { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: s; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  ol.walk li { counter-increment: s; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; padding: 14px 16px; background: var(--glass); border: 1px solid var(--line); border-radius: 12px; box-shadow: inset 0 3px 0 var(--c); }
+  ol.walk li::before { content: counter(s); font: 600 .8rem/1 var(--f-mono); width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--c); color: #fff; box-shadow: 0 8px 18px -10px var(--c); }
   ol.walk li:nth-child(1) { --c: var(--s1); } ol.walk li:nth-child(2) { --c: var(--s2); } ol.walk li:nth-child(3) { --c: var(--s3); }
   ol.walk li:nth-child(4) { --c: var(--s4); } ol.walk li:nth-child(5) { --c: var(--s5); } ol.walk li:nth-child(6) { --c: var(--s6); }
-  ol.walk li div { display: grid; gap: 4px; min-width: 0; }
-  ol.walk p { color: var(--muted); }
-  ol.walk .where { font: 500 .74rem/1.3 var(--f-mono); letter-spacing: .06em; }
+  ol.walk li div { display: grid; gap: 3px; min-width: 0; }
+  ol.walk h3 { font-size: 1rem; line-height: 1.25; }
+  ol.walk p { color: var(--muted); font-size: .86rem; line-height: 1.5; }
+  ol.walk .where { font: 500 .68rem/1.3 var(--f-mono); letter-spacing: .04em; }
   .where.b { color: var(--blue); } .where.g { color: var(--green); } .where.r { color: var(--red); } .where.n { color: var(--muted); }
   .fork { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
   .fork > div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: grid; gap: 8px; align-content: start; box-shadow: inset 0 4px 0 var(--c); }
@@ -653,7 +654,7 @@
     <h2>One sales order on credit hold, start to finish</h2>
     <p>Follows the wiki's Credit Hold Release POC on CSD (August 2026). The step numbers match the diagram. Customer, order numbers and amounts are illustrative.</p>
   </div>
-  <ol class="walk col">
+  <ol class="walk">
     <li><div><span class="where b">CSD → Data Lake → Data Warehouse</span><h3>An order goes on credit hold in CSD</h3><p>SO 50112 for $8,000 is placed on hold. The change lands in the Data Lake and is loaded into the CSD warehouse, today's canonical source.</p></div></li>
     <li><div><span class="where b">Data Warehouse</span><h3>The canonical SalesOrder updates</h3><p>IQ will read this copy through Compass, never the live ERP. Iceberg-based Data Lake+ would slot in here later as a configuration change.</p></div></li>
     <li><div><span class="where g">Canonical commit → Event Service</span><h3>The Data Fabric Event Service publishes the hold</h3><p>The event carries the tenant, product CSD, domain Sales, the SalesOrder identity and the action mapping releaseHold. It should go out only after the commit; IDF has not confirmed that yet.</p></div></li>
