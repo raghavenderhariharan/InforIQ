@@ -162,6 +162,14 @@
   .pill.differs { background: var(--amber-soft); color: var(--amber); }
   .pill.board { background: var(--blue-soft); color: var(--blue); }
   .pill.map { background: var(--purple-soft); color: var(--purple); }
+  .mini { border-top: 1px solid var(--line); padding: 14px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
+  .mini-h { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .mini-h b { font: 700 1.02rem/1.2 var(--f-display); }
+  .mini-h .pill { font-size: .72rem; padding: 4px 9px; }
+  .mini p { flex: 1 1 320px; min-width: 0; color: var(--muted); font-size: .9rem; }
+  .mini-l { display: flex; flex-wrap: wrap; gap: 6px; }
+  .mini-l a { font: 500 .74rem/1 var(--f-body); color: var(--purple); text-decoration: none; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass); white-space: nowrap; }
+  .mini-l a:hover { border-color: var(--purple); }
   .srcs { display: grid; gap: 4px; }
   .srcs a { color: var(--purple); font-weight: 500; }
   .srcs span { font: 400 .72rem/1 var(--f-mono); color: var(--muted); }
@@ -764,6 +772,7 @@
 
     <div class="tip" id="tip" role="tooltip" hidden></div>
     <p class="trace-note" id="trace-note" hidden></p>
+    <div class="mini" id="detail" aria-live="polite"></div>
 
   </div>
 </section>
@@ -1127,7 +1136,9 @@ const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;
 const svg = $('#arch');
 
 function show(id) {
+  const n = N[id]; if (!n) return;
   svg.querySelectorAll('.node').forEach(g => g.classList.toggle('sel', g.dataset.id === id));
+  $('#detail').innerHTML = `<div class="mini-h"><b>${esc(n.name)}</b><span class="pill ${STC[n.st]}">${esc(ST[n.st])}</span></div><p>${esc(n.what)}</p>${n.src.length ? `<div class="mini-l">${n.src.map(k => `<a href="${WIKI + PG[k][0]}" target="_blank" rel="noopener noreferrer">${esc(PG[k][1])} ↗</a>`).join('')}</div>` : ''}`;
 }
 
 $('#seg').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
@@ -1136,13 +1147,14 @@ $('#seg').querySelectorAll('button').forEach(b => b.addEventListener('click', ()
   svg.classList.toggle('trace', t !== 'none');
   svg.querySelectorAll('[data-p]').forEach(el => el.classList.toggle('on', t !== 'none' && el.dataset.p.split(' ').includes(t)));
   note.hidden = t === 'none';
-  if (t !== 'none') note.innerHTML = TRACE[t];
+  if (t !== 'none') { note.innerHTML = TRACE[t]; show(t === 'auto' ? 'agent' : 'hitl'); }
 }));
 
 const isDark = () => document.documentElement.dataset.theme !== 'light';
 const themeLabel = () => { $('#theme-lbl').textContent = isDark() ? 'Light' : 'Dark'; };
 $('#theme').addEventListener('click', () => { document.documentElement.dataset.theme = isDark() ? 'light' : 'dark'; themeLabel(); });
 themeLabel();
+show('erx');
 
 /* ---------- component map (from the Infor IQ Component Map page) ---------- */
 const el = (id) => document.getElementById(id);
@@ -1322,15 +1334,12 @@ svg.querySelectorAll('.node').forEach(g => {
   g.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && tipFill(g.dataset.id)) tipPlace(e.clientX, e.clientY); });
   g.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' && !tip.hidden) tipPlace(e.clientX, e.clientY); });
   g.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') tip.hidden = true; });
-  g.addEventListener('click', e => {
-    e.stopPropagation(); show(g.dataset.id);
-    if (tipFill(g.dataset.id)) { const b = g.getBoundingClientRect(); e.pointerType === 'mouse' ? tipPlace(e.clientX, e.clientY) : tipPlace(b.left + b.width / 2, b.bottom); }
-  });
-  g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (tipFill(g.dataset.id)) { const b = g.getBoundingClientRect(); tipPlace(b.right, b.top); } } });
+  g.addEventListener('click', () => show(g.dataset.id));
+  g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(g.dataset.id); } });
   g.addEventListener('focus', () => { if (g.matches(':focus-visible') && tipFill(g.dataset.id)) { const b = g.getBoundingClientRect(); tipPlace(b.right, b.top); } });
   g.addEventListener('blur', () => { tip.hidden = true; });
 });
-document.addEventListener('click', () => { tip.hidden = true; svg.querySelectorAll('.node.sel').forEach(g => g.classList.remove('sel')); });
+
 
 /* ---------- in simple terms: examples ---------- */
 const SX = {
