@@ -1,0 +1,452 @@
+[
+{
+"day": "2026-09-09",
+"outcome": "Authorized",
+"decisions": 4755
+},
+{
+"day": "2026-09-09",
+"outcome": "Denied",
+"decisions": 585
+},
+{
+"day": "2026-09-09",
+"outcome": "Escalated",
+"decisions": 334
+},
+{
+"day": "2026-09-10",
+"outcome": "Authorized",
+"decisions": 4282
+},
+{
+"day": "2026-09-10",
+"outcome": "Denied",
+"decisions": 401
+},
+{
+"day": "2026-09-10",
+"outcome": "Escalated",
+"decisions": 262
+},
+{
+"day": "2026-09-11",
+"outcome": "Authorized",
+"decisions": 4654
+},
+{
+"day": "2026-09-11",
+"outcome": "Denied",
+"decisions": 420
+},
+{
+"day": "2026-09-11",
+"outcome": "Escalated",
+"decisions": 349
+},
+{
+"day": "2026-09-12",
+"outcome": "Authorized",
+"decisions": 2241
+},
+{
+"day": "2026-09-12",
+"outcome": "Denied",
+"decisions": 260
+},
+{
+"day": "2026-09-12",
+"outcome": "Escalated",
+"decisions": 134
+},
+{
+"day": "2026-09-13",
+"outcome": "Authorized",
+"decisions": 2186
+},
+{
+"day": "2026-09-13",
+"outcome": "Denied",
+"decisions": 252
+},
+{
+"day": "2026-09-13",
+"outcome": "Escalated",
+"decisions": 171
+},
+{
+"day": "2026-09-14",
+"outcome": "Authorized",
+"decisions": 4839
+},
+{
+"day": "2026-09-14",
+"outcome": "Denied",
+"decisions": 567
+},
+{
+"day": "2026-09-14",
+"outcome": "Escalated",
+"decisions": 278
+},
+{
+"day": "2026-09-15",
+"outcome": "Authorized",
+"decisions": 4244
+},
+{
+"day": "2026-09-15",
+"outcome": "Denied",
+"decisions": 519
+},
+{
+"day": "2026-09-15",
+"outcome": "Escalated",
+"decisions": 226
+},
+{
+"day": "2026-09-16",
+"outcome": "Authorized",
+"decisions": 4994
+},
+{
+"day": "2026-09-16",
+"outcome": "Denied",
+"decisions": 473
+},
+{
+"day": "2026-09-16",
+"outcome": "Escalated",
+"decisions": 354
+},
+{
+"day": "2026-09-17",
+"outcome": "Authorized",
+"decisions": 4509
+},
+{
+"day": "2026-09-17",
+"outcome": "Denied",
+"decisions": 409
+},
+{
+"day": "2026-09-17",
+"outcome": "Escalated",
+"decisions": 269
+},
+{
+"day": "2026-09-18",
+"outcome": "Authorized",
+"decisions": 5013
+},
+{
+"day": "2026-09-18",
+"outcome": "Denied",
+"decisions": 607
+},
+{
+"day": "2026-09-18",
+"outcome": "Escalated",
+"decisions": 303
+},
+{
+"day": "2026-09-19",
+"outcome": "Authorized",
+"decisions": 2394
+},
+{
+"day": "2026-09-19",
+"outcome": "Denied",
+"decisions": 204
+},
+{
+"day": "2026-09-19",
+"outcome": "Escalated",
+"decisions": 124
+},
+{
+"day": "2026-09-20",
+"outcome": "Authorized",
+"decisions": 2416
+},
+{
+"day": "2026-09-20",
+"outcome": "Denied",
+"decisions": 253
+},
+{
+"day": "2026-09-20",
+"outcome": "Escalated",
+"decisions": 133
+},
+{
+"day": "2026-09-21",
+"outcome": "Authorized",
+"decisions": 4532
+},
+{
+"day": "2026-09-21",
+"outcome": "Denied",
+"decisions": 519
+},
+{
+"day": "2026-09-21",
+"outcome": "Escalated",
+"decisions": 243
+},
+{
+"day": "2026-09-22",
+"outcome": "Authorized",
+"decisions": 4755
+},
+{
+"day": "2026-09-22",
+"outcome": "Denied",
+"decisions": 499
+},
+{
+"day": "2026-09-22",
+"outcome": "Escalated",
+"decisions": 287
+},
+{
+"day": "2026-09-23",
+"outcome": "Authorized",
+"decisions": 4751
+},
+{
+"day": "2026-09-23",
+"outcome": "Denied",
+"decisions": 538
+},
+{
+"day": "2026-09-23",
+"outcome": "Escalated",
+"decisions": 323
+},
+{
+"day": "2026-09-24",
+"outcome": "Authorized",
+"decisions": 5344
+},
+{
+"day": "2026-09-24",
+"outcome": "Denied",
+"decisions": 488
+},
+{
+"day": "2026-09-24",
+"outcome": "Escalated",
+"decisions": 338
+},
+{
+"day": "2026-09-25",
+"outcome": "Authorized",
+"decisions": 4436
+},
+{
+"day": "2026-09-25",
+"outcome": "Denied",
+"decisions": 513
+},
+{
+"day": "2026-09-25",
+"outcome": "Escalated",
+"decisions": 263
+},
+{
+"day": "2026-09-26",
+"outcome": "Authorized",
+"decisions": 2241
+},
+{
+"day": "2026-09-26",
+"outcome": "Denied",
+"decisions": 276
+},
+{
+"day": "2026-09-26",
+"outcome": "Escalated",
+"decisions": 143
+},
+{
+"day": "2026-09-27",
+"outcome": "Authorized",
+"decisions": 2746
+},
+{
+"day": "2026-09-27",
+"outcome": "Denied",
+"decisions": 252
+},
+{
+"day": "2026-09-27",
+"outcome": "Escalated",
+"decisions": 165
+},
+{
+"day": "2026-09-28",
+"outcome": "Authorized",
+"decisions": 4887
+},
+{
+"day": "2026-09-28",
+"outcome": "Denied",
+"decisions": 421
+},
+{
+"day": "2026-09-28",
+"outcome": "Escalated",
+"decisions": 274
+},
+{
+"day": "2026-09-29",
+"outcome": "Authorized",
+"decisions": 5245
+},
+{
+"day": "2026-09-29",
+"outcome": "Denied",
+"decisions": 459
+},
+{
+"day": "2026-09-29",
+"outcome": "Escalated",
+"decisions": 264
+},
+{
+"day": "2026-09-30",
+"outcome": "Authorized",
+"decisions": 4843
+},
+{
+"day": "2026-09-30",
+"outcome": "Denied",
+"decisions": 548
+},
+{
+"day": "2026-09-30",
+"outcome": "Escalated",
+"decisions": 189
+},
+{
+"day": "2026-10-01",
+"outcome": "Authorized",
+"decisions": 5529
+},
+{
+"day": "2026-10-01",
+"outcome": "Denied",
+"decisions": 497
+},
+{
+"day": "2026-10-01",
+"outcome": "Escalated",
+"decisions": 235
+},
+{
+"day": "2026-10-02",
+"outcome": "Authorized",
+"decisions": 4676
+},
+{
+"day": "2026-10-02",
+"outcome": "Denied",
+"decisions": 473
+},
+{
+"day": "2026-10-02",
+"outcome": "Escalated",
+"decisions": 244
+},
+{
+"day": "2026-10-03",
+"outcome": "Authorized",
+"decisions": 2387
+},
+{
+"day": "2026-10-03",
+"outcome": "Denied",
+"decisions": 209
+},
+{
+"day": "2026-10-03",
+"outcome": "Escalated",
+"decisions": 130
+},
+{
+"day": "2026-10-04",
+"outcome": "Authorized",
+"decisions": 2876
+},
+{
+"day": "2026-10-04",
+"outcome": "Denied",
+"decisions": 255
+},
+{
+"day": "2026-10-04",
+"outcome": "Escalated",
+"decisions": 114
+},
+{
+"day": "2026-10-05",
+"outcome": "Authorized",
+"decisions": 4828
+},
+{
+"day": "2026-10-05",
+"outcome": "Denied",
+"decisions": 461
+},
+{
+"day": "2026-10-05",
+"outcome": "Escalated",
+"decisions": 181
+},
+{
+"day": "2026-10-06",
+"outcome": "Authorized",
+"decisions": 5027
+},
+{
+"day": "2026-10-06",
+"outcome": "Denied",
+"decisions": 427
+},
+{
+"day": "2026-10-06",
+"outcome": "Escalated",
+"decisions": 199
+},
+{
+"day": "2026-10-07",
+"outcome": "Authorized",
+"decisions": 4899
+},
+{
+"day": "2026-10-07",
+"outcome": "Denied",
+"decisions": 586
+},
+{
+"day": "2026-10-07",
+"outcome": "Escalated",
+"decisions": 211
+},
+{
+"day": "2026-10-08",
+"outcome": "Authorized",
+"decisions": 5701
+},
+{
+"day": "2026-10-08",
+"outcome": "Denied",
+"decisions": 587
+},
+{
+"day": "2026-10-08",
+"outcome": "Escalated",
+"decisions": 225
+}
+]

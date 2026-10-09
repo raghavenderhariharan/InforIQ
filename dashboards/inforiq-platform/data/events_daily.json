@@ -1,0 +1,602 @@
+[
+{
+"day": "2026-09-09",
+"channel": "Canonical changes",
+"events": 12446
+},
+{
+"day": "2026-09-09",
+"channel": "Customer",
+"events": 2708
+},
+{
+"day": "2026-09-09",
+"channel": "FDE",
+"events": 1113
+},
+{
+"day": "2026-09-09",
+"channel": "Developer",
+"events": 634
+},
+{
+"day": "2026-09-10",
+"channel": "Canonical changes",
+"events": 16722
+},
+{
+"day": "2026-09-10",
+"channel": "Customer",
+"events": 3315
+},
+{
+"day": "2026-09-10",
+"channel": "FDE",
+"events": 1158
+},
+{
+"day": "2026-09-10",
+"channel": "Developer",
+"events": 552
+},
+{
+"day": "2026-09-11",
+"channel": "Canonical changes",
+"events": 15220
+},
+{
+"day": "2026-09-11",
+"channel": "Customer",
+"events": 3287
+},
+{
+"day": "2026-09-11",
+"channel": "FDE",
+"events": 1338
+},
+{
+"day": "2026-09-11",
+"channel": "Developer",
+"events": 603
+},
+{
+"day": "2026-09-12",
+"channel": "Canonical changes",
+"events": 7736
+},
+{
+"day": "2026-09-12",
+"channel": "Customer",
+"events": 1657
+},
+{
+"day": "2026-09-12",
+"channel": "FDE",
+"events": 662
+},
+{
+"day": "2026-09-12",
+"channel": "Developer",
+"events": 328
+},
+{
+"day": "2026-09-13",
+"channel": "Canonical changes",
+"events": 7050
+},
+{
+"day": "2026-09-13",
+"channel": "Customer",
+"events": 1618
+},
+{
+"day": "2026-09-13",
+"channel": "FDE",
+"events": 701
+},
+{
+"day": "2026-09-13",
+"channel": "Developer",
+"events": 297
+},
+{
+"day": "2026-09-14",
+"channel": "Canonical changes",
+"events": 13456
+},
+{
+"day": "2026-09-14",
+"channel": "Customer",
+"events": 2652
+},
+{
+"day": "2026-09-14",
+"channel": "FDE",
+"events": 1106
+},
+{
+"day": "2026-09-14",
+"channel": "Developer",
+"events": 693
+},
+{
+"day": "2026-09-15",
+"channel": "Canonical changes",
+"events": 17186
+},
+{
+"day": "2026-09-15",
+"channel": "Customer",
+"events": 3146
+},
+{
+"day": "2026-09-15",
+"channel": "FDE",
+"events": 1187
+},
+{
+"day": "2026-09-15",
+"channel": "Developer",
+"events": 630
+},
+{
+"day": "2026-09-16",
+"channel": "Canonical changes",
+"events": 15787
+},
+{
+"day": "2026-09-16",
+"channel": "Customer",
+"events": 3045
+},
+{
+"day": "2026-09-16",
+"channel": "FDE",
+"events": 1413
+},
+{
+"day": "2026-09-16",
+"channel": "Developer",
+"events": 612
+},
+{
+"day": "2026-09-17",
+"channel": "Canonical changes",
+"events": 14064
+},
+{
+"day": "2026-09-17",
+"channel": "Customer",
+"events": 2850
+},
+{
+"day": "2026-09-17",
+"channel": "FDE",
+"events": 1159
+},
+{
+"day": "2026-09-17",
+"channel": "Developer",
+"events": 645
+},
+{
+"day": "2026-09-18",
+"channel": "Canonical changes",
+"events": 17162
+},
+{
+"day": "2026-09-18",
+"channel": "Customer",
+"events": 2922
+},
+{
+"day": "2026-09-18",
+"channel": "FDE",
+"events": 1248
+},
+{
+"day": "2026-09-18",
+"channel": "Developer",
+"events": 648
+},
+{
+"day": "2026-09-19",
+"channel": "Canonical changes",
+"events": 7688
+},
+{
+"day": "2026-09-19",
+"channel": "Customer",
+"events": 1551
+},
+{
+"day": "2026-09-19",
+"channel": "FDE",
+"events": 640
+},
+{
+"day": "2026-09-19",
+"channel": "Developer",
+"events": 272
+},
+{
+"day": "2026-09-20",
+"channel": "Canonical changes",
+"events": 8422
+},
+{
+"day": "2026-09-20",
+"channel": "Customer",
+"events": 1393
+},
+{
+"day": "2026-09-20",
+"channel": "FDE",
+"events": 634
+},
+{
+"day": "2026-09-20",
+"channel": "Developer",
+"events": 341
+},
+{
+"day": "2026-09-21",
+"channel": "Canonical changes",
+"events": 15802
+},
+{
+"day": "2026-09-21",
+"channel": "Customer",
+"events": 3373
+},
+{
+"day": "2026-09-21",
+"channel": "FDE",
+"events": 1134
+},
+{
+"day": "2026-09-21",
+"channel": "Developer",
+"events": 654
+},
+{
+"day": "2026-09-22",
+"channel": "Canonical changes",
+"events": 15667
+},
+{
+"day": "2026-09-22",
+"channel": "Customer",
+"events": 3184
+},
+{
+"day": "2026-09-22",
+"channel": "FDE",
+"events": 1394
+},
+{
+"day": "2026-09-22",
+"channel": "Developer",
+"events": 726
+},
+{
+"day": "2026-09-23",
+"channel": "Canonical changes",
+"events": 15775
+},
+{
+"day": "2026-09-23",
+"channel": "Customer",
+"events": 3325
+},
+{
+"day": "2026-09-23",
+"channel": "FDE",
+"events": 1282
+},
+{
+"day": "2026-09-23",
+"channel": "Developer",
+"events": 656
+},
+{
+"day": "2026-09-24",
+"channel": "Canonical changes",
+"events": 17590
+},
+{
+"day": "2026-09-24",
+"channel": "Customer",
+"events": 3580
+},
+{
+"day": "2026-09-24",
+"channel": "FDE",
+"events": 1213
+},
+{
+"day": "2026-09-24",
+"channel": "Developer",
+"events": 665
+},
+{
+"day": "2026-09-25",
+"channel": "Canonical changes",
+"events": 14088
+},
+{
+"day": "2026-09-25",
+"channel": "Customer",
+"events": 3123
+},
+{
+"day": "2026-09-25",
+"channel": "FDE",
+"events": 1146
+},
+{
+"day": "2026-09-25",
+"channel": "Developer",
+"events": 606
+},
+{
+"day": "2026-09-26",
+"channel": "Canonical changes",
+"events": 8941
+},
+{
+"day": "2026-09-26",
+"channel": "Customer",
+"events": 1432
+},
+{
+"day": "2026-09-26",
+"channel": "FDE",
+"events": 704
+},
+{
+"day": "2026-09-26",
+"channel": "Developer",
+"events": 346
+},
+{
+"day": "2026-09-27",
+"channel": "Canonical changes",
+"events": 7357
+},
+{
+"day": "2026-09-27",
+"channel": "Customer",
+"events": 1824
+},
+{
+"day": "2026-09-27",
+"channel": "FDE",
+"events": 644
+},
+{
+"day": "2026-09-27",
+"channel": "Developer",
+"events": 331
+},
+{
+"day": "2026-09-28",
+"channel": "Canonical changes",
+"events": 15821
+},
+{
+"day": "2026-09-28",
+"channel": "Customer",
+"events": 3245
+},
+{
+"day": "2026-09-28",
+"channel": "FDE",
+"events": 1272
+},
+{
+"day": "2026-09-28",
+"channel": "Developer",
+"events": 607
+},
+{
+"day": "2026-09-29",
+"channel": "Canonical changes",
+"events": 16503
+},
+{
+"day": "2026-09-29",
+"channel": "Customer",
+"events": 3189
+},
+{
+"day": "2026-09-29",
+"channel": "FDE",
+"events": 1149
+},
+{
+"day": "2026-09-29",
+"channel": "Developer",
+"events": 638
+},
+{
+"day": "2026-09-30",
+"channel": "Canonical changes",
+"events": 18702
+},
+{
+"day": "2026-09-30",
+"channel": "Customer",
+"events": 3547
+},
+{
+"day": "2026-09-30",
+"channel": "FDE",
+"events": 1542
+},
+{
+"day": "2026-09-30",
+"channel": "Developer",
+"events": 595
+},
+{
+"day": "2026-10-01",
+"channel": "Canonical changes",
+"events": 15283
+},
+{
+"day": "2026-10-01",
+"channel": "Customer",
+"events": 2917
+},
+{
+"day": "2026-10-01",
+"channel": "FDE",
+"events": 1326
+},
+{
+"day": "2026-10-01",
+"channel": "Developer",
+"events": 763
+},
+{
+"day": "2026-10-02",
+"channel": "Canonical changes",
+"events": 18576
+},
+{
+"day": "2026-10-02",
+"channel": "Customer",
+"events": 3370
+},
+{
+"day": "2026-10-02",
+"channel": "FDE",
+"events": 1447
+},
+{
+"day": "2026-10-02",
+"channel": "Developer",
+"events": 598
+},
+{
+"day": "2026-10-03",
+"channel": "Canonical changes",
+"events": 7230
+},
+{
+"day": "2026-10-03",
+"channel": "Customer",
+"events": 1876
+},
+{
+"day": "2026-10-03",
+"channel": "FDE",
+"events": 714
+},
+{
+"day": "2026-10-03",
+"channel": "Developer",
+"events": 374
+},
+{
+"day": "2026-10-04",
+"channel": "Canonical changes",
+"events": 9244
+},
+{
+"day": "2026-10-04",
+"channel": "Customer",
+"events": 1644
+},
+{
+"day": "2026-10-04",
+"channel": "FDE",
+"events": 656
+},
+{
+"day": "2026-10-04",
+"channel": "Developer",
+"events": 350
+},
+{
+"day": "2026-10-05",
+"channel": "Canonical changes",
+"events": 16897
+},
+{
+"day": "2026-10-05",
+"channel": "Customer",
+"events": 3089
+},
+{
+"day": "2026-10-05",
+"channel": "FDE",
+"events": 1224
+},
+{
+"day": "2026-10-05",
+"channel": "Developer",
+"events": 623
+},
+{
+"day": "2026-10-06",
+"channel": "Canonical changes",
+"events": 15863
+},
+{
+"day": "2026-10-06",
+"channel": "Customer",
+"events": 3632
+},
+{
+"day": "2026-10-06",
+"channel": "FDE",
+"events": 1306
+},
+{
+"day": "2026-10-06",
+"channel": "Developer",
+"events": 697
+},
+{
+"day": "2026-10-07",
+"channel": "Canonical changes",
+"events": 15668
+},
+{
+"day": "2026-10-07",
+"channel": "Customer",
+"events": 2894
+},
+{
+"day": "2026-10-07",
+"channel": "FDE",
+"events": 1499
+},
+{
+"day": "2026-10-07",
+"channel": "Developer",
+"events": 711
+},
+{
+"day": "2026-10-08",
+"channel": "Canonical changes",
+"events": 15012
+},
+{
+"day": "2026-10-08",
+"channel": "Customer",
+"events": 3730
+},
+{
+"day": "2026-10-08",
+"channel": "FDE",
+"events": 1380
+},
+{
+"day": "2026-10-08",
+"channel": "Developer",
+"events": 703
+}
+]

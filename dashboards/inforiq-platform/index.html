@@ -1,0 +1,763 @@
+<style>
+  .iq { font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+  .iq-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--cds-gap-sm); margin-bottom: var(--cds-gap-md); }
+  .iq-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: calc(var(--cds-font-size-title) * 1.3); line-height: 1.15; margin: 0; }
+  .iq-take { margin: var(--cds-gap-xs) 0 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-body); max-width: 60rem; }
+  .iq-take b { color: var(--color-fg); font-weight: 600; }
+  .iq-badge { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); border: 1px solid var(--color-border-line); border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
+  .iq-tabs { display: flex; gap: var(--cds-gap-xs); border-bottom: 1px solid var(--color-border-line); margin-bottom: var(--cds-gap-lg); overflow-x: auto; scrollbar-width: none; }
+  .iq-tab { appearance: none; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--color-fg-muted); font: inherit; font-size: var(--cds-font-size-body); padding: var(--cds-pad-sm) var(--cds-pad-md); cursor: pointer; white-space: nowrap; margin-bottom: -1px; }
+  .iq-tab:hover { color: var(--color-fg); }
+  .iq-tab[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+  .iq-page[hidden] { display: none; }
+  .iq-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--cds-gap-md); margin-bottom: var(--cds-gap-md); }
+  .iq-tile, .iq-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; }
+  .iq-tile-label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .iq-tile-value { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: calc(var(--cds-font-size-title) * 1.25); line-height: 1.2; margin: var(--cds-gap-xs) 0; font-variant-numeric: tabular-nums; }
+  .iq-tile-sub { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+  .iq-up { color: var(--color-ok); } .iq-down { color: var(--color-bad); } .iq-warn-t { color: var(--color-warn); }
+  .iq-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: var(--cds-gap-md); margin-bottom: var(--cds-gap-md); }
+  .iq-card { margin-bottom: var(--cds-gap-md); }
+  .iq-grid2 > .iq-card { margin-bottom: 0; }
+  .iq-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .iq-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 2px 0 var(--cds-gap-md); }
+  .iq-chart { position: relative; min-height: 260px; }
+  .iq-chart.iq-tall { min-height: 300px; }
+  .iq-svg { display: block; overflow: visible; }
+  .iq-svg text { font-family: var(--font-anthropic-sans); }
+  .iq-tick, .iq-axis text { fill: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .iq-axis path, .iq-axis line { stroke: var(--cds-chart-axis); }
+  .iq-grid { stroke: var(--cds-chart-grid); stroke-width: 1; }
+  .iq-ref { stroke: var(--cds-chart-reference); stroke-dasharray: 4 3; }
+  .iq-end { font-size: var(--cds-font-size-caption); fill: var(--color-fg); }
+  .iq-end tspan.v { fill: var(--color-fg-muted); }
+  .iq-tip { position: absolute; z-index: 5; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); pointer-events: none; min-width: 9rem; max-width: 18rem; }
+  .iq-tip-h { color: var(--cds-text-secondary); margin-bottom: 2px; }
+  .iq-tip-r { display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; }
+  .iq-tip-r b { margin-left: auto; font-weight: 600; padding-left: var(--cds-gap-sm); }
+  .iq-tip-p { color: var(--color-fg-muted); margin-top: 2px; }
+  .iq-sw { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+  .iq-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-bottom: var(--cds-gap-sm); }
+  .iq-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .iq-fail { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .iq-dot { width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); display: inline-block; }
+  .iq-sdot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .iq-s-ok { background: var(--color-ok); } .iq-s-warn { background: var(--color-warn); } .iq-s-bad { background: var(--color-bad); }
+  .iq-node rect { fill: var(--color-panel); stroke: var(--color-border-line); }
+  .iq-node:hover rect, .iq-node.on rect { stroke: var(--color-fg-muted); }
+  .iq-node .n { font-size: var(--cds-font-size-caption); fill: var(--color-fg); font-weight: 600; }
+  .iq-node .t { font-size: var(--cds-font-size-caption); fill: var(--color-fg-muted); }
+  .iq-edge { fill: none; stroke: var(--cds-chart-axis); stroke-width: 1.5; opacity: .7; }
+  .iq-edge.back { stroke-dasharray: 5 4; }
+  .iq-dia.focus .iq-edge { opacity: .12; } .iq-dia.focus .iq-edge.on { opacity: 1; stroke: var(--color-fg); }
+  .iq-dia.focus .iq-node { opacity: .35; } .iq-dia.focus .iq-node.on { opacity: 1; }
+  .iq-stage { font-size: var(--cds-font-size-caption); fill: var(--color-fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+  .iq-tools { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; margin-bottom: var(--cds-gap-sm); }
+  .iq-search { font: inherit; font-size: var(--cds-font-size-body); color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-xs) var(--cds-pad-sm); min-width: 0; flex: 1 1 14rem; max-width: 22rem; }
+  .iq-scroll { max-height: 30rem; overflow: auto; }
+  .iq-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-body); font-variant-numeric: tabular-nums; }
+  .iq-table th { position: sticky; top: 0; background: var(--color-panel); text-align: left; font-weight: var(--cds-font-weight-medium); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); border-bottom: 1px solid var(--color-border-line); padding: 0; z-index: 1; }
+  .iq-table th button { all: unset; cursor: pointer; display: block; padding: var(--cds-pad-xs) var(--cds-pad-sm); width: 100%; box-sizing: border-box; }
+  .iq-table th[aria-sort="ascending"] button::after { content: " ↑"; } .iq-table th[aria-sort="descending"] button::after { content: " ↓"; }
+  .iq-table th.num, .iq-table td.num { text-align: right; }
+  .iq-table td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .iq-table tr:last-child td { border-bottom: 0; }
+  .iq-pill { display: inline-flex; align-items: center; gap: 6px; text-transform: capitalize; }
+  .iq-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--color-fg-muted); }
+  .iq-pill.p-ok::before { background: var(--color-ok); } .iq-pill.p-warn::before { background: var(--color-warn); } .iq-pill.p-bad::before { background: var(--color-bad); }
+  .iq-bar { display: inline-block; height: 6px; border-radius: 3px; background: var(--cds-chart-muted); vertical-align: middle; margin-right: 6px; }
+  .iq-bar.over { background: var(--cds-chart-status-critical); }
+  @media (max-width: 640px) { .iq-hide-sm { display: none; } }
+  [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+  [data-dash-source-state=empty] { color: transparent; }
+</style>
+
+<div class="iq">
+  <header class="iq-head">
+    <div>
+      <h1 class="iq-title" id="title">InforIQ platform</h1>
+      <p class="iq-take" id="takeaway">
+        <b data-source="kpis" data-field="queue_overdue" data-row="0" class="dash-skeleton">—</b> review cases are past the 24-hour target, and CPQ data lands
+        <b data-source="freshness" data-field="lag_minutes" data-where="source=CPQ&amp;stage=S3 raw" class="dash-skeleton">—</b> minutes after extract<span id="take-tail"></span>
+      </p>
+    </div>
+    <span class="iq-badge" title="Figures are invented to show the dashboard's shape; no live system is connected.">Illustrative data · last 30 days to Oct 8</span>
+  </header>
+
+  <nav class="iq-tabs" role="tablist" aria-label="Dashboard pages">
+    <button class="iq-tab" role="tab" id="tab-overview" data-page="overview" aria-selected="true">Overview</button>
+    <button class="iq-tab" role="tab" id="tab-pipeline" data-page="pipeline" aria-selected="false">Data pipeline</button>
+    <button class="iq-tab" role="tab" id="tab-events" data-page="events" aria-selected="false">Events and decisions</button>
+    <button class="iq-tab" role="tab" id="tab-review" data-page="review" aria-selected="false">Review queue</button>
+  </nav>
+
+  <!-- ============ OVERVIEW ============ -->
+  <section class="iq-page" id="overview" role="tabpanel" aria-labelledby="tab-overview">
+    <div class="iq-tiles" id="kpi-tiles">
+      <div class="iq-tile" id="kpi-iceberg">
+        <div class="iq-tile-label">Rows landed in Iceberg · last 7 days</div>
+        <div class="iq-tile-value dash-skeleton" data-source="kpis" data-field="iceberg_rows_7d" data-row="0">—</div>
+        <div class="iq-tile-sub"><span data-source="kpis" data-field="iceberg_change" data-row="0" class="dash-skeleton">—</span> vs prior 7 days</div>
+      </div>
+      <div class="iq-tile" id="kpi-lag">
+        <div class="iq-tile-label">Slowest canonical freshness · now</div>
+        <div class="iq-tile-value"><span data-source="kpis" data-field="canonical_lag_max" data-row="0" class="dash-skeleton">—</span> min</div>
+        <div class="iq-tile-sub">Target: within 60 minutes of extract</div>
+      </div>
+      <div class="iq-tile" id="kpi-events">
+        <div class="iq-tile-label">Events published · last 7 days</div>
+        <div class="iq-tile-value dash-skeleton" data-source="kpis" data-field="events_7d" data-row="0">—</div>
+        <div class="iq-tile-sub"><span data-source="kpis" data-field="events_change" data-row="0" class="dash-skeleton">—</span> vs prior 7 days</div>
+      </div>
+      <div class="iq-tile" id="kpi-auth">
+        <div class="iq-tile-label">Decisions authorised · last 7 days</div>
+        <div class="iq-tile-value dash-skeleton" data-source="kpis" data-field="auth_rate_7d" data-row="0">—</div>
+        <div class="iq-tile-sub"><span data-source="kpis" data-field="auth_rate_change" data-row="0" class="dash-skeleton">—</span> pts vs prior 7 days</div>
+      </div>
+      <div class="iq-tile" id="kpi-queue">
+        <div class="iq-tile-label">Human review queue · now</div>
+        <div class="iq-tile-value dash-skeleton" data-source="kpis" data-field="queue_open" data-row="0">—</div>
+        <div class="iq-tile-sub"><span data-source="kpis" data-field="queue_overdue" data-row="0" class="dash-skeleton iq-down">—</span> past the 24-hour target</div>
+      </div>
+    </div>
+
+    <div class="iq-card" id="architecture">
+      <h2>How data and decisions flow</h2>
+      <p class="iq-note">From the whiteboard: ERP sources land raw in S3 (slow), are curated into Iceberg tables (faster), mapped to the canonical model, and published as events. ERX reasons over them with IQ's rules, sends escalations to people, and authorises agents to act. Hover a box to trace its path; dashed lines feed back.</p>
+      <div class="iq-legend">
+        <span><i class="iq-sdot iq-s-ok"></i>On target</span>
+        <span><i class="iq-sdot iq-s-warn"></i>Watch</span>
+        <span><i class="iq-sdot iq-s-bad"></i>Breach</span>
+      </div>
+      <div class="iq-chart iq-dia dash-skeleton" id="flow-diagram" data-source="components" style="min-height: 380px"></div>
+    </div>
+
+    <div class="iq-card" id="component-health">
+      <h2>Component health</h2>
+      <p class="iq-note">Every box in the flow with its current lag and throughput. Click a header to sort.</p>
+      <div class="iq-scroll">
+        <table class="iq-table" id="components-table" data-source="components" data-row-key="id">
+          <thead><tr>
+            <th data-field="name"><button>Component</button></th>
+            <th data-field="layer" class="iq-hide-sm"><button>Layer</button></th>
+            <th data-field="status"><button>Status</button></th>
+            <th data-field="lag_minutes" class="num"><button>Lag (min)</button></th>
+            <th data-field="throughput" class="iq-hide-sm"><button>Throughput</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PIPELINE ============ -->
+  <section class="iq-page" id="pipeline" role="tabpanel" aria-labelledby="tab-pipeline" hidden>
+    <div class="iq-card" id="iceberg-daily">
+      <h2>Rows landed in Iceberg per day, by source</h2>
+      <p class="iq-note">Last 30 days. Weekends dip as ERP activity drops.</p>
+      <div class="iq-chart dash-skeleton" id="iceberg-chart" data-source="ingest_daily"></div>
+    </div>
+    <div class="iq-grid2">
+      <div class="iq-card" id="freshness-card">
+        <h2>Freshness by stage</h2>
+        <p class="iq-note">Minutes from ERP extract until data is queryable at each stage, now. Dashed line: 60-minute target.</p>
+        <div class="iq-legend" id="fresh-legend" data-source="freshness"></div>
+        <div class="iq-chart dash-skeleton" id="fresh-chart" data-source="freshness" style="min-height: 250px"></div>
+      </div>
+      <div class="iq-card" id="yield-card">
+        <h2>S3 to Iceberg yield</h2>
+        <p class="iq-note">Last 30 days. Yield is the share of raw rows that pass curation into Iceberg.</p>
+        <div class="iq-scroll">
+          <table class="iq-table" id="yield-table" data-source="source_totals" data-row-key="source">
+            <thead><tr>
+              <th data-field="source"><button>Source</button></th>
+              <th data-field="rows_s3" class="num"><button>Raw rows (S3)</button></th>
+              <th data-field="rows_iceberg" class="num"><button>Iceberg rows</button></th>
+              <th data-field="yield" class="num"><button>Yield</button></th>
+            </tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENTS ============ -->
+  <section class="iq-page" id="events" role="tabpanel" aria-labelledby="tab-events" hidden>
+    <div class="iq-tiles" id="decision-tiles">
+      <div class="iq-tile" id="dec-auth">
+        <div class="iq-tile-label">Authorised · last 30 days</div>
+        <div class="iq-tile-value dash-skeleton" data-source="decision_totals" data-field="decisions" data-where="outcome=Authorized">—</div>
+        <div class="iq-tile-sub"><span class="dash-skeleton" data-source="decision_totals" data-field="share" data-where="outcome=Authorized">—</span> of decisions; agent acts via ERP MCP</div>
+      </div>
+      <div class="iq-tile" id="dec-denied">
+        <div class="iq-tile-label">Denied · last 30 days</div>
+        <div class="iq-tile-value dash-skeleton" data-source="decision_totals" data-field="decisions" data-where="outcome=Denied">—</div>
+        <div class="iq-tile-sub"><span class="dash-skeleton" data-source="decision_totals" data-field="share" data-where="outcome=Denied">—</span> of decisions; nothing changes in the ERP</div>
+      </div>
+      <div class="iq-tile" id="dec-esc">
+        <div class="iq-tile-label">Escalated to people · last 30 days</div>
+        <div class="iq-tile-value dash-skeleton" data-source="decision_totals" data-field="decisions" data-where="outcome=Escalated">—</div>
+        <div class="iq-tile-sub"><span class="dash-skeleton" data-source="decision_totals" data-field="share" data-where="outcome=Escalated">—</span> of decisions; go to the review queue</div>
+      </div>
+    </div>
+    <div class="iq-card" id="events-daily">
+      <h2>Events published per day, by producer</h2>
+      <p class="iq-note">Last 30 days. Canonical changes are PO and SO updates from the canonical model; FDE, customer and developer producers publish alongside them.</p>
+      <div class="iq-legend" id="events-legend" data-source="events_daily"></div>
+      <div class="iq-chart dash-skeleton" id="events-chart" data-source="events_daily"></div>
+    </div>
+    <div class="iq-card" id="decisions-daily">
+      <h2>ERX decisions per day, by outcome</h2>
+      <p class="iq-note">Last 30 days. ERX checks each requested action against IQ's rules and returns authorised, denied or escalated.</p>
+      <div class="iq-legend" id="decisions-legend" data-source="decisions_daily"></div>
+      <div class="iq-chart dash-skeleton" id="decisions-chart" data-source="decisions_daily"></div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEW ============ -->
+  <section class="iq-page" id="review" role="tabpanel" aria-labelledby="tab-review" hidden>
+    <div class="iq-tiles" id="review-tiles">
+      <div class="iq-tile" id="rev-open">
+        <div class="iq-tile-label">Cases waiting for a person · now</div>
+        <div class="iq-tile-value dash-skeleton" data-source="kpis" data-field="queue_open" data-row="0">—</div>
+        <div class="iq-tile-sub">Escalated by ERX, not yet decided</div>
+      </div>
+      <div class="iq-tile" id="rev-overdue">
+        <div class="iq-tile-label">Past the 24-hour target · now</div>
+        <div class="iq-tile-value dash-skeleton iq-down" data-source="kpis" data-field="queue_overdue" data-row="0">—</div>
+        <div class="iq-tile-sub">Agents stay blocked until these are cleared</div>
+      </div>
+    </div>
+    <div class="iq-card" id="queue-card">
+      <h2>Human-in-the-loop queue</h2>
+      <p class="iq-note">Escalations ERX could not authorise on its own. The bar shows age against the 24-hour target.</p>
+      <div class="iq-tools">
+        <input class="iq-search" id="queue-search" type="search" placeholder="Search vendor, PO or reason" aria-label="Search the queue">
+      </div>
+      <div class="iq-scroll">
+        <table class="iq-table" id="queue-table" data-source="hitl_queue" data-row-key="case">
+          <thead><tr>
+            <th data-field="case"><button>Case</button></th>
+            <th data-field="po" class="iq-hide-sm"><button>PO</button></th>
+            <th data-field="vendor"><button>Vendor</button></th>
+            <th data-field="amount" class="num"><button>Amount</button></th>
+            <th data-field="reason" class="iq-hide-sm"><button>Reason</button></th>
+            <th data-field="assigned_role" class="iq-hide-sm"><button>Can approve</button></th>
+            <th data-field="age_hours" class="num"><button>Age</button></th>
+            <th data-field="status"><button>Status</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+// ---------- calculations ----------
+dash.calc('kpis', {
+  title: 'Headline figures',
+  description: 'Last 7 days against the 7 days before for rows and events; the review queue and lag as they stand now.',
+  inputs: ['ingest_daily', 'events_daily', 'decisions_daily', 'hitl_queue', 'freshness'],
+  fn: (ingest_daily, events_daily, decisions_daily, hitl_queue, freshness) => {
+    const windows = (rows) => {
+      const days = [...new Set(rows.map((r) => String(r.day).slice(0, 10)))].sort();
+      return [new Set(days.slice(-7)), new Set(days.slice(-14, -7))];
+    };
+    const sum = (rows, field, set) => rows.filter((r) => set.has(String(r.day).slice(0, 10))).reduce((a, r) => a + Number(r[field]), 0);
+    const [iL, iP] = windows(ingest_daily), [eL, eP] = windows(events_daily), [dL, dP] = windows(decisions_daily);
+    const authorised = decisions_daily.filter((r) => r.outcome === 'Authorized');
+    const rate = (set) => sum(authorised, 'decisions', set) / sum(decisions_daily, 'decisions', set);
+    const ice = sum(ingest_daily, 'rows_iceberg', iL), ev = sum(events_daily, 'events', eL);
+    return [{
+      iceberg_rows_7d: ice,
+      iceberg_change: ice / sum(ingest_daily, 'rows_iceberg', iP) - 1,
+      events_7d: ev,
+      events_change: ev / sum(events_daily, 'events', eP) - 1,
+      auth_rate_7d: rate(dL),
+      auth_rate_change: rate(dL) - rate(dP),
+      canonical_lag_max: Math.max(...freshness.filter((r) => r.stage === 'Canonical').map((r) => Number(r.lag_minutes))),
+      queue_open: hitl_queue.length,
+      queue_overdue: hitl_queue.filter((r) => Number(r.age_hours) > 24).length,
+    }];
+  },
+});
+
+dash.calc('source_totals', {
+  title: 'Yield by source',
+  description: 'Raw S3 rows and curated Iceberg rows summed over 30 days per source; yield is Iceberg rows divided by raw rows.',
+  inputs: ['ingest_daily'],
+  fn: (ingest_daily) => d3.rollups(ingest_daily, (rs) => {
+    const s3 = d3.sum(rs, (r) => Number(r.rows_s3)), ice = d3.sum(rs, (r) => Number(r.rows_iceberg));
+    return { rows_s3: s3, rows_iceberg: ice, yield: ice / s3 };
+  }, (r) => r.source).map(([source, v]) => ({ source, ...v })),
+});
+
+dash.calc('decision_totals', {
+  title: 'Decisions by outcome',
+  description: 'ERX decisions summed over 30 days per outcome, with each outcome’s share of all decisions.',
+  inputs: ['decisions_daily'],
+  fn: (decisions_daily) => {
+    const total = d3.sum(decisions_daily, (r) => Number(r.decisions));
+    return d3.rollups(decisions_daily, (rs) => d3.sum(rs, (r) => Number(r.decisions)), (r) => r.outcome)
+      .map(([outcome, decisions]) => ({ outcome, decisions, share: decisions / total }));
+  },
+});
+
+// ---------- helpers ----------
+const fmtC = (v) => new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(v);
+const fmtN = d3.format(',');
+const fmtPct = d3.format('.1%');
+const fmtSigned = d3.format('+.1%');
+const fmtPts = (v) => d3.format('+.1f')(v * 100);
+const fmtDay = d3.utcFormat('%b %-d');
+const fmtDayLong = d3.utcFormat('%a, %b %-d');
+const parseDay = (s) => new Date(String(s).slice(0, 10) + 'T00:00:00Z');
+const LAG_TARGET = 60, AGE_TARGET = 24;
+
+const statusOf = (...ids) => {
+  const s = ids.map((id) => dash.data(id).status);
+  if (s.includes('error')) return 'error';
+  if (s.every((x) => x === 'ok')) return 'ok';
+  if (s.includes('loading')) return 'loading';
+  return 'other';
+};
+function prep(box, st) {
+  box.classList.toggle('dash-skeleton', st === 'loading');
+  d3.select(box).selectAll(':scope > svg, :scope > .iq-fail, :scope > .iq-tip').remove();
+  if (st === 'error') {
+    const f = document.createElement('div');
+    f.className = 'iq-fail';
+    const dot = document.createElement('span'); dot.className = 'iq-dot';
+    f.append(dot, 'Failed to load');
+    box.appendChild(f);
+  }
+  return st === 'ok';
+}
+function measure(svg, strs, cls) {
+  const t = svg.append('text').attr('class', cls || 'iq-tick');
+  let m = 0;
+  for (const s of strs) { t.text(s); m = Math.max(m, t.node().getComputedTextLength()); }
+  t.remove();
+  return m;
+}
+function tip(box) {
+  const t = document.createElement('div');
+  t.className = 'iq-tip'; t.hidden = true; box.appendChild(t);
+  return {
+    show(title, lines, px, py, note) {
+      t.replaceChildren();
+      const h = document.createElement('div'); h.className = 'iq-tip-h'; h.textContent = title; t.appendChild(h);
+      for (const l of lines) {
+        const r = document.createElement('div'); r.className = 'iq-tip-r';
+        if (l.color) { const s = document.createElement('span'); s.className = 'iq-sw'; s.style.background = l.color; r.appendChild(s); }
+        const n = document.createElement('span'); n.textContent = l.name;
+        const v = document.createElement('b'); v.textContent = l.value;
+        r.append(n, v); t.appendChild(r);
+      }
+      if (note) { const p = document.createElement('div'); p.className = 'iq-tip-p'; p.textContent = note; t.appendChild(p); }
+      t.hidden = false;
+      const bw = box.clientWidth, tw = t.offsetWidth, th = t.offsetHeight;
+      let left = px + 14; if (left + tw > bw) left = px - tw - 14; if (left < 0) left = Math.max(0, bw - tw);
+      let top = py - th - 10; if (top < 0) top = py + 14;
+      t.style.left = left + 'px'; t.style.top = top + 'px';
+    },
+    hide() { t.hidden = true; },
+  };
+}
+function legend(el, keys, colors) {
+  el.replaceChildren(...keys.map((k, i) => {
+    const s = document.createElement('span');
+    const sw = document.createElement('i'); sw.className = 'iq-sw'; sw.style.background = colors[i];
+    s.append(sw, k); return s;
+  }));
+}
+function setText(sel, text, cls) {
+  document.querySelectorAll(sel).forEach((el) => {
+    el.classList.remove('dash-skeleton');
+    el.textContent = text;
+    if (cls !== undefined) { el.classList.remove('iq-up', 'iq-down'); if (cls) el.classList.add(cls); }
+  });
+}
+
+// ---------- line chart ----------
+function lineChart(box, rows, o) {
+  const W = box.clientWidth, H = o.height || 260, mb = 26, mt = 12;
+  const svg = d3.select(box).append('svg').attr('class', 'iq-svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+  const series = o.keys.map((k, i) => ({
+    k, color: o.colors[i],
+    pts: rows.filter((r) => r[o.key] === k).map((r) => ({ x: parseDay(r[o.x]), y: Number(r[o.y]) })).sort((a, b) => a.x - b.x),
+  })).filter((s) => s.pts.length);
+  const y = d3.scaleLinear([0, d3.max(series, (s) => d3.max(s.pts, (p) => p.y)) || 1], [H - mb, mt]).nice();
+  const ticks = y.ticks(5);
+  const ml = measure(svg, ticks.map(o.fmtY)) + 10;
+  const ends = series.map((s) => { const l = s.pts[s.pts.length - 1]; return { s, name: s.k, val: o.fmtY(l.y), y: y(l.y) }; });
+  const mr = measure(svg, ends.map((e) => `${e.name} ${e.val}`), 'iq-end') + 14;
+  const x = d3.scaleUtc(d3.extent(series.flatMap((s) => s.pts), (p) => p.x), [ml, W - mr]);
+  svg.append('g').selectAll('line').data(ticks).join('line').attr('class', 'iq-grid').attr('x1', ml).attr('x2', W - mr).attr('y1', y).attr('y2', y);
+  svg.append('g').selectAll('text').data(ticks).join('text').attr('class', 'iq-tick').attr('x', ml - 8).attr('y', y).attr('dy', '.32em').attr('text-anchor', 'end').text(o.fmtY);
+  svg.append('g').attr('class', 'iq-axis').attr('transform', `translate(0,${H - mb})`)
+    .call(d3.axisBottom(x).ticks(Math.max(2, Math.floor((W - ml - mr) / 80))).tickFormat(fmtDay).tickSizeOuter(0))
+    .attr('font-size', null).attr('font-family', null);
+  const line = d3.line().x((p) => x(p.x)).y((p) => y(p.y));
+  svg.append('g').selectAll('path').data(series).join('path').attr('fill', 'none').attr('stroke', (s) => s.color)
+    .attr('stroke-width', 2).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round').attr('d', (s) => line(s.pts));
+  ends.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 14) ends[i].y = ends[i - 1].y + 14;
+  const el = svg.append('g').selectAll('text').data(ends).join('text').attr('class', 'iq-end').attr('x', W - mr + 6).attr('y', (e) => e.y).attr('dy', '.32em');
+  el.append('tspan').text((e) => e.name + ' ');
+  el.append('tspan').attr('class', 'v').text((e) => e.val);
+  // hover
+  const days = [...new Set(series.flatMap((s) => s.pts.map((p) => +p.x)))].sort((a, b) => a - b);
+  const rule = svg.append('line').attr('class', 'iq-ref').attr('y1', mt).attr('y2', H - mb).style('display', 'none');
+  const dots = svg.append('g').selectAll('circle').data(series).join('circle').attr('r', 4).attr('fill', (s) => s.color).style('display', 'none');
+  const tt = tip(box);
+  svg.append('rect').attr('x', ml).attr('y', mt).attr('width', Math.max(0, W - mr - ml)).attr('height', H - mb - mt).attr('fill', 'transparent')
+    .on('pointermove', (ev) => {
+      const [mx, my] = d3.pointer(ev);
+      const t = +x.invert(mx);
+      const d = days.reduce((a, b) => (Math.abs(b - t) < Math.abs(a - t) ? b : a));
+      const px = x(d);
+      rule.style('display', null).attr('x1', px).attr('x2', px);
+      const at = series.map((s) => s.pts.find((p) => +p.x === d));
+      dots.style('display', (s, i) => (at[i] ? null : 'none')).attr('cx', px).attr('cy', (s, i) => (at[i] ? y(at[i].y) : 0));
+      tt.show(fmtDayLong(new Date(d)), series.map((s, i) => ({ color: s.color, name: s.k, value: at[i] ? fmtN(at[i].y) : '—' })), px, my);
+    })
+    .on('pointerleave', () => { rule.style('display', 'none'); dots.style('display', 'none'); tt.hide(); });
+}
+
+// ---------- stacked bars ----------
+function stackBars(box, rows, o) {
+  const W = box.clientWidth, H = o.height || 260, mb = 26, mt = 12;
+  const svg = d3.select(box).append('svg').attr('class', 'iq-svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+  const days = [...new Set(rows.map((r) => String(r[o.x]).slice(0, 10)))].sort();
+  const byDay = new Map(days.map((d) => [d, Object.fromEntries([['day', d], ...o.keys.map((k) => [k, 0])])]));
+  for (const r of rows) { const e = byDay.get(String(r[o.x]).slice(0, 10)); if (e && r[o.key] in e) e[r[o.key]] += Number(r[o.value]); }
+  const wide = [...byDay.values()];
+  const stacked = d3.stack().keys(o.keys)(wide);
+  const y = d3.scaleLinear([0, d3.max(wide, (e) => d3.sum(o.keys, (k) => e[k])) || 1], [H - mb, mt]).nice();
+  const ticks = y.ticks(5);
+  const ml = measure(svg, ticks.map(fmtC)) + 10;
+  const x = d3.scaleBand(days, [ml, W - 4]).padding(0.25);
+  svg.append('g').selectAll('line').data(ticks).join('line').attr('class', 'iq-grid').attr('x1', ml).attr('x2', W - 4).attr('y1', y).attr('y2', y);
+  svg.append('g').selectAll('text').data(ticks).join('text').attr('class', 'iq-tick').attr('x', ml - 8).attr('y', y).attr('dy', '.32em').attr('text-anchor', 'end').text(fmtC);
+  const every = Math.max(1, Math.ceil(days.length / Math.max(2, Math.floor((W - ml) / 70))));
+  svg.append('g').attr('class', 'iq-axis').attr('transform', `translate(0,${H - mb})`)
+    .call(d3.axisBottom(x).tickValues(days.filter((d, i) => (days.length - 1 - i) % every === 0)).tickFormat((d) => fmtDay(parseDay(d))).tickSizeOuter(0))
+    .attr('font-size', null).attr('font-family', null);
+  const bw = Math.min(32, x.bandwidth()), off = (x.bandwidth() - bw) / 2;
+  const top = o.keys.length - 1;
+  svg.append('g').selectAll('g').data(stacked).join('g').attr('fill', (s, i) => o.colors[i])
+    .selectAll('rect').data((s) => s.map((d) => Object.assign(d, { ki: s.index }))).join('rect')
+    .attr('x', (d) => x(d.data.day) + off).attr('width', bw)
+    .attr('y', (d) => y(d[1])).attr('height', (d) => Math.max(0, y(d[0]) - y(d[1]) - (d.ki < top ? 1 : 0)))
+    .attr('rx', (d) => (d.ki === top ? Math.min(3, bw / 2) : 0));
+  const hl = svg.append('rect').attr('fill', 'none').attr('stroke', 'var(--color-fg-muted)').attr('rx', 3).style('display', 'none');
+  const tt = tip(box);
+  svg.append('g').selectAll('rect').data(wide).join('rect').attr('fill', 'transparent')
+    .attr('x', (e) => x(e.day) - (x.step() - x.bandwidth()) / 2).attr('width', x.step()).attr('y', mt).attr('height', H - mb - mt)
+    .on('pointermove', (ev, e) => {
+      const [mx, my] = d3.pointer(ev, box);
+      const tot = d3.sum(o.keys, (k) => e[k]);
+      hl.style('display', null).attr('x', x(e.day) + off - 1).attr('width', bw + 2).attr('y', y(tot) - 1).attr('height', y(0) - y(tot) + 1);
+      tt.show(fmtDayLong(parseDay(e.day)), [...o.keys.map((k, i) => ({ color: o.colors[i], name: k, value: fmtN(e[k]) })).reverse(), { name: 'Total', value: fmtN(tot) }], mx, my);
+    })
+    .on('pointerleave', () => { hl.style('display', 'none'); tt.hide(); });
+}
+
+// ---------- freshness bars ----------
+const STAGES = ['S3 raw', 'Iceberg', 'Canonical'];
+function freshBars(box, rows) {
+  const W = box.clientWidth;
+  const sources = [...new Set(rows.map((r) => r.source))];
+  const H = sources.length * 76 + 34, mt = 22;
+  const svg = d3.select(box).append('svg').attr('class', 'iq-svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+  const ml = measure(svg, sources) + 12, mr = 44;
+  const y0 = d3.scaleBand(sources, [mt, H - 8]).paddingInner(0.25);
+  const y1 = d3.scaleBand(STAGES, [0, y0.bandwidth()]).padding(0.15);
+  const x = d3.scaleLinear([0, Math.max(LAG_TARGET, d3.max(rows, (r) => Number(r.lag_minutes))) * 1.08], [ml, W - mr]);
+  svg.append('g').selectAll('text').data(sources).join('text').attr('class', 'iq-tick').attr('x', ml - 10).attr('y', (s) => y0(s) + y0.bandwidth() / 2).attr('dy', '.32em').attr('text-anchor', 'end').style('fill', 'var(--color-fg)').text((s) => s);
+  const tt = tip(box);
+  const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r) => `translate(0,${y0(r.source) + y1(r.stage)})`);
+  const bh = Math.min(16, y1.bandwidth());
+  g.append('rect').attr('x', ml).attr('height', bh).attr('y', (y1.bandwidth() - bh) / 2)
+    .attr('width', (r) => Math.max(2, x(Number(r.lag_minutes)) - ml)).attr('rx', Math.min(4, bh / 2))
+    .attr('fill', (r) => dash.colors[STAGES.indexOf(r.stage)])
+    .on('pointermove', (ev, r) => { const [mx, my] = d3.pointer(ev, box); tt.show(`${r.source} · ${r.stage}`, [{ color: dash.colors[STAGES.indexOf(r.stage)], name: 'Lag', value: `${fmtN(Number(r.lag_minutes))} min` }], mx, my, Number(r.lag_minutes) > LAG_TARGET ? 'Past the 60-minute target' : 'Within target'); })
+    .on('pointerleave', () => tt.hide());
+  g.append('text').attr('class', 'iq-tick').attr('x', (r) => x(Number(r.lag_minutes)) + 6).attr('y', y1.bandwidth() / 2).attr('dy', '.32em')
+    .style('fill', (r) => (Number(r.lag_minutes) > LAG_TARGET ? 'var(--color-bad)' : null)).text((r) => fmtN(Number(r.lag_minutes)));
+  svg.append('line').attr('class', 'iq-ref').attr('x1', x(LAG_TARGET)).attr('x2', x(LAG_TARGET)).attr('y1', mt - 4).attr('y2', H - 8);
+  svg.append('text').attr('class', 'iq-tick').attr('x', x(LAG_TARGET)).attr('y', mt - 9).attr('text-anchor', 'middle').text('60 min');
+}
+
+// ---------- flow diagram ----------
+const STAGE_NAMES = ['Sources', 'S3 lake', 'Iceberg', 'Canonical', 'Events, rules', 'Infor IQ', 'Agents'];
+const STATUS_COLOR = { ok: 'var(--color-ok)', warn: 'var(--color-warn)', bad: 'var(--color-bad)' };
+function flowDiagram(box, comps) {
+  const W = box.clientWidth;
+  const wide = W >= 820;
+  const stages = d3.groups(comps, (c) => Number(c.stage)).sort((a, b) => a[0] - b[0]);
+  const pos = new Map();
+  let H;
+  const nodeH = 44;
+  if (wide) {
+    const colW = W / stages.length, nodeW = Math.min(colW - 18, 150), gap = 12, top = 30;
+    const maxN = d3.max(stages, (s) => s[1].length);
+    H = top + maxN * (nodeH + gap) + 4;
+    stages.forEach(([st, list], ci) => {
+      const total = list.length * (nodeH + gap) - gap;
+      const y0 = top + (H - top - total) / 2 - 2;
+      list.forEach((c, i) => pos.set(c.id, { x: ci * colW + (colW - nodeW) / 2, y: y0 + i * (nodeH + gap), w: nodeW, h: nodeH, ci }));
+    });
+  } else {
+    const gapX = 10, gapY = 30, label = 20;
+    let yy = 0;
+    stages.forEach(([st, list], ci) => {
+      const cols = Math.min(list.length, W < 480 ? 2 : 3);
+      const nodeW = (W - gapX * (cols - 1)) / cols;
+      yy += label;
+      list.forEach((c, i) => pos.set(c.id, { x: (i % cols) * (nodeW + gapX), y: yy + Math.floor(i / cols) * (nodeH + 10), w: nodeW, h: nodeH, ci, labelY: yy - 6 }));
+      yy += Math.ceil(list.length / cols) * (nodeH + 10) - 10 + gapY;
+    });
+    H = yy - gapY + 4;
+  }
+  box.style.minHeight = H + 'px';
+  const svg = d3.select(box).append('svg').attr('class', 'iq-svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+  const mid = `iq-arrow-${Math.random().toString(36).slice(2, 8)}`;
+  svg.append('defs').append('marker').attr('id', mid).attr('viewBox', '0 0 10 10').attr('refX', 9).attr('refY', 5)
+    .attr('markerWidth', 6).attr('markerHeight', 6).attr('orient', 'auto-start-reverse')
+    .append('path').attr('d', 'M0,0L10,5L0,10z').style('fill', 'var(--cds-chart-axis)');
+  // stage labels
+  if (wide) {
+    const colW = W / stages.length;
+    svg.append('g').selectAll('text').data(stages).join('text').attr('class', 'iq-stage')
+      .attr('x', (s, i) => i * colW + colW / 2).attr('y', 12).attr('text-anchor', 'middle').text((s) => STAGE_NAMES[s[0]] || '');
+  } else {
+    svg.append('g').selectAll('text').data(stages).join('text').attr('class', 'iq-stage')
+      .attr('x', 0).attr('y', (s) => pos.get(s[1][0].id).labelY).text((s) => STAGE_NAMES[s[0]] || '');
+  }
+  // edges
+  const edges = [];
+  for (const c of comps) for (const t of String(c.feeds || '').split(/\s+/).filter(Boolean)) if (pos.has(t)) edges.push({ s: c.id, t });
+  const path = (e) => {
+    const a = pos.get(e.s), b = pos.get(e.t);
+    if (wide) {
+      if (a.ci === b.ci) return `M${a.x + a.w / 2},${a.y + a.h}L${b.x + b.w / 2},${b.y - 2}`;
+      if (b.ci < a.ci) { const sx = a.x, sy = a.y + a.h / 2, tx = b.x + b.w, ty = b.y + b.h / 2, mx = (sx + tx) / 2; return `M${sx},${sy}C${mx},${sy + 30} ${mx},${ty + 30} ${tx + 2},${ty}`; }
+      const sx = a.x + a.w, sy = a.y + a.h / 2, tx = b.x - 2, ty = b.y + b.h / 2, mx = (sx + tx) / 2;
+      return `M${sx},${sy}C${mx},${sy} ${mx},${ty} ${tx},${ty}`;
+    }
+    if (a.ci === b.ci) {
+      if (Math.abs(a.y - b.y) < 1) return `M${a.x + a.w},${a.y + a.h / 2}L${b.x - 2},${b.y + b.h / 2}`;
+      return `M${a.x + a.w / 2},${a.y + a.h}L${b.x + b.w / 2},${b.y - 2}`;
+    }
+    if (b.ci < a.ci) { const sx = a.x + a.w - 6, sy = a.y, tx = b.x + b.w - 6, ty = b.y + b.h + 2; return `M${sx},${sy}C${sx + 6},${sy - 20} ${tx + 6},${ty + 20} ${tx},${ty}`; }
+    const sx = a.x + a.w / 2, sy = a.y + a.h, tx = b.x + b.w / 2, ty = b.y - 2, my = (sy + ty) / 2;
+    return `M${sx},${sy}C${sx},${my} ${tx},${my} ${tx},${ty}`;
+  };
+  const eSel = svg.append('g').selectAll('path').data(edges).join('path')
+    .attr('class', (e) => 'iq-edge' + (pos.get(e.t).ci < pos.get(e.s).ci ? ' back' : ''))
+    .attr('d', path).attr('marker-end', `url(#${mid})`);
+  // nodes
+  const tt = tip(box);
+  const byId = new Map(comps.map((c) => [c.id, c]));
+  const n = svg.append('g').selectAll('g').data(comps).join('g').attr('class', 'iq-node').attr('tabindex', 0)
+    .attr('transform', (c) => { const p = pos.get(c.id); return `translate(${p.x},${p.y})`; });
+  n.append('rect').attr('width', (c) => pos.get(c.id).w).attr('height', nodeH).attr('rx', 8);
+  n.append('circle').attr('cx', 12).attr('cy', 15).attr('r', 4).style('fill', (c) => STATUS_COLOR[c.status] || 'var(--color-fg-muted)');
+  const fit = (sel, maxW) => sel.each(function () {
+    const t = d3.select(this); let s = t.text();
+    while (s.length > 3 && this.getComputedTextLength() > maxW) { s = s.slice(0, -1); t.text(s.trimEnd() + '…'); }
+  });
+  n.append('text').attr('class', 'n').attr('x', 22).attr('y', 15).attr('dy', '.32em').text((c) => c.name).call((s) => s.each(function (c) { fit(d3.select(this), pos.get(c.id).w - 28); }));
+  n.append('text').attr('class', 't').attr('x', 12).attr('y', 32).attr('dy', '.32em')
+    .text((c) => (c.lag_minutes != null && c.lag_minutes !== '' ? `${fmtN(Number(c.lag_minutes))} min · ` : '') + c.throughput)
+    .call((s) => s.each(function (c) { fit(d3.select(this), pos.get(c.id).w - 18); }));
+  // path tracing
+  const reach = (id, dir) => {
+    const seen = new Set([id]), q = [id];
+    while (q.length) {
+      const cur = q.shift();
+      for (const e of edges) {
+        const from = dir > 0 ? e.s : e.t, to = dir > 0 ? e.t : e.s;
+        if (from === cur && !seen.has(to) && !(pos.get(e.t).ci < pos.get(e.s).ci)) { seen.add(to); q.push(to); }
+      }
+    }
+    return seen;
+  };
+  const focus = (c, ev) => {
+    const on = new Set([...reach(c.id, 1), ...reach(c.id, -1)]);
+    box.classList.add('focus');
+    n.classed('on', (d) => on.has(d.id));
+    eSel.classed('on', (e) => on.has(e.s) && on.has(e.t) && (e.s === c.id || e.t === c.id || !(pos.get(e.t).ci < pos.get(e.s).ci)));
+    const p = pos.get(c.id);
+    const lines = [{ name: 'Status', value: c.status }, { name: 'Throughput', value: c.throughput }];
+    if (c.lag_minutes != null && c.lag_minutes !== '') lines.splice(1, 0, { name: 'Lag', value: `${fmtN(Number(c.lag_minutes))} min` });
+    const tx = ev && ev.type === 'pointermove' ? d3.pointer(ev, box) : [p.x + p.w / 2, p.y];
+    tt.show(`${c.name} · ${c.layer}`, lines, tx[0], tx[1], c.note);
+  };
+  const blur = () => { box.classList.remove('focus'); n.classed('on', false); eSel.classed('on', false); tt.hide(); };
+  n.on('pointermove', (ev, c) => focus(c, ev)).on('pointerleave', blur).on('focus', (ev, c) => focus(c)).on('blur', blur);
+}
+
+// ---------- tables ----------
+function makeTable(table, cols, keyOf) {
+  const state = { field: null, dir: 1, rows: [], filter: null };
+  const ths = [...table.tHead.rows[0].cells];
+  ths.forEach((th) => th.querySelector('button').addEventListener('click', () => {
+    const f = th.dataset.field;
+    state.dir = state.field === f ? -state.dir : (cols[f] && cols[f].num ? -1 : 1);
+    state.field = f; draw();
+  }));
+  function draw() {
+    let rows = state.rows.slice();
+    if (state.filter) rows = rows.filter(state.filter);
+    if (state.field) {
+      const c = cols[state.field] || {};
+      rows.sort((a, b) => {
+        const va = a[state.field], vb = b[state.field];
+        if (va == null || va === '') return 1; if (vb == null || vb === '') return -1;
+        return (c.num ? Number(va) - Number(vb) : String(va).localeCompare(String(vb))) * state.dir;
+      });
+    }
+    ths.forEach((th) => th.setAttribute('aria-sort', th.dataset.field === state.field ? (state.dir > 0 ? 'ascending' : 'descending') : 'none'));
+    const tb = table.tBodies[0];
+    tb.replaceChildren(...rows.map((r) => {
+      const tr = document.createElement('tr');
+      tr.dataset.key = keyOf(r);
+      ths.forEach((th) => {
+        const f = th.dataset.field, c = cols[f] || {};
+        const td = document.createElement('td');
+        if (c.num) td.className = 'num';
+        if (th.classList.contains('iq-hide-sm')) td.classList.add('iq-hide-sm');
+        const v = r[f];
+        if (c.render) c.render(td, v, r);
+        else td.textContent = v == null || v === '' ? '—' : (c.fmt ? c.fmt(v, r) : String(v));
+        tr.appendChild(td);
+      });
+      return tr;
+    }));
+  }
+  return { set(rows) { state.rows = rows; draw(); }, filter(fn) { state.filter = fn; draw(); }, clear() { table.tBodies[0].replaceChildren(); } };
+}
+const pill = (cls) => (td, v) => { const s = document.createElement('span'); s.className = 'iq-pill ' + cls(v); s.textContent = v; td.appendChild(s); };
+
+const compTable = makeTable(document.getElementById('components-table'), {
+  status: { render: pill((v) => 'p-' + v) },
+  lag_minutes: { num: true, fmt: (v) => fmtN(Number(v)) },
+}, (r) => r.id);
+const yieldTable = makeTable(document.getElementById('yield-table'), {
+  rows_s3: { num: true, fmt: (v) => fmtN(v) },
+  rows_iceberg: { num: true, fmt: (v) => fmtN(v) },
+  yield: { num: true, fmt: (v) => fmtPct(v) },
+}, (r) => r.source);
+const queueTable = makeTable(document.getElementById('queue-table'), {
+  amount: { num: true, fmt: (v) => '$' + fmtN(Number(v)) },
+  age_hours: { num: true, render: (td, v) => {
+    const b = document.createElement('span'); b.className = 'iq-bar' + (Number(v) > AGE_TARGET ? ' over' : '');
+    b.style.width = Math.min(60, (Number(v) / 48) * 60) + 'px';
+    td.append(b, `${d3.format('.1f')(Number(v))} h`);
+  } },
+  status: { render: pill((v) => (v === 'Overdue' ? 'p-bad' : 'p-warn')) },
+}, (r) => r.case);
+const search = document.getElementById('queue-search');
+search.addEventListener('input', () => {
+  const q = search.value.trim().toLowerCase();
+  queueTable.filter(q ? (r) => [r.case, r.po, r.vendor, r.reason, r.assigned_role, r.status].join(' ').toLowerCase().includes(q) : null);
+});
+
+// ---------- tabs ----------
+const PAGES = ['overview', 'pipeline', 'events', 'review'];
+let current = 'overview';
+const tabs = [...document.querySelectorAll('.iq-tab')];
+function showPage(id, link) {
+  current = id;
+  tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.page === id)));
+  document.querySelectorAll('.iq-page').forEach((p) => { p.hidden = p.id !== id; });
+  if (link) dash.setLink(id);
+  render();
+}
+tabs.forEach((t) => t.addEventListener('click', () => showPage(t.dataset.page, true)));
+
+// ---------- render ----------
+const EVENT_KEYS = ['Canonical changes', 'Customer', 'FDE', 'Developer'];
+const OUTCOME_KEYS = ['Authorized', 'Denied', 'Escalated'];
+const SOURCE_KEYS = ['Syteline', 'FT', 'CPQ'];
+function render() {
+  const k = dash.data('kpis');
+  if (k.status === 'ok' && k.data.length) {
+    const r = k.data[0];
+    setText('[data-field="iceberg_rows_7d"]', fmtC(r.iceberg_rows_7d));
+    setText('[data-field="iceberg_change"]', fmtSigned(r.iceberg_change), r.iceberg_change >= 0 ? 'iq-up' : 'iq-down');
+    setText('[data-field="events_7d"]', fmtC(r.events_7d));
+    setText('[data-field="events_change"]', fmtSigned(r.events_change), r.events_change >= 0 ? 'iq-up' : 'iq-down');
+    setText('[data-field="auth_rate_7d"]', fmtPct(r.auth_rate_7d));
+    setText('[data-field="auth_rate_change"]', fmtPts(r.auth_rate_change), r.auth_rate_change >= 0 ? 'iq-up' : 'iq-down');
+    setText('[data-field="canonical_lag_max"]', fmtN(r.canonical_lag_max), r.canonical_lag_max > LAG_TARGET ? 'iq-down' : '');
+    setText('[data-field="queue_open"]', fmtN(r.queue_open));
+    setText('[data-source="kpis"][data-field="queue_overdue"]', fmtN(r.queue_overdue));
+  } else if (k.status !== 'loading') {
+    document.querySelectorAll('[data-source="kpis"]').forEach((el) => { el.classList.remove('dash-skeleton'); el.textContent = '—'; });
+  }
+
+  const fr = dash.data('freshness');
+  const cpqEl = document.querySelector('#takeaway [data-source="freshness"]');
+  const tail = document.getElementById('take-tail');
+  if (fr.status === 'ok') {
+    const row = fr.data.find((r) => r.source === 'CPQ' && r.stage === 'S3 raw');
+    cpqEl.classList.remove('dash-skeleton');
+    cpqEl.textContent = row ? fmtN(Number(row.lag_minutes)) : '—';
+    tail.textContent = row && Number(row.lag_minutes) > LAG_TARGET ? ', past the 60-minute target. Clearing the review queue unblocks agents first.' : ', within the 60-minute target.';
+  } else if (fr.status !== 'loading') { cpqEl.classList.remove('dash-skeleton'); cpqEl.textContent = '—'; tail.textContent = '.'; }
+
+  const dt = dash.data('decision_totals');
+  document.querySelectorAll('[data-source="decision_totals"]').forEach((el) => {
+    if (dt.status === 'loading') return;
+    el.classList.remove('dash-skeleton');
+    const outcome = new URLSearchParams(el.dataset.where).get('outcome');
+    const row = dt.status === 'ok' ? dt.data.find((r) => r.outcome === outcome) : null;
+    el.textContent = !row ? '—' : el.dataset.field === 'share' ? fmtPct(row.share) : fmtC(row.decisions);
+  });
+
+  // tables (cheap; fill even when hidden)
+  const comps = dash.data('components');
+  if (comps.status === 'ok') compTable.set(comps.data); else compTable.clear();
+  const st = dash.data('source_totals');
+  if (st.status === 'ok') yieldTable.set(st.data); else yieldTable.clear();
+  const q = dash.data('hitl_queue');
+  if (q.status === 'ok') queueTable.set(q.data); else queueTable.clear();
+
+  // charts on the visible page only
+  if (current === 'overview') {
+    const box = document.getElementById('flow-diagram');
+    if (prep(box, statusOf('components'))) flowDiagram(box, comps.data);
+  }
+  if (current === 'pipeline') {
+    const ib = document.getElementById('iceberg-chart');
+    if (prep(ib, statusOf('ingest_daily'))) lineChart(ib, dash.data('ingest_daily').data, { x: 'day', y: 'rows_iceberg', key: 'source', keys: SOURCE_KEYS, colors: dash.colors, fmtY: fmtC });
+    const fb = document.getElementById('fresh-chart');
+    const fl = document.getElementById('fresh-legend');
+    if (prep(fb, statusOf('freshness'))) { legend(fl, STAGES, dash.colors); freshBars(fb, fr.data); } else fl.replaceChildren();
+  }
+  if (current === 'events') {
+    const eb = document.getElementById('events-chart');
+    const el = document.getElementById('events-legend');
+    if (prep(eb, statusOf('events_daily'))) { legend(el, EVENT_KEYS, dash.colors); stackBars(eb, dash.data('events_daily').data, { x: 'day', key: 'channel', value: 'events', keys: EVENT_KEYS, colors: dash.colors }); } else el.replaceChildren();
+    const db = document.getElementById('decisions-chart');
+    const dl = document.getElementById('decisions-legend');
+    const oc = [dash.colors[1], 'var(--cds-chart-muted)', 'var(--cds-chart-status-critical)'];
+    if (prep(db, statusOf('decisions_daily'))) { legend(dl, OUTCOME_KEYS, oc); stackBars(db, dash.data('decisions_daily').data, { x: 'day', key: 'outcome', value: 'decisions', keys: OUTCOME_KEYS, colors: oc }); } else dl.replaceChildren();
+  }
+}
+
+dash.onData(render);
+const named = location.hash.slice(1);
+if (PAGES.includes(named)) showPage(named, false);
+else if (named) {
+  const el = document.getElementById(named);
+  const page = el && el.closest('.iq-page');
+  if (page) { showPage(page.id, false); el.scrollIntoView(); }
+}
+</script>

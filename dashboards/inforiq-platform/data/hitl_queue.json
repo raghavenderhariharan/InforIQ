@@ -1,0 +1,142 @@
+[
+{
+"case": "ESC-3100",
+"po": "PO-4500",
+"vendor": "Acme",
+"amount": 31235,
+"reason": "Duplicate PO suspected",
+"age_hours": 20.2,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3101",
+"po": "PO-4507",
+"vendor": "Beta",
+"amount": 24414,
+"reason": "Vendor risk score 3 or more",
+"age_hours": 21.0,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3102",
+"po": "PO-4514",
+"vendor": "Gamma",
+"amount": 18640,
+"reason": "Amount above agent limit",
+"age_hours": 14.4,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3103",
+"po": "PO-4521",
+"vendor": "Delta",
+"amount": 63891,
+"reason": "Lines on backorder",
+"age_hours": 38.7,
+"assigned_role": "Purchasing manager",
+"status": "Overdue"
+},
+{
+"case": "ESC-3104",
+"po": "PO-4528",
+"vendor": "Orion",
+"amount": 31709,
+"reason": "Vendor risk score 3 or more",
+"age_hours": 14.0,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3105",
+"po": "PO-4535",
+"vendor": "Kestrel",
+"amount": 45456,
+"reason": "Lines on backorder",
+"age_hours": 1.8,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3106",
+"po": "PO-4542",
+"vendor": "Nimbus",
+"amount": 52250,
+"reason": "Lines on backorder",
+"age_hours": 2.5,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3107",
+"po": "PO-4549",
+"vendor": "Vega",
+"amount": 52187,
+"reason": "Amount above agent limit",
+"age_hours": 1.8,
+"assigned_role": "VP procurement",
+"status": "Open"
+},
+{
+"case": "ESC-3108",
+"po": "PO-4556",
+"vendor": "Atlas",
+"amount": 45514,
+"reason": "Amount above agent limit",
+"age_hours": 9.2,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3109",
+"po": "PO-4563",
+"vendor": "Corvid",
+"amount": 45836,
+"reason": "Price variance above 5%",
+"age_hours": 3.1,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3110",
+"po": "PO-4570",
+"vendor": "Halcyon",
+"amount": 63023,
+"reason": "Vendor risk score 3 or more",
+"age_hours": 14.3,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3111",
+"po": "PO-4577",
+"vendor": "Juno",
+"amount": 120980,
+"reason": "Vendor risk score 3 or more",
+"age_hours": 38.9,
+"assigned_role": "Purchasing manager",
+"status": "Overdue"
+},
+{
+"case": "ESC-3112",
+"po": "PO-4584",
+"vendor": "Acme",
+"amount": 120398,
+"reason": "New vendor, no history",
+"age_hours": 20.7,
+"assigned_role": "Purchasing manager",
+"status": "Open"
+},
+{
+"case": "ESC-3113",
+"po": "PO-4591",
+"vendor": "Beta",
+"amount": 45741,
+"reason": "Amount above agent limit",
+"age_hours": 46.6,
+"assigned_role": "Purchasing manager",
+"status": "Overdue"
+}
+]

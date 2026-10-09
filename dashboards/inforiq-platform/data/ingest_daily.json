@@ -1,0 +1,542 @@
+[
+{
+"day": "2026-09-09",
+"source": "Syteline",
+"rows_s3": 397483,
+"rows_iceberg": 394596
+},
+{
+"day": "2026-09-09",
+"source": "FT",
+"rows_s3": 98897,
+"rows_iceberg": 98295
+},
+{
+"day": "2026-09-09",
+"source": "CPQ",
+"rows_s3": 58416,
+"rows_iceberg": 55965
+},
+{
+"day": "2026-09-10",
+"source": "Syteline",
+"rows_s3": 377081,
+"rows_iceberg": 372325
+},
+{
+"day": "2026-09-10",
+"source": "FT",
+"rows_s3": 87468,
+"rows_iceberg": 86461
+},
+{
+"day": "2026-09-10",
+"source": "CPQ",
+"rows_s3": 53222,
+"rows_iceberg": 51867
+},
+{
+"day": "2026-09-11",
+"source": "Syteline",
+"rows_s3": 409026,
+"rows_iceberg": 401907
+},
+{
+"day": "2026-09-11",
+"source": "FT",
+"rows_s3": 89487,
+"rows_iceberg": 88739
+},
+{
+"day": "2026-09-11",
+"source": "CPQ",
+"rows_s3": 59954,
+"rows_iceberg": 55345
+},
+{
+"day": "2026-09-12",
+"source": "Syteline",
+"rows_s3": 232855,
+"rows_iceberg": 230305
+},
+{
+"day": "2026-09-12",
+"source": "FT",
+"rows_s3": 58523,
+"rows_iceberg": 58189
+},
+{
+"day": "2026-09-12",
+"source": "CPQ",
+"rows_s3": 34597,
+"rows_iceberg": 33303
+},
+{
+"day": "2026-09-13",
+"source": "Syteline",
+"rows_s3": 213845,
+"rows_iceberg": 212397
+},
+{
+"day": "2026-09-13",
+"source": "FT",
+"rows_s3": 51590,
+"rows_iceberg": 50700
+},
+{
+"day": "2026-09-13",
+"source": "CPQ",
+"rows_s3": 30340,
+"rows_iceberg": 28674
+},
+{
+"day": "2026-09-14",
+"source": "Syteline",
+"rows_s3": 431915,
+"rows_iceberg": 427342
+},
+{
+"day": "2026-09-14",
+"source": "FT",
+"rows_s3": 98855,
+"rows_iceberg": 98267
+},
+{
+"day": "2026-09-14",
+"source": "CPQ",
+"rows_s3": 53949,
+"rows_iceberg": 52203
+},
+{
+"day": "2026-09-15",
+"source": "Syteline",
+"rows_s3": 437109,
+"rows_iceberg": 432119
+},
+{
+"day": "2026-09-15",
+"source": "FT",
+"rows_s3": 94649,
+"rows_iceberg": 93344
+},
+{
+"day": "2026-09-15",
+"source": "CPQ",
+"rows_s3": 58835,
+"rows_iceberg": 56600
+},
+{
+"day": "2026-09-16",
+"source": "Syteline",
+"rows_s3": 448472,
+"rows_iceberg": 441527
+},
+{
+"day": "2026-09-16",
+"source": "FT",
+"rows_s3": 93637,
+"rows_iceberg": 92362
+},
+{
+"day": "2026-09-16",
+"source": "CPQ",
+"rows_s3": 59924,
+"rows_iceberg": 55579
+},
+{
+"day": "2026-09-17",
+"source": "Syteline",
+"rows_s3": 444695,
+"rows_iceberg": 440550
+},
+{
+"day": "2026-09-17",
+"source": "FT",
+"rows_s3": 108586,
+"rows_iceberg": 107850
+},
+{
+"day": "2026-09-17",
+"source": "CPQ",
+"rows_s3": 58875,
+"rows_iceberg": 55022
+},
+{
+"day": "2026-09-18",
+"source": "Syteline",
+"rows_s3": 397123,
+"rows_iceberg": 392224
+},
+{
+"day": "2026-09-18",
+"source": "FT",
+"rows_s3": 90290,
+"rows_iceberg": 88933
+},
+{
+"day": "2026-09-18",
+"source": "CPQ",
+"rows_s3": 63267,
+"rows_iceberg": 59826
+},
+{
+"day": "2026-09-19",
+"source": "Syteline",
+"rows_s3": 253361,
+"rows_iceberg": 250901
+},
+{
+"day": "2026-09-19",
+"source": "FT",
+"rows_s3": 57056,
+"rows_iceberg": 56262
+},
+{
+"day": "2026-09-19",
+"source": "CPQ",
+"rows_s3": 33706,
+"rows_iceberg": 32109
+},
+{
+"day": "2026-09-20",
+"source": "Syteline",
+"rows_s3": 252655,
+"rows_iceberg": 247811
+},
+{
+"day": "2026-09-20",
+"source": "FT",
+"rows_s3": 54837,
+"rows_iceberg": 54016
+},
+{
+"day": "2026-09-20",
+"source": "CPQ",
+"rows_s3": 30377,
+"rows_iceberg": 28490
+},
+{
+"day": "2026-09-21",
+"source": "Syteline",
+"rows_s3": 444481,
+"rows_iceberg": 435637
+},
+{
+"day": "2026-09-21",
+"source": "FT",
+"rows_s3": 107085,
+"rows_iceberg": 106092
+},
+{
+"day": "2026-09-21",
+"source": "CPQ",
+"rows_s3": 59395,
+"rows_iceberg": 55824
+},
+{
+"day": "2026-09-22",
+"source": "Syteline",
+"rows_s3": 392037,
+"rows_iceberg": 387361
+},
+{
+"day": "2026-09-22",
+"source": "FT",
+"rows_s3": 94287,
+"rows_iceberg": 93649
+},
+{
+"day": "2026-09-22",
+"source": "CPQ",
+"rows_s3": 55633,
+"rows_iceberg": 51955
+},
+{
+"day": "2026-09-23",
+"source": "Syteline",
+"rows_s3": 402819,
+"rows_iceberg": 399308
+},
+{
+"day": "2026-09-23",
+"source": "FT",
+"rows_s3": 99164,
+"rows_iceberg": 97371
+},
+{
+"day": "2026-09-23",
+"source": "CPQ",
+"rows_s3": 56110,
+"rows_iceberg": 53475
+},
+{
+"day": "2026-09-24",
+"source": "Syteline",
+"rows_s3": 441038,
+"rows_iceberg": 432988
+},
+{
+"day": "2026-09-24",
+"source": "FT",
+"rows_s3": 108257,
+"rows_iceberg": 106312
+},
+{
+"day": "2026-09-24",
+"source": "CPQ",
+"rows_s3": 58755,
+"rows_iceberg": 56115
+},
+{
+"day": "2026-09-25",
+"source": "Syteline",
+"rows_s3": 425985,
+"rows_iceberg": 418205
+},
+{
+"day": "2026-09-25",
+"source": "FT",
+"rows_s3": 111494,
+"rows_iceberg": 110684
+},
+{
+"day": "2026-09-25",
+"source": "CPQ",
+"rows_s3": 57715,
+"rows_iceberg": 55757
+},
+{
+"day": "2026-09-26",
+"source": "Syteline",
+"rows_s3": 229101,
+"rows_iceberg": 226288
+},
+{
+"day": "2026-09-26",
+"source": "FT",
+"rows_s3": 57395,
+"rows_iceberg": 56881
+},
+{
+"day": "2026-09-26",
+"source": "CPQ",
+"rows_s3": 30690,
+"rows_iceberg": 29304
+},
+{
+"day": "2026-09-27",
+"source": "Syteline",
+"rows_s3": 236563,
+"rows_iceberg": 233370
+},
+{
+"day": "2026-09-27",
+"source": "FT",
+"rows_s3": 61730,
+"rows_iceberg": 60781
+},
+{
+"day": "2026-09-27",
+"source": "CPQ",
+"rows_s3": 34302,
+"rows_iceberg": 32344
+},
+{
+"day": "2026-09-28",
+"source": "Syteline",
+"rows_s3": 458934,
+"rows_iceberg": 456267
+},
+{
+"day": "2026-09-28",
+"source": "FT",
+"rows_s3": 111550,
+"rows_iceberg": 109687
+},
+{
+"day": "2026-09-28",
+"source": "CPQ",
+"rows_s3": 67082,
+"rows_iceberg": 62528
+},
+{
+"day": "2026-09-29",
+"source": "Syteline",
+"rows_s3": 435382,
+"rows_iceberg": 430599
+},
+{
+"day": "2026-09-29",
+"source": "FT",
+"rows_s3": 95458,
+"rows_iceberg": 94072
+},
+{
+"day": "2026-09-29",
+"source": "CPQ",
+"rows_s3": 57155,
+"rows_iceberg": 55780
+},
+{
+"day": "2026-09-30",
+"source": "Syteline",
+"rows_s3": 420594,
+"rows_iceberg": 417467
+},
+{
+"day": "2026-09-30",
+"source": "FT",
+"rows_s3": 100735,
+"rows_iceberg": 100151
+},
+{
+"day": "2026-09-30",
+"source": "CPQ",
+"rows_s3": 56587,
+"rows_iceberg": 54941
+},
+{
+"day": "2026-10-01",
+"source": "Syteline",
+"rows_s3": 412526,
+"rows_iceberg": 408213
+},
+{
+"day": "2026-10-01",
+"source": "FT",
+"rows_s3": 94535,
+"rows_iceberg": 92822
+},
+{
+"day": "2026-10-01",
+"source": "CPQ",
+"rows_s3": 64543,
+"rows_iceberg": 62676
+},
+{
+"day": "2026-10-02",
+"source": "Syteline",
+"rows_s3": 427611,
+"rows_iceberg": 423244
+},
+{
+"day": "2026-10-02",
+"source": "FT",
+"rows_s3": 101983,
+"rows_iceberg": 101285
+},
+{
+"day": "2026-10-02",
+"source": "CPQ",
+"rows_s3": 67756,
+"rows_iceberg": 62363
+},
+{
+"day": "2026-10-03",
+"source": "Syteline",
+"rows_s3": 246664,
+"rows_iceberg": 243640
+},
+{
+"day": "2026-10-03",
+"source": "FT",
+"rows_s3": 53075,
+"rows_iceberg": 52728
+},
+{
+"day": "2026-10-03",
+"source": "CPQ",
+"rows_s3": 33862,
+"rows_iceberg": 22010
+},
+{
+"day": "2026-10-04",
+"source": "Syteline",
+"rows_s3": 265654,
+"rows_iceberg": 263682
+},
+{
+"day": "2026-10-04",
+"source": "FT",
+"rows_s3": 52540,
+"rows_iceberg": 51527
+},
+{
+"day": "2026-10-04",
+"source": "CPQ",
+"rows_s3": 35288,
+"rows_iceberg": 34271
+},
+{
+"day": "2026-10-05",
+"source": "Syteline",
+"rows_s3": 458775,
+"rows_iceberg": 456295
+},
+{
+"day": "2026-10-05",
+"source": "FT",
+"rows_s3": 106579,
+"rows_iceberg": 104481
+},
+{
+"day": "2026-10-05",
+"source": "CPQ",
+"rows_s3": 68684,
+"rows_iceberg": 64441
+},
+{
+"day": "2026-10-06",
+"source": "Syteline",
+"rows_s3": 434686,
+"rows_iceberg": 430121
+},
+{
+"day": "2026-10-06",
+"source": "FT",
+"rows_s3": 99284,
+"rows_iceberg": 97637
+},
+{
+"day": "2026-10-06",
+"source": "CPQ",
+"rows_s3": 64682,
+"rows_iceberg": 42043
+},
+{
+"day": "2026-10-07",
+"source": "Syteline",
+"rows_s3": 442536,
+"rows_iceberg": 438842
+},
+{
+"day": "2026-10-07",
+"source": "FT",
+"rows_s3": 113402,
+"rows_iceberg": 111159
+},
+{
+"day": "2026-10-07",
+"source": "CPQ",
+"rows_s3": 69044,
+"rows_iceberg": 64323
+},
+{
+"day": "2026-10-08",
+"source": "Syteline",
+"rows_s3": 489065,
+"rows_iceberg": 481191
+},
+{
+"day": "2026-10-08",
+"source": "FT",
+"rows_s3": 101280,
+"rows_iceberg": 99987
+},
+{
+"day": "2026-10-08",
+"source": "CPQ",
+"rows_s3": 62858,
+"rows_iceberg": 61491
+}
+]

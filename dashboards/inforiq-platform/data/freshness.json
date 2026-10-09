@@ -1,0 +1,47 @@
+[
+{
+"source": "Syteline",
+"stage": "S3 raw",
+"lag_minutes": 42
+},
+{
+"source": "Syteline",
+"stage": "Iceberg",
+"lag_minutes": 9
+},
+{
+"source": "Syteline",
+"stage": "Canonical",
+"lag_minutes": 12
+},
+{
+"source": "FT",
+"stage": "S3 raw",
+"lag_minutes": 38
+},
+{
+"source": "FT",
+"stage": "Iceberg",
+"lag_minutes": 7
+},
+{
+"source": "FT",
+"stage": "Canonical",
+"lag_minutes": 10
+},
+{
+"source": "CPQ",
+"stage": "S3 raw",
+"lag_minutes": 71
+},
+{
+"source": "CPQ",
+"stage": "Iceberg",
+"lag_minutes": 14
+},
+{
+"source": "CPQ",
+"stage": "Canonical",
+"lag_minutes": 19
+}
+]

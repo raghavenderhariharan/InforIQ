@@ -1,0 +1,233 @@
+[
+{
+"id": "syteline",
+"name": "Syteline ERP",
+"stage": 0,
+"layer": "Source ERP",
+"status": "ok",
+"lag_minutes": null,
+"throughput": "412K rows/day",
+"feeds": "s3_syteline",
+"note": "CloudSuite Industrial (Syteline) system of record."
+},
+{
+"id": "ft",
+"name": "FT",
+"stage": 0,
+"layer": "Source ERP",
+"status": "ok",
+"lag_minutes": null,
+"throughput": "96K rows/day",
+"feeds": "s3_ft",
+"note": "FT application database."
+},
+{
+"id": "cpq",
+"name": "CPQ",
+"stage": 0,
+"layer": "Source ERP",
+"status": "warn",
+"lag_minutes": null,
+"throughput": "58K rows/day",
+"feeds": "s3_cpq",
+"note": "Configure-price-quote; extract job ran late twice this week."
+},
+{
+"id": "s3_syteline",
+"name": "Syteline raw",
+"stage": 1,
+"layer": "S3 data lake (slow)",
+"status": "ok",
+"lag_minutes": 42,
+"throughput": "412K rows/day",
+"feeds": "ice_syteline",
+"note": "Raw landing zone in S3. Batch, slow to query."
+},
+{
+"id": "s3_ft",
+"name": "FT raw",
+"stage": 1,
+"layer": "S3 data lake (slow)",
+"status": "ok",
+"lag_minutes": 38,
+"throughput": "96K rows/day",
+"feeds": "ice_ft",
+"note": "Raw landing zone in S3."
+},
+{
+"id": "s3_cpq",
+"name": "CPQ raw",
+"stage": 1,
+"layer": "S3 data lake (slow)",
+"status": "warn",
+"lag_minutes": 71,
+"throughput": "58K rows/day",
+"feeds": "ice_cpq",
+"note": "Raw landing zone in S3; lag above the 60-minute target."
+},
+{
+"id": "ice_syteline",
+"name": "Syteline Iceberg",
+"stage": 2,
+"layer": "Iceberg tables (faster)",
+"status": "ok",
+"lag_minutes": 9,
+"throughput": "405K rows/day",
+"feeds": "po so canonical",
+"note": "Curated Iceberg tables; fast, versioned reads."
+},
+{
+"id": "ice_ft",
+"name": "FT Iceberg",
+"stage": 2,
+"layer": "Iceberg tables (faster)",
+"status": "ok",
+"lag_minutes": 7,
+"throughput": "95K rows/day",
+"feeds": "po canonical",
+"note": "Curated Iceberg tables."
+},
+{
+"id": "ice_cpq",
+"name": "CPQ Iceberg",
+"stage": 2,
+"layer": "Iceberg tables (faster)",
+"status": "warn",
+"lag_minutes": 14,
+"throughput": "55K rows/day",
+"feeds": "so canonical",
+"note": "Curated Iceberg tables; inherits CPQ lag."
+},
+{
+"id": "canonical",
+"name": "Canonical model",
+"stage": 3,
+"layer": "Canonical model",
+"status": "ok",
+"lag_minutes": 12,
+"throughput": "18 entities",
+"feeds": "rules",
+"note": "Infor's standardised data model in Data Fabric; IQ reads this, never the live ERP."
+},
+{
+"id": "po",
+"name": "Purchase orders",
+"stage": 3,
+"layer": "Canonical model",
+"status": "ok",
+"lag_minutes": 11,
+"throughput": "8.4K changes/day",
+"feeds": "events",
+"note": "Canonical PO entity; changes emit events."
+},
+{
+"id": "so",
+"name": "Sales orders",
+"stage": 3,
+"layer": "Canonical model",
+"status": "ok",
+"lag_minutes": 13,
+"throughput": "6.1K changes/day",
+"feeds": "events",
+"note": "Canonical SO entity; changes emit events."
+},
+{
+"id": "fde",
+"name": "FDE",
+"stage": 3,
+"layer": "Event producers",
+"status": "ok",
+"lag_minutes": null,
+"throughput": "1.2K events/day",
+"feeds": "events",
+"note": "Forward-deployed engineering producers."
+},
+{
+"id": "cust",
+"name": "Customer",
+"stage": 3,
+"layer": "Event producers",
+"status": "ok",
+"lag_minutes": null,
+"throughput": "2.9K events/day",
+"feeds": "events",
+"note": "Customer-side event producers."
+},
+{
+"id": "dev",
+"name": "Developer",
+"stage": 3,
+"layer": "Event producers",
+"status": "ok",
+"lag_minutes": null,
+"throughput": "0.6K events/day",
+"feeds": "events",
+"note": "Developer and test event producers."
+},
+{
+"id": "events",
+"name": "Event hub",
+"stage": 4,
+"layer": "Events",
+"status": "ok",
+"lag_minutes": 2,
+"throughput": "19K events/day",
+"feeds": "erx",
+"note": "Publishes business events after commit to the reasoning layer."
+},
+{
+"id": "rules",
+"name": "Rules and ontology",
+"stage": 4,
+"layer": "Infor IQ",
+"status": "ok",
+"lag_minutes": null,
+"throughput": "412 rules",
+"feeds": "erx",
+"note": "Ontology, tenant overlays and business rules that ground every answer."
+},
+{
+"id": "erx",
+"name": "ERX reasoning",
+"stage": 5,
+"layer": "Infor IQ",
+"status": "ok",
+"lag_minutes": 1,
+"throughput": "5.2K decisions/day",
+"feeds": "hitl agents rules",
+"note": "Evaluates events against rules; returns AUTHORIZED, DENIED or REQUIRES_ESCALATION."
+},
+{
+"id": "hitl",
+"name": "Human in the loop",
+"stage": 5,
+"layer": "Governance",
+"status": "bad",
+"lag_minutes": null,
+"throughput": "queue",
+"feeds": "agents",
+"note": "Reviewers clear escalations; queue age is over the 24-hour target."
+},
+{
+"id": "agents",
+"name": "Agents (A)",
+"stage": 6,
+"layer": "Agents",
+"status": "ok",
+"lag_minutes": null,
+"throughput": "4.6K actions/day",
+"feeds": "erp_mcp",
+"note": "AI agents act only after IQ authorises."
+},
+{
+"id": "erp_mcp",
+"name": "ERP via MCP tools",
+"stage": 6,
+"layer": "Execution",
+"status": "ok",
+"lag_minutes": null,
+"throughput": "4.6K actions/day",
+"feeds": "",
+"note": "The agent performs the action through ERP MCP tools; the ERP stays the final arbiter."
+}
+]
