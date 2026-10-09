@@ -12,9 +12,27 @@
     color-scheme: dark;
   }
   :root[data-theme="light"] {
-    --bg: #F4F4F6; --surface: #FFFFFF; --surface-2: #EFEFEF; --line: #D9D9D9; --hair: #E4E4E7; --fg: #1A1A1A; --muted: #6B6B6B; --blue: #2563EB; --blue-soft: #E5EDFD; --green: #0A8F86; --green-soft: #DEF4F1; --red: #ED0C0C; --red-soft: #FDE6E6; --amber: #D9530C; --amber-soft: #FDEDE2; --ok: #14905A; --ok-soft: #DFF3E8; --purple: #460DAF; --purple-soft: #F3EEFC; --magenta: #C2137F; --magenta-soft: #FBE7F3; --glass: #FFFFFF; --btn-line: #D9D9D9; --shadow: 0 1px 2px rgba(26,26,26,.06), 0 12px 30px -14px rgba(26,26,26,.22); --glow-op: .38; --top-glow: rgba(70,13,175,.06);
+    /* Light: the palette of the original Infor IQ Component Map page. Cool blue-grey neutrals, blue accent, blue-to-violet gradient. */
+    --bg: #f3f5f9; --surface: #ffffff; --surface-2: #eef1f6; --line: #d8dee8; --hair: #e3e8ef; --fg: #18202c; --muted: #596678;
+    --blue: #1f5fd1; --blue-soft: #e3edfc; --green: #0f766e; --green-soft: #dcf1ee; --red: #b3261e; --red-soft: #fbe3e0;
+    --amber: #8a5a00; --amber-soft: #fcefd2; --ok: #14774a; --ok-soft: #dcf3e7; --purple: #6b3fc4; --purple-soft: #ebe3fa;
+    --magenta: #a3307a; --magenta-soft: #f7e3ef; --glass: #ffffff; --btn-line: #d8dee8;
+    --shadow: 0 1px 2px rgba(20,30,50,.06), 0 6px 20px rgba(20,30,50,.06); --glow-op: 0; --top-glow: transparent;
+    --grad: linear-gradient(135deg, #1b4fb8 0%, #5a3ab8 100%);
+    --grad-loop: linear-gradient(100deg, #1b4fb8, #5a3ab8 50%, #1b4fb8);
+    --s1: #1f5fd1; --s2: #6b3fc4; --s3: #a3307a; --s4: #b45309; --s5: #0f766e; --s6: #14774a;
     color-scheme: light;
   }
+  /* Light hero: the original page's blue-to-violet banner with white text */
+  html, body { overflow-x: clip; }
+  :root[data-theme="light"] .topbar { background: rgba(255,255,255,.88); }
+  :root[data-theme="light"] header.hero { position: relative; color: #fff; padding-inline: 0; }
+  :root[data-theme="light"] header.hero::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: calc(50% - 50vw); right: calc(50% - 50vw); background: var(--grad); }
+  :root[data-theme="light"] .hero h1 .g { background: none; color: #cfe0ff; -webkit-text-fill-color: #cfe0ff; }
+  :root[data-theme="light"] .hero .lead { color: #e6eeff; }
+  :root[data-theme="light"] .hero .btn.ghost { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.35); color: #fff; }
+  :root[data-theme="light"] .hero .btn.ghost:hover { background: rgba(255,255,255,.24); color: #fff; }
+  :root[data-theme="light"] header.hero + section { padding-top: 28px; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg) radial-gradient(70% 45% at 50% 0%, var(--top-glow), transparent 70%) no-repeat; color: var(--fg); font: 400 1rem/1.6 var(--f-body); -webkit-font-smoothing: antialiased; }
   h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.1; letter-spacing: -.01em; }
@@ -294,7 +312,7 @@
   .isnot span { background: var(--glass); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: .85rem; }
   .isnot span b { color: var(--red); margin-right: 4px; }
   .ask { font: 600 1.05rem/1.4 var(--f-display); color: var(--fg); }
-  .bigask { background: linear-gradient(135deg, #460DAF, #7B45F0 60%, #C2137F); color: #fff; border-radius: 14px 14px 14px 4px; padding: 14px 18px; justify-self: start; max-width: 100%; }
+  .bigask { background: var(--grad); color: #fff; border-radius: 14px 14px 14px 4px; padding: 14px 18px; justify-self: start; max-width: 100%; }
   .ba { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
   @media (max-width: 760px) { .ba { grid-template-columns: 1fr; } }
   .ba .card { box-shadow: inset 0 4px 0 var(--red), var(--shadow); } .ba .card.yes { box-shadow: inset 0 4px 0 var(--ok), var(--shadow); }
