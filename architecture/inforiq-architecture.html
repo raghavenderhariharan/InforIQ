@@ -222,37 +222,52 @@
   .tip small { font: 500 .68rem/1 var(--f-mono); color: var(--purple); letter-spacing: .06em; text-transform: uppercase; }
   .tip .pill { justify-self: start; font-size: .72rem; padding: 4px 9px; }
 
-  /* ---------- in simple terms ---------- */
-  .plain-big { font: 700 clamp(1.5rem, 3.4vw, 2.4rem)/1.2 var(--f-display); letter-spacing: -.02em; max-width: 30ch; text-wrap: balance; }
-  .plain-big .g { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .plain-story .card { max-width: 820px; }
-  .plain-four { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-  .plain-four > div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 8px; align-content: start; box-shadow: inset 0 4px 0 var(--c); }
-  .plain-four .pi { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: var(--c); background: color-mix(in srgb, var(--c) 22%, var(--surface)); }
-  .plain-four .pi svg { width: 22px; height: 22px; }
-  .plain-four b { font: 700 1.2rem/1.2 var(--f-display); color: var(--c); }
-  .plain-four p { color: var(--muted); font-size: .92rem; }
-  .plain-four small { font: 500 .68rem/1 var(--f-mono); color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
-  ol.plain-steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
-  ol.plain-steps li { counter-increment: s; position: relative; background: var(--glass); border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 16px 58px; }
-  ol.plain-steps li::before { content: counter(s); position: absolute; left: 16px; top: 16px; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--c); color: #fff; font: 600 .8rem/1 var(--f-mono); }
-  ol.plain-steps b { display: block; font-family: var(--f-display); font-size: 1.05rem; }
-  ol.plain-steps p { color: var(--muted); font-size: .88rem; margin-top: 2px; }
-  .plain-math { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .plain-math > div { display: grid; gap: 6px; padding: 14px 18px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); box-shadow: inset 4px 0 0 var(--c); }
-  .plain-math span { color: var(--muted); font-size: .9rem; font-variant-numeric: tabular-nums; }
-  .plain-math span b { color: var(--fg); }
-  .plain-math strong { font: 800 1.25rem/1.2 var(--f-display); color: var(--c); }
-  .plain-two { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .plain-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-  .plain-list li { position: relative; padding-left: 26px; color: var(--muted); font-size: .93rem; }
-  .plain-list li b { color: var(--fg); }
-  .plain-list li::before { position: absolute; left: 0; top: 0; font-weight: 700; }
-  .plain-list.good li::before { content: "✓"; color: var(--ok); }
-  .plain-list.bad li::before { content: "✕"; color: var(--red); }
-  .plain-people { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-  .plain-people > div { background: var(--surface-2); border-radius: 12px; padding: 14px; display: grid; gap: 4px; }
-  .plain-people span { color: var(--muted); font-size: .9rem; }
+  /* ---------- in simple terms: one-picture flow ---------- */
+  .sbox { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
+  .sbox::before { content: ""; display: block; height: 3px; background: var(--grad); }
+  .sbar { padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .sflow { display: flex; align-items: center; gap: 0; padding: clamp(20px, 3vw, 36px) clamp(14px, 2.4vw, 28px); background: var(--surface-2); }
+  .sn { flex: 1 1 0; min-width: 0; display: grid; justify-items: center; text-align: center; gap: 6px; padding: 18px 12px; border-radius: 16px; background: var(--surface); border: 2px solid color-mix(in srgb, var(--c) 55%, var(--line)); transition: opacity .25s, transform .25s, box-shadow .25s; }
+  .sn b { font: 700 1.02rem/1.2 var(--f-display); }
+  .sn small { color: var(--muted); font-size: .8rem; line-height: 1.35; }
+  .si { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; background: color-mix(in srgb, var(--c) 20%, var(--surface)); color: var(--c); }
+  .si svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .sn.iq { --c: var(--red); flex: 1.6 1 0; border-width: 2px; border-color: transparent; background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--grad) border-box; }
+  .iqparts { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 6px; width: 100%; }
+  .iqparts li { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; padding: 7px 10px; border-radius: 9px; background: color-mix(in srgb, var(--c) 14%, var(--surface)); font-size: .78rem; color: var(--muted); text-align: left; }
+  .iqparts strong { color: var(--c); font: 700 .88rem/1.2 var(--f-display); }
+  .sn .taught { font: 500 .68rem/1.4 var(--f-mono); letter-spacing: .02em; margin-top: 4px; }
+  .sa { flex: 0 0 74px; display: grid; justify-items: center; gap: 6px; color: var(--muted); font: 500 .68rem/1.25 var(--f-mono); text-align: center; transition: opacity .25s; }
+  .sa i { position: relative; width: 52px; height: 2px; background: var(--muted); border-radius: 2px; }
+  .sa i::after { content: ""; position: absolute; right: -2px; top: -5px; border: 6px solid transparent; border-left: 8px solid var(--muted); border-right: 0; }
+  .sa i.back { transform: rotate(180deg); }
+  .sa.two { flex-basis: 92px; }
+  .sa.two span:first-child { color: var(--purple); font-weight: 600; }
+  .souts { flex: 1 1 0; min-width: 0; display: grid; gap: 8px; }
+  .so { display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; background: var(--surface); border: 2px solid color-mix(in srgb, var(--c) 55%, var(--line)); transition: opacity .25s, transform .25s, box-shadow .25s; }
+  .so b { font: 800 1.02rem/1.2 var(--f-display); color: var(--c); }
+  .so small { color: var(--muted); font-size: .8rem; }
+  .sflow.ex .sn, .sflow.ex .sa, .sflow.ex .so { opacity: .25; }
+  .sflow.ex .on { opacity: 1 !important; }
+  .sflow.ex .sn.on, .sflow.ex .so.on { box-shadow: 0 14px 30px -16px var(--c); transform: translateY(-3px); }
+  .sflow.ex .sa.on i { background: var(--purple); } .sflow.ex .sa.on i::after { border-left-color: var(--purple); }
+  .scap { padding: 16px 20px; border-top: 1px solid var(--line); font-size: 1rem; color: var(--fg); min-height: 3.4em; }
+  .scap b { color: var(--c, var(--fg)); }
+  .sfacts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sfacts span { font: 500 .88rem/1 var(--f-body); padding: 10px 13px; border-radius: 999px; background: var(--surface); border: 1px solid color-mix(in srgb, var(--c) 35%, var(--line)); display: inline-flex; align-items: center; gap: 8px; }
+  .sfacts i { width: 8px; height: 8px; border-radius: 2px; background: var(--c); }
+  @media (max-width: 980px) {
+    .sflow { flex-direction: column; align-items: stretch; }
+    .sn, .sn.iq, .souts { flex: none; }
+    .sa { flex: none; padding-block: 6px; grid-auto-flow: column; justify-content: center; align-items: center; }
+    .sa i { width: 2px; height: 26px; }
+    .sa i::after { right: -5px; top: auto; bottom: -2px; border: 6px solid transparent; border-top: 8px solid var(--muted); border-bottom: 0; }
+    .sa i.back { transform: rotate(180deg); }
+    .sflow.ex .sa.on i::after { border-top-color: var(--purple); border-left-color: transparent; }
+    .souts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 520px) { .souts { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .sn, .so, .sa { transition: none; } }
 
   /* ---------- component-map content (KYR look) ---------- */
   .sub { color: var(--muted); max-width: 66ch; font-size: 1.08rem; }
@@ -522,71 +537,65 @@
 <section id="simple">
   <div class="head">
     <span class="eyebrow">In simple terms</span>
-    <h2>Infor IQ, explained without the jargon</h2>
-    <p>No technical background needed. Five minutes, one everyday example.</p>
+    <h2>Infor IQ in one picture</h2>
+    <p>Before an AI assistant changes anything in your business software, it asks Infor IQ first.</p>
   </div>
-  <p class="plain-big">Infor IQ is a <span class="g">rulebook and a referee</span> for AI assistants working inside a company's business software.</p>
 
-  <div class="plain-story">
-    <div class="card">
-      <h3>Picture a new assistant at work</h3>
-      <p>Imagine a very fast new assistant joins the finance team. It can read every order and every invoice in seconds. But on day one it has two problems.</p>
-      <p><b>It doesn't know what your words mean.</b> What counts as a "late" order? Who is a "good" customer? Every company answers differently.</p>
-      <p><b>It doesn't know what it is allowed to do.</b> Should it release a $26,000 order for a customer who already owes a lot? A guess here costs real money.</p>
-      <p>Infor IQ gives the assistant your company's answers to both, and checks it before it acts.</p>
+  <div class="sbox">
+    <div class="sbar">
+      <div class="seg" id="sseg" role="group" aria-label="Try an example">
+        <button type="button" data-x="none" aria-pressed="true">How it works</button>
+        <button type="button" data-x="yes" aria-pressed="false">Example: order under the limit</button>
+        <button type="button" data-x="ask" aria-pressed="false">Example: order over the limit</button>
+        <button type="button" data-x="no" aria-pressed="false">Example: not allowed</button>
+      </div>
     </div>
-  </div>
 
-  <div class="plain-four">
-    <div style="--c:var(--s2)"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/><path d="M8 7h7M8 11h7"/></svg></span><b>The dictionary</b><p>Says exactly what business words mean, and how things connect. An order belongs to a customer. A customer has a credit limit.</p><small>Technical name: ontology</small></div>
-    <div style="--c:var(--s1)"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l2 2 4-4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg></span><b>The rulebook</b><p>Holds the company's rules, written down once. "An order may go through if what the customer owes plus this order stays under their limit."</p><small>Technical name: rules</small></div>
-    <div style="--c:var(--s3)"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><b>The referee</b><p>Before the assistant does anything, it must ask: "Am I allowed?" IQ says yes, no, or "a person needs to decide this one".</p><small>Technical name: authorisation</small></div>
-    <div style="--c:var(--s5)"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18"/><path d="M10 8h5M10 12h5M10 16h3"/></svg></span><b>The logbook</b><p>Every answer is written down with the reason, so anyone can check later why something happened.</p><small>Technical name: decision ledger</small></div>
-  </div>
-
-  <h3 style="margin-top:8px">An everyday example: an order stuck on credit hold</h3>
-  <ol class="plain-steps">
-    <li style="--c:var(--s1)"><b>Something changes</b><p>A customer's $8,000 order is put on hold because they might owe too much.</p></li>
-    <li style="--c:var(--s2)"><b>The assistant notices</b><p>The system sends a note: "this order is on hold". An AI assistant picks it up.</p></li>
-    <li style="--c:var(--s3)"><b>It asks IQ first</b><p>"Can I release this order?" IQ looks up what the customer owes and checks the rule.</p></li>
-    <li style="--c:var(--s5)"><b>It acts, or a person decides</b><p>Under the limit: the assistant releases the order. Over the limit: the credit manager decides.</p></li>
-  </ol>
-  <div class="plain-math">
-    <div style="--c:var(--ok)"><span>Owes $32,000 + order $8,000 = <b>$40,000</b> · limit $50,000</span><strong>Released automatically</strong></div>
-    <div style="--c:var(--amber)"><span>Owes $32,000 + order $26,000 = <b>$58,000</b> · limit $50,000</span><strong>Sent to the credit manager</strong></div>
-  </div>
-
-  <div class="plain-two">
-    <div class="card">
-      <h3>Why this matters</h3>
-      <ul class="plain-list good">
-        <li><b>Same answer every time.</b> The rule is written once, not re-guessed by the AI.</li>
-        <li><b>It respects who you are.</b> The assistant only sees data the person or bot asking is allowed to see.</li>
-        <li><b>Nothing is hidden.</b> Every decision is logged with its reason.</li>
-        <li><b>People stay in charge.</b> Big or risky decisions still go to a person.</li>
-      </ul>
+    <div class="sflow" id="sflow">
+      <div class="sn" style="--c:var(--blue)" data-p="yes ask no">
+        <span class="si"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+        <b>Your business software</b><small>Orders, customers, invoices</small>
+      </div>
+      <div class="sa" data-p="yes ask no"><i></i><span>something changes</span></div>
+      <div class="sn" style="--c:var(--green)" data-p="yes ask no">
+        <span class="si"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/></svg></span>
+        <b>A change happens</b><small id="s-evt">An order goes on hold</small>
+      </div>
+      <div class="sa" data-p="yes ask no"><i></i><span>it notices</span></div>
+      <div class="sn" style="--c:var(--purple)" data-p="yes ask no">
+        <span class="si"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9 17h6"/></svg></span>
+        <b>AI assistant</b><small id="s-bot">Wants to release it</small>
+      </div>
+      <div class="sa two" data-p="yes ask no"><span>"Am I allowed?"</span><i></i><i class="back"></i><span>the answer</span></div>
+      <div class="sn iq" data-p="yes ask no">
+        <span class="si"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <b>Infor IQ</b>
+        <ul class="iqparts">
+          <li style="--c:var(--purple)"><strong>Dictionary</strong>what words mean</li>
+          <li style="--c:var(--red)"><strong>Rulebook</strong>what is allowed</li>
+          <li style="--c:var(--green)"><strong>Logbook</strong>what was decided</li>
+        </ul>
+        <small class="taught">Taught by Infor teams, Infor specialists and your own experts</small>
+      </div>
+      <div class="sa" data-p="yes ask no"><i></i><span>one of three</span></div>
+      <div class="souts">
+        <div class="so" style="--c:var(--ok)" data-p="yes"><b>✓ Yes</b><small>The assistant does it</small></div>
+        <div class="so" style="--c:var(--amber)" data-p="ask"><b>? Ask a person</b><small>A manager decides</small></div>
+        <div class="so" style="--c:var(--red)" data-p="no"><b>✕ No</b><small>Nothing changes</small></div>
+      </div>
     </div>
-    <div class="card">
-      <h3>What Infor IQ is not</h3>
-      <ul class="plain-list bad">
-        <li><b>Not a robot that does the work.</b> The assistant does the work; IQ only says yes or no.</li>
-        <li><b>Not a chatbot or an AI model.</b> It doesn't guess. It follows written rules.</li>
-        <li><b>Not another database.</b> Your data stays where it is, in Infor Data Fabric.</li>
-        <li><b>Not a replacement for your ERP.</b> The ERP still has the final say.</li>
-      </ul>
-    </div>
+
+    <p class="scap" id="scap">The assistant never decides on its own. Infor IQ checks the company's rules, writes the decision down, and answers yes, no, or "ask a person".</p>
   </div>
 
-  <div class="card plain-who">
-    <h3>Who teaches IQ your business</h3>
-    <div class="plain-people">
-      <div><b>Infor product teams</b><span>Describe how each Infor product works: orders, customers, items.</span></div>
-      <div><b>Infor specialists</b><span>Forward deployed engineers who add customer-specific extensions from ready-made templates.</span></div>
-      <div><b>Your own experts</b><span>Data stewards who adjust names and definitions to match how your company talks.</span></div>
-    </div>
+  <div class="sfacts">
+    <span style="--c:var(--ok)"><i></i>Same answer every time</span>
+    <span style="--c:var(--blue)"><i></i>Only sees what you may see</span>
+    <span style="--c:var(--green)"><i></i>Every decision is logged</span>
+    <span style="--c:var(--amber)"><i></i>People decide the big ones</span>
+    <span style="--c:var(--red)"><i></i>Not a chatbot, not a database</span>
   </div>
-
-  <p class="note">Want the detail? The <a href="#architecture">Architecture</a> tab shows how the pieces connect, and <a href="#glossary">Terms</a> explains the technical words. Amounts in the example are illustrative.</p>
+  <p class="note">More detail: <a href="#architecture">Architecture</a> shows the real components, <a href="#glossary">Terms</a> explains the words. Amounts in the examples are illustrative.</p>
 </section>
 <a class="next" href="#architecture" style="--c:var(--s2)"><span>Next</span>Architecture <span aria-hidden="true">→</span></a>
 </div>
@@ -1419,6 +1428,22 @@ svg.querySelectorAll('.node').forEach(g => {
   g.addEventListener('focus', () => { if (g.matches(':focus-visible') && tipFill(g.dataset.id)) { const b = g.getBoundingClientRect(); tipPlace(b.right, b.top); } });
   g.addEventListener('blur', () => { tip.hidden = true; });
 });
+
+/* ---------- in simple terms: examples ---------- */
+const SX = {
+  none: { evt: 'An order goes on hold', bot: 'Wants to release it', cap: 'The assistant never decides on its own. Infor IQ checks the company\'s rules, writes the decision down, and answers yes, no, or "ask a person".' },
+  yes: { evt: 'An $8,000 order goes on credit hold', bot: 'Wants to release it', c: 'var(--ok)', cap: '<b>Yes.</b> The customer owes $32,000. Adding this $8,000 order makes $40,000, under their $50,000 limit. IQ says yes and logs it, and the assistant releases the order.' },
+  ask: { evt: 'A $26,000 order goes on credit hold', bot: 'Wants to release it', c: 'var(--amber)', cap: '<b>Ask a person.</b> $32,000 owed plus $26,000 makes $58,000, over the $50,000 limit. IQ logs it and hands it to the credit manager, who approves or keeps the hold.' },
+  no: { evt: 'An order was already approved', bot: 'Wants to approve it again', c: 'var(--red)', cap: '<b>No.</b> The rule says an approved order cannot be approved again. IQ says no and logs it. Nothing changes in your software.' }
+};
+$('#sseg').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+  $('#sseg').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  const k = b.dataset.x, x = SX[k], flow = $('#sflow');
+  flow.classList.toggle('ex', k !== 'none');
+  flow.querySelectorAll('[data-p]').forEach(el => el.classList.toggle('on', k !== 'none' && el.dataset.p.split(' ').includes(k)));
+  $('#s-evt').textContent = x.evt; $('#s-bot').textContent = x.bot;
+  const cap = $('#scap'); cap.innerHTML = x.cap; cap.style.setProperty('--c', x.c || 'var(--fg)');
+}));
 
 /* ---------- tabs ---------- */
 const TABNAMES = [...document.querySelectorAll('.tabs [role="tab"]')].map(t => t.id.slice(2));
