@@ -487,7 +487,6 @@
       <a role="tab" id="t-components" href="#components" aria-controls="tab-components" aria-selected="false" tabindex="-1" style="--c:var(--s3)"><i></i>Components and flows</a>
       <a role="tab" id="t-dry-runs" href="#dry-runs" aria-controls="tab-dry-runs" aria-selected="false" tabindex="-1" style="--c:var(--s4)"><i></i>Dry runs</a>
       <a role="tab" id="t-then-and-now" href="#then-and-now" aria-controls="tab-then-and-now" aria-selected="false" tabindex="-1" style="--c:var(--s5)"><i></i>Then and now</a>
-      <a role="tab" id="t-glossary" href="#glossary" aria-controls="tab-glossary" aria-selected="false" tabindex="-1" style="--c:var(--s6)"><i></i>Terms</a>
   </nav>
 </header>
 
@@ -502,7 +501,7 @@
     <a class="btn ghost" href="#architecture">Explore the architecture <span aria-hidden="true">→</span></a>
     <a class="btn ghost" href="#simply">Explain it simply</a>
     <a class="btn ghost" href="#components">All components</a>
-    <a class="btn ghost" href="#glossary">Terms</a>
+    <a class="btn ghost" href="#terms">Terms</a>
   </div>
 </header>
 
@@ -554,6 +553,27 @@
   <div><span class="n">4</span><b>Application APIs were dropped</b><span>IQ reads instance data from canonical datasets. The current role of ION, Birst and PI is unconfirmed.</span></div>
   <div><span class="n">5</span><b>Actions happen elsewhere</b><span>IQ authorises. The agent acts through ERP MCP tools.</span></div>
 </div>
+</section>
+
+<section id="terms">
+  <div class="head">
+    <span class="eyebrow">Plain words</span>
+    <h2>Eleven terms you will meet</h2>
+    <p>Skim these once and the rest of the page reads easily.</p>
+  </div>
+  <div class="gloss">
+    <div><b>Ontology</b>A defined map of business concepts and how they relate. A PO belongs to a vendor. A PO has lines.</div>
+    <div><b>Infor Data Fabric (IDF)</b>Infor's data platform. IQ is now a component inside it.</div>
+    <div><b>Canonical dataset</b>Infor's standardised copy of ERP data, held in Data Fabric. IQ reads this, not the live ERP.</div>
+    <div><b>Compass</b>The SQL service IQ uses to read canonical data. It applies the asking user's security.</div>
+    <div><b>SPARQL</b>A query language for linked concepts. IQ turns its patterns into SQL for Compass.</div>
+    <div><b>Virtual knowledge graph</b>The linked view of the data, built on demand from SQL and never stored.</div>
+    <div><b>Tenant overlay</b>One customer's own field names and terms, layered over the shared product model.</div>
+    <div><b>Reasoning engines</b>Rules, constraint checks and class logic that classify things and explain why. No AI guessing.</div>
+    <div><b>Grounding</b>Tying an AI answer to defined terms and real records, so it cannot invent what words mean.</div>
+    <div><b>MCP</b>A standard way for AI agents to call tools. ERP MCP tools are how an agent actually performs an action.</div>
+    <div><b>ADR and Kiro spec</b>The design decision record, and the written specification the team approved. They are the main sources for “current design”.</div>
+  </div>
 </section>
 <a class="next" href="#simply" style="--c:var(--ok)"><span>Next</span>In simple terms <span aria-hidden="true">→</span></a>
 </div>
@@ -620,7 +640,7 @@
     <span style="--c:var(--amber)"><i></i>People decide the big ones</span>
     <span style="--c:var(--red)"><i></i>Not a chatbot, not a database</span>
   </div>
-  <p class="note">More detail: <a href="#architecture">Architecture</a> shows the real components, <a href="#glossary">Terms</a> explains the words. Amounts in the examples are illustrative.</p>
+  <p class="note">More detail: <a href="#architecture">Architecture</a> shows the real components, <a href="#terms">Terms</a> explains the words. Amounts in the examples are illustrative.</p>
 </section>
 <a class="next" href="#architecture" style="--c:var(--s2)"><span>Next</span>Architecture <span aria-hidden="true">→</span></a>
 </div>
@@ -1044,31 +1064,8 @@
     <div class="gap"><b>CloudSuite app teams</b>Each must deliver its ontology, identity patterns and join metadata. This gates coverage.</div>
   </div>
 </section>
-<a class="next" href="#glossary" style="--c:var(--s6)"><span>Next</span>Terms <span aria-hidden="true">→</span></a>
 </div>
 
-<div class="panel" id="tab-glossary" role="tabpanel" aria-labelledby="t-glossary" tabindex="-1" hidden>
-<section id="terms">
-  <div class="head">
-    <span class="eyebrow">Plain words</span>
-    <h2>Eleven terms you will meet</h2>
-    <p>Skim these once and the rest of the page reads easily.</p>
-  </div>
-  <div class="gloss">
-    <div><b>Ontology</b>A defined map of business concepts and how they relate. A PO belongs to a vendor. A PO has lines.</div>
-    <div><b>Infor Data Fabric (IDF)</b>Infor's data platform. IQ is now a component inside it.</div>
-    <div><b>Canonical dataset</b>Infor's standardised copy of ERP data, held in Data Fabric. IQ reads this, not the live ERP.</div>
-    <div><b>Compass</b>The SQL service IQ uses to read canonical data. It applies the asking user's security.</div>
-    <div><b>SPARQL</b>A query language for linked concepts. IQ turns its patterns into SQL for Compass.</div>
-    <div><b>Virtual knowledge graph</b>The linked view of the data, built on demand from SQL and never stored.</div>
-    <div><b>Tenant overlay</b>One customer's own field names and terms, layered over the shared product model.</div>
-    <div><b>Reasoning engines</b>Rules, constraint checks and class logic that classify things and explain why. No AI guessing.</div>
-    <div><b>Grounding</b>Tying an AI answer to defined terms and real records, so it cannot invent what words mean.</div>
-    <div><b>MCP</b>A standard way for AI agents to call tools. ERP MCP tools are how an agent actually performs an action.</div>
-    <div><b>ADR and Kiro spec</b>The design decision record, and the written specification the team approved. They are the main sources for “current design”.</div>
-  </div>
-</section>
-</div>
 
 </div>
 
