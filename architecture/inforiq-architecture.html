@@ -604,9 +604,9 @@
 <div class="panel" id="tab-architecture" role="tabpanel" aria-labelledby="t-architecture" tabindex="-1" hidden>
 <section id="diagram">
   <div class="head">
-    <span class="eyebrow">The whiteboard</span>
+    <span class="eyebrow">How it fits together</span>
     <h2>The architecture</h2>
-    <p>Redrawn from the board and corrected against the IIQ and IDFADS wiki pages, checked on 9 October 2026. Select any box to see what the board says, what the wiki says, and the pages behind it. Follow a sales order to see its path.</p>
+    <p>How a change in a CloudSuite becomes a governed action, based on the IIQ and IDFADS wiki pages (checked 9 October 2026). Hover over a box for a summary, or click it for the detail and the wiki pages behind it. Follow a sales order to see its path.</p>
   </div>
 
   <div class="board">
@@ -621,14 +621,14 @@
         <span><i style="background:var(--green-soft);border:1.5px solid var(--green)"></i>Events</span>
         <span><i style="background:var(--red-soft);border:1.5px solid var(--red)"></i>IQ rules and decisions</span>
         <span><i style="background:var(--purple-soft);border:1.5px solid var(--purple)"></i>Model authors</span>
-        <span><i style="background:transparent;border:1.5px dashed var(--muted)"></i>Dashed: future, proposed or board only</span>
+        <span><i style="background:transparent;border:1.5px dashed var(--muted)"></i>Dashed: future, proposed or not yet in scope</span>
       </div>
     </div>
 
     <div class="scroll">
     <svg class="arch" id="arch" viewBox="0 0 1280 660" role="img" aria-labelledby="arch-t arch-d">
       <title id="arch-t">InforIQ architecture diagram, corrected against the wiki</title>
-      <desc id="arch-d">CSD, with SyteLine, Factory Track and CPQ as board-only sources, lands in the Data Lake on S3 and is loaded into the Data Warehouse, today's canonical source. Data Lake+ with Iceberg or Delta is future. A canonical commit makes the IDF Event Service publish a delta-change event to an AI agent. The agent asks Infor IQ (ERX), which reads canonical data through Compass as the caller, evaluates the ontology and rules, writes the decision to the ledger and returns AUTHORIZED, DENIED or REQUIRES_ESCALATION. Escalations go to human review. App teams, forward deployed engineers and customer stewards author the model. The agent acts through ERP MCP tools on the source ERP.</desc>
+      <desc id="arch-d">CSD, with SyteLine, Factory Track and CPQ not yet in scope, lands in the Data Lake on S3 and is loaded into the Data Warehouse, today's canonical source. Data Lake+ with Iceberg or Delta is future. A canonical commit makes the IDF Event Service publish a delta-change event to an AI agent. The agent asks Infor IQ (ERX), which reads canonical data through Compass as the caller, evaluates the ontology and rules, writes the decision to the ledger and returns AUTHORIZED, DENIED or REQUIRES_ESCALATION. Escalations go to human review. App teams, forward deployed engineers and customer stewards author the model. The agent acts through ERP MCP tools on the source ERP.</desc>
       <defs>
         <marker id="m-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah b" d="M0,0 L10,5 L0,10 z"/></marker>
         <marker id="m-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah g" d="M0,0 L10,5 L0,10 z"/></marker>
@@ -702,13 +702,13 @@
         <text class="nm" x="80" y="154" text-anchor="middle">CSD</text><text class="sb" x="80" y="172" text-anchor="middle">first in scope</text></g>
       <g class="node b fut" data-id="csi" tabindex="0" role="button" aria-label="SyteLine (CSI)">
         <rect class="box" x="20" y="210" width="120" height="56" rx="8"/>
-        <text class="nm" x="80" y="234" text-anchor="middle">SyteLine</text><text class="sb" x="80" y="252" text-anchor="middle">CSI · board</text></g>
+        <text class="nm" x="80" y="234" text-anchor="middle">SyteLine</text><text class="sb" x="80" y="252" text-anchor="middle">CSI · later</text></g>
       <g class="node b fut" data-id="ft" tabindex="0" role="button" aria-label="Factory Track">
         <rect class="box" x="20" y="290" width="120" height="56" rx="8"/>
-        <text class="nm" x="80" y="314" text-anchor="middle">Factory Track</text><text class="sb" x="80" y="332" text-anchor="middle">FT · board</text></g>
+        <text class="nm" x="80" y="314" text-anchor="middle">Factory Track</text><text class="sb" x="80" y="332" text-anchor="middle">FT · later</text></g>
       <g class="node b fut" data-id="cpq" tabindex="0" role="button" aria-label="CPQ">
         <rect class="box" x="20" y="370" width="120" height="56" rx="8"/>
-        <text class="nm" x="80" y="394" text-anchor="middle">CPQ</text><text class="sb" x="80" y="412" text-anchor="middle">board</text></g>
+        <text class="nm" x="80" y="394" text-anchor="middle">CPQ</text><text class="sb" x="80" y="412" text-anchor="middle">later</text></g>
 
       <g class="node b" data-id="lake" data-p="auto review" tabindex="0" role="button" aria-label="Data Lake on S3">
         <rect class="box" x="178" y="130" width="124" height="296" rx="10"/>
@@ -748,7 +748,7 @@
 
       <g class="node r" data-id="rules" data-p="auto review" tabindex="0" role="button" aria-label="Ontology and rules">
         <rect class="box" x="900" y="300" width="200" height="64" rx="10"/>
-        <text class="nm" x="1000" y="326" text-anchor="middle">Ontology and rules ✱</text><text class="sb" x="1000" y="346" text-anchor="middle">OWL · SHACL · Drools</text></g>
+        <text class="nm" x="1000" y="326" text-anchor="middle">Ontology and rules</text><text class="sb" x="1000" y="346" text-anchor="middle">OWL · SHACL · Drools</text></g>
 
       <g class="node r" data-id="hitl" data-p="review" tabindex="0" role="button" aria-label="Human review">
         <rect class="box" x="1150" y="175" width="115" height="60" rx="8"/>
@@ -807,77 +807,19 @@
   <p class="note col">The POC itself returns only Permit or Deny. The escalation path comes from the Autonomous Use Cases page and the Business Processes proposal (HUMAN_TASK).</p>
 </section>
 
-<section id="read">
-  <div class="head">
-    <span class="eyebrow">Key</span>
-    <h2>Reading the board</h2>
-    <p>Every mark on the whiteboard, what the wiki says about it, and how the diagram shows it.</p>
-  </div>
-  <div class="tbl"><table>
-    <thead><tr><th>On the board</th><th>What it shows</th><th>Read as, checked against the wiki</th></tr></thead>
-    <tbody>
-      <tr><td class="mark b">Syteline · FT · CPQ</td><td>Three database cylinders on the left</td><td>SyteLine (CSI), Factory Track and CPQ, the CSI product family. The wiki's first and only product in scope is CSD, so the diagram adds CSD and dashes these three.</td></tr>
-      <tr><td class="mark b">Vertical dashed line</td><td>Separates the sources from everything else</td><td>The extract boundary. The ERPs stay the system of record; everything to the right is a copy.</td></tr>
-      <tr><td class="mark b">DL · S3 · Slow</td><td>One cylinder per source</td><td>The Data Lake on S3, the raw landing zone. IQ does not read it directly.</td></tr>
-      <tr><td class="mark b">Iceberg tables · Faster</td><td>Second cylinder per source</td><td>Data Lake+, Iceberg or Delta canonical datasets. Future in the wiki, format not decided. Today the Data Warehouse holds canonical data.</td></tr>
-      <tr><td class="mark b">Canonical Model ↑</td><td>Arrow up from the Iceberg tables</td><td>One standard shape for each entity, held in the Data Warehouse today.</td></tr>
-      <tr><td class="mark b">PO · SO</td><td>Dashed arrows off the Syteline table</td><td>Illustrative entities. The wiki's worked POC uses SalesOrder.</td></tr>
-      <tr><td class="mark r">Red dashed arc</td><td>Curves from the data lake up to the rules</td><td>Interpretation: the scope IQ reasons over, from canonical data to rules.</td></tr>
-      <tr><td class="mark g">Event (green)</td><td>Hub collecting arrows from the tables</td><td>The Data Fabric Event Service, publishing IDF delta-change events.</td></tr>
-      <tr><td class="mark g">DEV · FDE · CUST</td><td>Green branch feeding the hub from below</td><td>App teams (product ontology), Forward Deployed Engineers (templates and extensions) and customer stewards (tenant overlay). In the wiki they author the model; users do not author events.</td></tr>
-      <tr><td class="mark g">Events →</td><td>Green arrow from the hub into ERX</td><td>In the wiki the event goes to the agent, which then asks IQ. The diagram routes it that way.</td></tr>
-      <tr><td class="mark r">Rules ✱</td><td>Red bubble with a star, two-way arrow to ERX</td><td>Ontology and rules: OWL, SHACL, Drools and action definitions with preconditions.</td></tr>
-      <tr><td class="mark b">ERX</td><td>Large circle on the right</td><td>Most likely "Enterprise Reasoning &amp; eXecution", the subtitle of the Infor IQ deck. The acronym itself is not in the wiki. Its role matches iiq-ontology's reasoning and /action/authorize.</td></tr>
-      <tr><td class="mark b">HITL</td><td>Line down from ERX</td><td>Human in the loop: a HUMAN_TASK assigned to a role such as Credit Manager (proposal).</td></tr>
-      <tr><td class="mark b">→ A</td><td>Arrow from ERX to a small circle</td><td>The agent. It asks IQ first, then acts through ERP MCP tools.</td></tr>
-      <tr><td class="mark b">DONS · MATE</td><td>Above ERX, and cut off at the bottom right</td><td>Not found anywhere in Confluence or Jira. Listed under open questions.</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<section id="compare">
-  <div class="head">
-    <span class="eyebrow">Board vs wiki</span>
-    <h2>Board and wiki, side by side</h2>
-    <p>The wiki is the current design, checked on 9 October 2026. Where the two disagree, the diagram follows the wiki and keeps the board's idea as a dashed or labelled box.</p>
-  </div>
-  <div class="compare">
-    <div class="cmp"><div class="top"><h3>Where data comes from</h3><span class="pill differs">Differs</span></div>
-      <div class="two"><div><b>Board</b>S3 data lake, then Iceberg tables, then the canonical model.</div><div><b>Wiki</b>Data Lake, then the Data Warehouse, the only canonical source today. Data Lake+ (Iceberg or Delta) is future.</div></div></div>
-    <div class="cmp"><div class="top"><h3>First product</h3><span class="pill differs">Differs</span></div>
-      <div class="two"><div><b>Board</b>SyteLine, Factory Track and CPQ.</div><div><b>Wiki</b>CSD, over the CSD warehouse.</div></div></div>
-    <div class="cmp"><div class="top"><h3>How IQ reads data</h3><span class="pill match">Matches</span></div>
-      <div class="two"><div><b>Board</b>Rules read the canonical model, never the source databases.</div><div><b>Wiki</b>Compass SQL under TenantId and Identity2; IQ applies no filtering. Not met yet: one SQL dialect, cross-dataset consistency.</div></div></div>
-    <div class="cmp"><div class="top"><h3>Where events go</h3><span class="pill differs">Differs</span></div>
-      <div class="two"><div><b>Board</b>The event hub feeds ERX directly.</div><div><b>Wiki</b>The Event Service sends the event to the agent, which then asks IQ.</div></div></div>
-    <div class="cmp"><div class="top"><h3>Rules</h3><span class="pill match">Matches</span></div>
-      <div class="two"><div><b>Board</b>A rules store that ERX consults both ways.</div><div><b>Wiki</b>OWL, SHACL, Drools and action definitions inside iiq-ontology. Policy becomes an in-process library (ADR-002, proposed).</div></div></div>
-    <div class="cmp"><div class="top"><h3>Outcomes</h3><span class="pill differs">Differs</span></div>
-      <div class="two"><div><b>Board</b>Two paths: the agent acts, or a person reviews.</div><div><b>Wiki</b>Three: AUTHORIZED, DENIED, REQUIRES_ESCALATION. A reviewer can also reject.</div></div></div>
-    <div class="cmp"><div class="top"><h3>Who acts</h3><span class="pill match">Matches</span></div>
-      <div class="two"><div><b>Board</b>ERX hands off to the agent.</div><div><b>Wiki</b>IQ only authorises. The agent acts through ERP MCP tools; the signed token is deferred (IIQ-196).</div></div></div>
-    <div class="cmp"><div class="top"><h3>Decision record</h3><span class="pill map">Wiki adds</span></div>
-      <div class="two"><div><b>Board</b>Not shown.</div><div><b>Wiki</b>Written before IQ replies: a write-once S3 record, fail closed (ADR-002, proposed).</div></div></div>
-    <div class="cmp"><div class="top"><h3>Who shapes the model</h3><span class="pill differs">Differs</span></div>
-      <div class="two"><div><b>Board</b>DEV, FDE and CUST feed the event hub.</div><div><b>Wiki</b>App teams, FDEs and stewards author the ontology and rules. Event creation was dropped from the UX.</div></div></div>
-    <div class="cmp"><div class="top"><h3>Ontology store</h3><span class="pill map">Wiki adds</span></div>
-      <div class="two"><div><b>Board</b>Not shown.</div><div><b>Wiki</b>Fuseki today. Amazon Neptune recommended, pending spike IIQ-224.</div></div></div>
-  </div>
-</section>
-
 <section id="open">
   <div class="head">
-    <span class="eyebrow">Still to confirm on the board</span>
+    <span class="eyebrow">Still open</span>
     <h2>Open questions</h2>
-    <p>What the wiki could not settle. Confirm these with whoever drew the board.</p>
+    <p>Points the wiki pages leave unsettled today.</p>
   </div>
   <ul class="qs col">
-    <li><code>ERX</code> Does it mean "Enterprise Reasoning &amp; eXecution"? Is it IQ's authorise service, or a separate runtime that subscribes to events?</li>
-    <li><code>DONS</code> · <code>MATE</code> Neither appears in Confluence or Jira. Are they teams, systems or names?</li>
-    <li><code>Events</code> The board sends events straight into ERX; the wiki sends them to the agent. Is direct subscription a target design, or shorthand?</li>
-    <li><code>Sources</code> The board starts with SyteLine, Factory Track and CPQ; the wiki starts with CSD. Is CSI next, and when?</li>
-    <li><code>Iceberg</code> Data Lake+ is Iceberg or Delta, with no date. Does the board assume it replaces the warehouse for IQ?</li>
-    <li><code>HITL</code> Which rules escalate, and where do reviewers work? No page names a review screen.</li>
+    <li><code>ERX</code> The name used for IQ's reasoning and authorisation core. The wiki does not define it; the likely meaning is "Enterprise Reasoning &amp; eXecution".</li>
+    <li><code>Events</code> Today the event goes to the agent, which then asks IQ. Should IQ ever subscribe to events directly?</li>
+    <li><code>Sources</code> CSD comes first. When do SyteLine (CSI), Factory Track and CPQ follow?</li>
+    <li><code>Data Lake+</code> Iceberg or Delta, and when it becomes a canonical source alongside the warehouse.</li>
+    <li><code>Event timing</code> IDF still has to confirm that events go out only after the data is committed.</li>
+    <li><code>HITL</code> Which rules escalate to a person, and where reviewers do their review.</li>
   </ul>
 </section>
 <a class="next" href="#components" style="--c:var(--s3)"><span>Next</span>Components and flows <span aria-hidden="true">→</span></a>
@@ -1129,7 +1071,7 @@
     <li><a href="https://infor.atlassian.net/wiki/spaces/IIQ/pages/2630877271" target="_blank" rel="noopener noreferrer">Palantir Forward Deployed Engineering</a></li>
   </ul>
   <span>Also drawn from: the whiteboard photo from the architecture session.</span>
-  <span>Not an official design document. Readings marked "interpretation" are this page's, not the board author's.</span>
+  <span>Not an official design document.</span>
 </footer>
 </div>
 
@@ -1153,14 +1095,14 @@ const PG = {
   seam4: ['2702246074', 'Addendum — Seam 4 (Decision Records & Feedback)', 'Aug 12, 2026'],
   v4: ['2849768135', 'Infor IQ: A Deterministic Layer (v4.0)', 'Aug 21, 2026']
 };
-const ST = { ok: 'Confirmed in the wiki', fix: 'Corrected from the board', board: 'On the board, not in the wiki', prop: 'Future or proposed in the wiki' };
-const STC = { ok: 'match', fix: 'differs', board: 'board', prop: 'map' };
+const ST = { ok: 'Current design', fix: 'Current design', board: 'Not yet in scope', prop: 'Future or proposed' };
+const STC = { ok: 'match', fix: 'match', board: 'differs', prop: 'map' };
 const N = {
   csd: { name: 'CSD', mark: 'Not on the board', st: 'fix', src: ['adr1', 'req'],
-    what: 'CloudSuite Distribution. Added to the diagram because it is the first and only product in scope.',
-    map: 'Every architecture page names the first target as the CSD ontology over the CSD warehouse schemas. The board starts with SyteLine instead.' },
+    what: 'CloudSuite Distribution, the first and only product in scope today.',
+    map: 'Every architecture page names the first target as the CSD ontology over the CSD warehouse schemas.' },
   csi: { name: 'SyteLine (CSI)', mark: 'Syteline (blue cylinder)', st: 'board', src: ['rev'],
-    what: 'CloudSuite Industrial, the board\'s first source.',
+    what: 'CloudSuite Industrial.',
     map: 'CSI appears only in migration and research pages. It is not yet in IQ\'s scope.' },
   ft: { name: 'Factory Track', mark: 'FT (small cylinder)', st: 'board', src: [],
     what: 'FT is Factory Track, the shop-floor application that ships with SyteLine. CloudOps pages provision them together.',
@@ -1173,22 +1115,22 @@ const N = {
     map: 'IQ does not read the Data Lake directly: the requirements page puts the Data Lake (current CDC form), Source Data Access and the analytical replica out of scope.' },
   dwh: { name: 'Data Warehouse (canonical)', mark: 'Canonical Model · PO · SO', st: 'fix', src: ['rev', 'req'],
     what: 'Infor\'s standardised business entities, held in the Data Warehouse. The entity names shown are illustrative: the canonical UX page lists entities only in Figma.',
-    map: '"The Data Warehouse is the only canonical source available today." The board feeds the canonical model from Iceberg tables; the wiki has CSD content loaded from the Data Lake into the warehouse.' },
+    map: '"The Data Warehouse is the only canonical source available today." CSD content is loaded into it from the Data Lake.' },
   dlplus: { name: 'Data Lake+ (Iceberg / Delta)', mark: 'Iceberg tables · Faster', st: 'prop', src: ['req', 'rev', 'uxon'],
-    what: 'The board\'s faster curated tier.',
+    what: 'A faster, curated tier of canonical data on the lake.',
     map: 'Future: "Data Lake+ (Delta / Iceberg-materialized canonical datasets)… must be reachable the same way, so it is a configuration change for IQ." The format is not decided and there is no date. The UX page notes Data Lake+ work for a later demo phase.' },
   compass: { name: 'Compass SQL', mark: 'Not on the board', st: 'ok', src: ['req', 'adr1', 'sql'],
     what: 'IQ\'s only path to canonical data. It runs SQL as the person or agent asking.',
     map: 'TenantId and Identity2 travel as JDBC connection parameters, and Compass enforces schema, object, field and row security. IQ applies no filtering of its own. Not met yet: one uniform SQL dialect and cross-dataset transactional consistency. Column masking is unconfirmed.' },
   events: { name: 'IDF Event Service', mark: 'Event (green blob)', st: 'fix', src: ['poc', 'rev', 'uxev'],
     what: 'Publishes a delta-change event when canonical data changes. In the POC: a SalesOrder put on hold in CSD, with TenantId, product, domain, canonical object and the action mapping releaseHold.',
-    map: 'The event goes to the agent, not to ERX. Users do not author events: "Create an Event" was dropped from the UX after review. Event-after-commit is still an open item with IDF.' },
+    map: 'The event goes to the agent, which then asks IQ. Users do not author events: "Create an Event" was dropped from the UX after review. Event-after-commit is still an open item with IDF.' },
   agent: { name: 'AI agent', mark: '→ A (small circle)', st: 'fix', src: ['poc', 'adr1'],
     what: 'Picks up the event, opens a case and asks IQ before doing anything. "The agent does not evaluate the credit rule itself."',
-    map: 'On the board the agent comes after ERX. In the wiki it sits on both sides: it asks IQ with X-TenantId, X-ProductId and X-AgentId, then acts on its own authority.' },
+    map: 'It sits on both sides of IQ: it asks with X-TenantId, X-ProductId and X-AgentId, then acts on its own authority.' },
   erx: { name: 'ERX: IQ reasoning and authorisation', mark: 'ERX (large circle)', st: 'fix', src: ['adr1', 'sql', 'v4'],
     what: 'Reads canonical data through Compass, reasons over it, and answers whether an action may go ahead.',
-    map: 'The acronym is not in the wiki. It most likely means "Enterprise Reasoning & eXecution", the subtitle of the Infor IQ deck. Its role matches iiq-ontology: Jena ARQ with the Compass OBDA reader, and /action/authorize returning AUTHORIZED, DENIED or REQUIRES_ESCALATION. IQ never calls the ERP or ERP MCP tools.' },
+    map: 'This is the iiq-ontology service: Jena ARQ with the Compass OBDA reader, and /action/authorize returning AUTHORIZED, DENIED or REQUIRES_ESCALATION. IQ never calls the ERP or ERP MCP tools. ERX most likely stands for "Enterprise Reasoning & eXecution", the subtitle of the Infor IQ deck.' },
   rules: { name: 'Ontology and rules', mark: 'Rules ✱ (red bubble)', st: 'ok', src: ['rev', 'poc', 'nep', 'uxev'],
     what: 'What business terms mean and which rules apply. The POC rule: creditExposure + totalOrderAmount ≤ creditLimit.',
     map: 'Ontology (TBox) in Fuseki today, with Amazon Neptune recommended as its replacement (spike IIQ-224, not yet accepted). OWL, SHACL and Drools, plus action definitions with preconditions. Rules are authored in the UX (Rules v3.2).' },
@@ -1200,7 +1142,7 @@ const N = {
     map: 'Business Processes proposal: a HUMAN_TASK step assigned to a role such as CreditManager. Approval runs the action; rejection ends the process. Autonomous Use Cases: above the credit limit, release needs "a human with delegated credit authority", a segregation-of-duties control. No page says where reviewers work.' },
   dev: { name: 'DEV: CloudSuite app teams', mark: 'DEV (green, bottom)', st: 'fix', src: ['adr1', 'layer'],
     what: 'Deliver each product\'s ontology, identity patterns and join metadata.',
-    map: 'On the board DEV feeds events. In the wiki app teams author the model, and that delivery gates IQ\'s coverage.' },
+    map: 'App teams author the product model, and that delivery gates IQ\'s coverage.' },
   fde: { name: 'FDE: Forward Deployed Engineers', mark: 'FDE (green, bottom)', st: 'prop', src: ['fde', 'layer'],
     what: 'Build customer extensions from templates.',
     map: '"The FDEs are supposed to maintain such templates and libraries and using AI studio, they should be able to deliver such extension use cases in matter of days" (comment on the Layering Blueprint, Aug 6). Modelled on Palantir\'s FDE approach.' },
@@ -1223,7 +1165,7 @@ const svg = $('#arch');
 function show(id) {
   const n = N[id]; if (!n) return;
   svg.querySelectorAll('.node').forEach(g => g.classList.toggle('sel', g.dataset.id === id));
-  $('#detail').innerHTML = `<div class="who"><span class="board-mark">On the board: ${esc(n.mark)}</span><h3 style="font-size:22px">${esc(n.name)}</h3><span class="pill ${STC[n.st]}">${esc(ST[n.st])}</span></div>
+  $('#detail').innerHTML = `<div class="who"><h3 style="font-size:22px">${esc(n.name)}</h3><span class="pill ${STC[n.st]}">${esc(ST[n.st])}</span></div>
     <dl><div><dt>What it does</dt><dd>${esc(n.what)}</dd></div><div><dt>In the wiki</dt><dd>${esc(n.map)}</dd></div>${n.src.length ? `<div><dt>Wiki pages</dt><dd class="srcs">${n.src.map(k => `<a href="${WIKI + PG[k][0]}" target="_blank" rel="noopener noreferrer">${esc(PG[k][1])}</a> <span>${esc(PG[k][2])}</span>`).join('')}</dd></div>` : ''}</dl>`;
 }
 svg.querySelectorAll('.node').forEach(g => {
@@ -1411,7 +1353,7 @@ const tip = $('#tip'), board = $('.board');
 const firstSentence = (t) => (t.match(/^.*?[.!?](\s|$)/) || [t])[0].trim();
 function tipFill(id) {
   const n = N[id]; if (!n) return false;
-  tip.innerHTML = `<span class="tmark">On the board: ${esc(n.mark)}</span><b>${esc(n.name)}</b><span class="pill ${STC[n.st]}">${esc(ST[n.st])}</span><p class="tw">${esc(n.what)}</p><p>${esc(firstSentence(n.map))}</p><small>Click for details and wiki pages</small>`;
+  tip.innerHTML = `<b>${esc(n.name)}</b><span class="pill ${STC[n.st]}">${esc(ST[n.st])}</span><p class="tw">${esc(n.what)}</p><p>${esc(firstSentence(n.map))}</p><small>Click for details and wiki pages</small>`;
   tip.hidden = false; return true;
 }
 function tipPlace(x, y) {
