@@ -379,25 +379,6 @@
   .pop .src { color: var(--muted); font: 400 .72rem/1.4 var(--f-mono); margin-top: 8px; }
   @media (hover: none) { .pop { display: block; position: static; width: auto; max-width: none; border: 0; border-top: 1px dashed var(--line); border-radius: 0; box-shadow: none; padding: 8px 0 0; margin-top: 8px; background: transparent; } .c:hover { transform: none; } }
 
-  /* Component map keeps the original component-map look in both themes: white bands and cards, blue accent */
-  .layers { --surface: #ffffff; --surface-2: #eef1f6; --line: #d8dee8; --fg: #18202c; --muted: #596678;
-            --blue: #1f5fd1; --blue-soft: #e3edfc; --ok: #14774a; --ok-soft: #dcf3e7; --amber: #8a5a00; --amber-soft: #fcefd2;
-            --magenta: #6b3fc4; --magenta-soft: #ebe3fa; --red: #b3261e; --red-soft: #fbe3e0; --purple: #1f5fd1; --green: #14774a;
-            --shadow: 0 1px 2px rgba(20,30,50,.06), 0 6px 20px rgba(20,30,50,.06); color: #18202c; }
-  .layers .band { background: #ffffff; border-color: #d8dee8; }
-  .layers .band.iq { background: linear-gradient(180deg, #e3edfc, #ffffff 70%); border-color: #1f5fd1; }
-  .layers .band.idf { background: linear-gradient(180deg, #dcf3e7, #ffffff 70%); border-color: #14774a; }
-  .layers .c { background: #ffffff; border-color: #d8dee8; }
-  .layers .c:hover, .layers .c:focus { border-color: #1f5fd1; box-shadow: inset 0 4px 0 var(--ok), 0 8px 22px rgba(20,30,50,.18); }
-  .layers .c.concept:hover, .layers .c.concept:focus { box-shadow: inset 0 4px 0 var(--amber), 0 8px 22px rgba(20,30,50,.18); }
-  .layers .c.proposed:hover, .layers .c.proposed:focus { box-shadow: inset 0 4px 0 var(--magenta), 0 8px 22px rgba(20,30,50,.18); }
-  .layers .c .k, .layers .c.k-iq .k, .layers .c.k-infra .k, .layers .c.k-suite .k { color: #596678; }
-  .layers .c.k-os .k { color: #1f5fd1; }
-  .layers .pop { background: #ffffff; color: #18202c; border-color: #1f5fd1; box-shadow: 0 14px 34px rgba(20,30,50,.28); }
-  .layers .arrow::before, .layers .arrow::after { background: #d8dee8; }
-  .layers .arrow b { background: #ffffff; border-color: #d8dee8; color: #18202c; }
-  .layers .arrow.up b::before, .layers .arrow.down b::before { color: #1f5fd1; }
-
   /* flows */
   .flows { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
   .flow { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); min-width: 0; }
