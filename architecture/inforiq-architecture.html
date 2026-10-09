@@ -1,0 +1,553 @@
+<title>InforIQ Event-to-Action Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  /* Layout: one reading column, with the diagram breaking out wide. The three whiteboard
+     marker inks (blue = data, green = events, red = rules) carry meaning everywhere. */
+  :root {
+    --bg: #f4f6f8; --surface: #ffffff; --surface-2: #eaeef2; --line: #d3dbe3;
+    --fg: #16202b; --muted: #566475;
+    --blue: #1c4fa6; --blue-soft: #e2ebfa;
+    --green: #0f7d55; --green-soft: #dcf2e8;
+    --red: #b8352a; --red-soft: #fbe5e2;
+    --amber: #8a5a00; --amber-soft: #fbeecf;
+    --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1217; --surface: #161c23; --surface-2: #1e2630; --line: #2d3744;
+      --fg: #e5eaf0; --muted: #98a6b7;
+      --blue: #7ea8ff; --blue-soft: #1a2944;
+      --green: #4fd0a0; --green-soft: #12302a;
+      --red: #ff8c7c; --red-soft: #3a1d1a;
+      --amber: #f0c36a; --amber-soft: #352b13;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1217; --surface: #161c23; --surface-2: #1e2630; --line: #2d3744;
+    --fg: #e5eaf0; --muted: #98a6b7;
+    --blue: #7ea8ff; --blue-soft: #1a2944;
+    --green: #4fd0a0; --green-soft: #12302a;
+    --red: #ff8c7c; --red-soft: #3a1d1a;
+    --amber: #f0c36a; --amber-soft: #352b13;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font: 17px/1.55 var(--f-body); margin: 0; }
+  .page { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 72px; display: grid; gap: 56px; }
+  .col { max-width: 760px; }
+  h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+  h1 { font-size: clamp(30px, 4.6vw, 48px); font-weight: 700; letter-spacing: -.01em; }
+  h2 { font-size: clamp(23px, 2.8vw, 30px); font-weight: 700; }
+  h3 { font-size: 18px; font-weight: 700; }
+  p { margin: 0; }
+  .eyebrow { font: 600 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .lead { font-size: 19px; color: var(--fg); max-width: 64ch; }
+  .muted { color: var(--muted); }
+  section { display: grid; gap: 20px; }
+  .head { display: grid; gap: 8px; }
+  .head p { max-width: 68ch; color: var(--muted); }
+
+  header.hero { display: grid; gap: 16px; }
+  .hero .ink { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 15px; color: var(--muted); }
+  .hero .ink span { display: inline-flex; align-items: center; gap: 8px; }
+  .sw { width: 22px; height: 4px; border-radius: 2px; display: inline-block; }
+  .sw.b { background: var(--blue); } .sw.g { background: var(--green); } .sw.r { background: var(--red); }
+  .theme { justify-self: start; font: 600 13px var(--f-body); padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+
+  /* ---------- diagram ---------- */
+  .board { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; display: grid; gap: 0; }
+  .board-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+  .seg button { font: 600 14px var(--f-body); padding: 7px 12px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+  .seg button:focus-visible, .theme:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .scroll { overflow-x: auto; padding: 8px 4px 4px; }
+  svg.arch { display: block; width: 100%; min-width: 980px; height: auto; font-family: var(--f-body); }
+  .arch .hdr { font: 700 14px var(--f-display); fill: var(--fg); }
+  .arch .hsub { font: 400 11.5px var(--f-mono); fill: var(--muted); letter-spacing: .02em; }
+  .arch .nm { font: 700 14px var(--f-body); fill: var(--fg); }
+  .arch .sb { font: 400 11.5px var(--f-mono); fill: var(--muted); }
+  .arch .lbl { font: 600 12px var(--f-body); fill: var(--muted); }
+  .arch .lbl.g { fill: var(--green); } .arch .lbl.r { fill: var(--red); } .arch .lbl.b { fill: var(--blue); }
+  .arch .region { fill: none; stroke-width: 1.5; stroke-dasharray: 6 6; }
+  .arch .region.idf { stroke: var(--blue); }
+  .arch .region.iq { stroke: var(--red); }
+  .arch .rtag { font: 600 12px var(--f-mono); letter-spacing: .06em; }
+  .arch .rtag.b { fill: var(--blue); } .arch .rtag.r { fill: var(--red); }
+  .arch .bnd { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 3 6; }
+  .arch .node { cursor: pointer; outline: none; }
+  .arch .node .box { fill: var(--surface); stroke-width: 1.6; transition: fill .15s; }
+  .arch .node.b .box { stroke: var(--blue); }
+  .arch .node.g .box { stroke: var(--green); }
+  .arch .node.r .box { stroke: var(--red); }
+  .arch .node.n .box { stroke: var(--muted); stroke-dasharray: 5 4; }
+  .arch .node.b:hover .box, .arch .node.b:focus-visible .box, .arch .node.b.sel .box { fill: var(--blue-soft); }
+  .arch .node.g:hover .box, .arch .node.g:focus-visible .box, .arch .node.g.sel .box { fill: var(--green-soft); }
+  .arch .node.r:hover .box, .arch .node.r:focus-visible .box, .arch .node.r.sel .box { fill: var(--red-soft); }
+  .arch .node.n:hover .box, .arch .node.n:focus-visible .box, .arch .node.n.sel .box { fill: var(--surface-2); }
+  .arch .node.sel .box { stroke-width: 3; }
+  .arch .node:focus-visible .box { stroke-width: 3; }
+  .arch .chip { fill: var(--surface-2); stroke: none; }
+  .arch .chiptx { font: 600 12.5px var(--f-mono); fill: var(--fg); }
+  .arch .e { fill: none; stroke-width: 1.8; transition: opacity .2s, stroke-width .2s; }
+  .arch .e.b { stroke: var(--blue); } .arch .e.g { stroke: var(--green); } .arch .e.r { stroke: var(--red); } .arch .e.n { stroke: var(--muted); stroke-dasharray: 6 5; }
+  .arch .ah.b { fill: var(--blue); } .arch .ah.g { fill: var(--green); } .arch .ah.r { fill: var(--red); } .arch .ah.n { fill: var(--muted); }
+  .arch .step circle { fill: var(--fg); }
+  .arch .step text { font: 700 11.5px var(--f-mono); fill: var(--bg); text-anchor: middle; }
+  .arch.trace .e, .arch.trace .node, .arch.trace .step { opacity: .22; }
+  .arch.trace .on { opacity: 1 !important; }
+  .arch.trace .e.on { stroke-width: 3.2; }
+  @media (prefers-reduced-motion: reduce) { .arch .e, .arch .node .box { transition: none; } }
+
+  .detail { border-top: 1px solid var(--line); padding: 18px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px 28px; }
+  .detail .who { display: grid; gap: 8px; align-content: start; }
+  .detail dl { margin: 0; display: grid; gap: 12px; }
+  .detail dt { font: 600 11.5px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .detail dd { margin: 4px 0 0; }
+  .board-mark { font: 600 13px var(--f-mono); color: var(--muted); }
+  .pill { display: inline-block; font: 600 12px var(--f-body); padding: 3px 9px; border-radius: 999px; justify-self: start; }
+  .pill.match { background: var(--green-soft); color: var(--green); }
+  .pill.differs { background: var(--amber-soft); color: var(--amber); }
+  .pill.board { background: var(--blue-soft); color: var(--blue); }
+  .pill.map { background: var(--surface-2); color: var(--muted); }
+  .trace-note { padding: 14px 18px; border-top: 1px solid var(--line); font-size: 15px; color: var(--muted); }
+  .trace-note b { color: var(--fg); }
+  .trace-note[hidden] { display: none; }
+
+  /* ---------- walkthrough ---------- */
+  ol.walk { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: s; }
+  ol.walk li { counter-increment: s; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding-block: 14px; border-top: 1px solid var(--line); }
+  ol.walk li::before { content: counter(s); font: 700 15px var(--f-mono); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--fg); color: var(--bg); }
+  ol.walk li div { display: grid; gap: 4px; min-width: 0; }
+  ol.walk .where { font: 600 12px var(--f-mono); letter-spacing: .04em; }
+  .where.b { color: var(--blue); } .where.g { color: var(--green); } .where.r { color: var(--red); } .where.n { color: var(--muted); }
+  .fork { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .fork > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 6px; align-content: start; }
+  .verdict { font: 700 14px var(--f-mono); letter-spacing: .04em; }
+  .verdict.yes { color: var(--green); } .verdict.esc { color: var(--amber); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ---------- tables ---------- */
+  .tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  th { font: 600 11.5px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
+  td.mark { font: 600 14px var(--f-mono); white-space: nowrap; }
+  td.mark.b { color: var(--blue); } td.mark.g { color: var(--green); } td.mark.r { color: var(--red); }
+
+  /* ---------- compare ---------- */
+  .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
+  .cmp { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 10px; align-content: start; }
+  .cmp .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 15px; }
+  .cmp .two > div { min-width: 0; }
+  .cmp .two b { display: block; font: 600 11px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .cmp .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+
+  ul.qs { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  ul.qs li { padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+  ul.qs code { font: 600 14px var(--f-mono); }
+  footer { font-size: 14px; color: var(--muted); display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 18px; }
+
+  @media (max-width: 720px) {
+    body { font-size: 16px; }
+    .page { padding-inline: 16px; gap: 44px; }
+    .detail { grid-template-columns: 1fr; }
+    .cmp .two { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="page">
+
+<header class="hero">
+  <div class="eyebrow">Architecture · from the whiteboard session</div>
+  <h1>InforIQ, from ERP change to governed action</h1>
+  <p class="lead">Data leaves Syteline, FT and CPQ, lands in the S3 data lake, is curated into Iceberg tables and shaped into the canonical model. Changes become events. ERX checks each event against the rules, then either lets an agent act or hands the decision to a person.</p>
+  <div class="ink">
+    <span><i class="sw b"></i>Blue ink: the data path</span>
+    <span><i class="sw g"></i>Green ink: events</span>
+    <span><i class="sw r"></i>Red ink: rules and the IQ boundary</span>
+  </div>
+  <button class="theme" id="theme" type="button">Switch theme</button>
+</header>
+
+<section id="diagram">
+  <div class="head">
+    <h2>The architecture</h2>
+    <p>Redrawn from the board and checked against the Infor IQ component map. Select any box to see what the board says, what it means, and how the component map describes it. Follow a PO to see which path it takes.</p>
+  </div>
+
+  <div class="board">
+    <div class="board-bar">
+      <div class="seg" id="seg" role="group" aria-label="Trace a purchase order">
+        <button type="button" data-t="none" aria-pressed="true">Whole system</button>
+        <button type="button" data-t="auto" aria-pressed="false">Follow PO 4521 ($8,000)</button>
+        <button type="button" data-t="review" aria-pressed="false">Follow PO 4540 ($78,000)</button>
+      </div>
+      <div class="legend">
+        <span><i style="background:var(--blue-soft);border:1.5px solid var(--blue)"></i>Data path</span>
+        <span><i style="background:var(--green-soft);border:1.5px solid var(--green)"></i>Events</span>
+        <span><i style="background:var(--red-soft);border:1.5px solid var(--red)"></i>Rules and decisions</span>
+        <span><i style="background:var(--surface-2);border:1.5px dashed var(--muted)"></i>Not on the board, added from the map</span>
+      </div>
+    </div>
+
+    <div class="scroll">
+    <svg class="arch" id="arch" viewBox="0 0 1240 660" role="img" aria-labelledby="arch-t arch-d">
+      <title id="arch-t">InforIQ architecture diagram</title>
+      <desc id="arch-d">Syteline, FT and CPQ feed raw tables in the S3 data lake, then Iceberg tables, then the canonical model with purchase orders and sales orders. Canonical changes and producers (DEV, FDE, CUST) feed the event hub. Events go to ERX inside Infor IQ, which evaluates rules, escalates to human review when needed, and authorises an agent. The agent acts through ERP MCP tools back on the source ERP.</desc>
+      <defs>
+        <marker id="m-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah b" d="M0,0 L10,5 L0,10 z"/></marker>
+        <marker id="m-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah g" d="M0,0 L10,5 L0,10 z"/></marker>
+        <marker id="m-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah r" d="M0,0 L10,5 L0,10 z"/></marker>
+        <marker id="m-n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah n" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+
+      <!-- column headers -->
+      <g text-anchor="middle">
+        <text class="hdr" x="80" y="30">Sources</text><text class="hsub" x="80" y="47">CloudSuite ERPs</text>
+        <text class="hdr" x="258" y="30">S3 data lake</text><text class="hsub" x="258" y="47">raw · slow</text>
+        <text class="hdr" x="414" y="30">Iceberg tables</text><text class="hsub" x="414" y="47">curated · faster</text>
+        <text class="hdr" x="587" y="30">Canonical model</text><text class="hsub" x="587" y="47">read via Compass</text>
+        <text class="hdr" x="765" y="30">Event hub</text><text class="hsub" x="765" y="47">delta changes</text>
+        <text class="hdr" x="985" y="30">Infor IQ</text><text class="hsub" x="985" y="47">rules · ERX · HITL</text>
+        <text class="hdr" x="1170" y="30">Agent</text><text class="hsub" x="1170" y="47">acts</text>
+      </g>
+
+      <!-- regions -->
+      <rect class="region idf" x="182" y="66" width="670" height="380" rx="14"/>
+      <text class="rtag b" x="198" y="434">INFOR DATA FABRIC</text>
+      <rect class="region iq" x="884" y="66" width="202" height="430" rx="14"/>
+      <text class="rtag r" x="898" y="486">INFOR IQ</text>
+      <line class="bnd" x1="168" y1="120" x2="168" y2="430"/>
+      <text class="lbl" x="168" y="112" text-anchor="middle">extract</text>
+
+      <!-- edges: data path -->
+      <g id="edges">
+        <path class="e b" data-p="auto review" d="M140,180 H194" marker-end="url(#m-b)"/>
+        <path class="e b" d="M140,280 H194" marker-end="url(#m-b)"/>
+        <path class="e b" d="M140,380 H194" marker-end="url(#m-b)"/>
+        <path class="e b" data-p="auto review" d="M320,180 H350" marker-end="url(#m-b)"/>
+        <path class="e b" d="M320,280 H350" marker-end="url(#m-b)"/>
+        <path class="e b" d="M320,380 H350" marker-end="url(#m-b)"/>
+        <path class="e b" data-p="auto review" d="M476,180 H510" marker-end="url(#m-b)"/>
+        <path class="e b" d="M476,280 H510" marker-end="url(#m-b)"/>
+        <path class="e b" d="M476,380 H510" marker-end="url(#m-b)"/>
+        <!-- canonical -> rules (SQL via Compass) -->
+        <path class="e b" data-p="auto review" d="M587,138 V112 H898" marker-end="url(#m-b)"/>
+        <!-- canonical -> events -->
+        <path class="e g" data-p="auto review" d="M662,280 H698" marker-end="url(#m-g)"/>
+        <!-- producers -> events -->
+        <path class="e g" d="M680,500 C680,440 735,410 750,354" marker-end="url(#m-g)"/>
+        <path class="e g" d="M770,500 V354" marker-end="url(#m-g)"/>
+        <path class="e g" d="M860,500 C860,440 800,410 785,354" marker-end="url(#m-g)"/>
+        <!-- events -> ERX -->
+        <path class="e g" data-p="auto review" d="M830,280 H895" marker-end="url(#m-g)"/>
+        <!-- ERX <-> rules -->
+        <path class="e r" data-p="auto review" d="M985,216 V170" marker-start="url(#m-r)" marker-end="url(#m-r)"/>
+        <!-- ERX <-> HITL -->
+        <path class="e r" data-p="review" d="M985,344 V418" marker-start="url(#m-r)" marker-end="url(#m-r)"/>
+        <!-- ERX -> agent -->
+        <path class="e b" data-p="auto" d="M1073,280 H1128" marker-end="url(#m-b)"/>
+        <!-- HITL -> agent (approved by a person) -->
+        <path class="e b" data-p="review" d="M1055,432 H1080 Q1120,432 1140,310" marker-end="url(#m-b)"/>
+        <!-- agent -> ERP MCP -> back to sources -->
+        <path class="e n" data-p="auto review" d="M1170,322 V416" marker-end="url(#m-n)"/>
+        <path class="e n" data-p="auto review" d="M1170,462 V612 H80 V414" marker-end="url(#m-n)"/>
+      </g>
+
+      <!-- edge labels -->
+      <text class="lbl b" x="608" y="104">SQL via Compass, run as the caller</text>
+      <text class="lbl g" x="864" y="270" text-anchor="middle">events</text>
+      <text class="lbl r" x="996" y="198">evaluate</text>
+      <text class="lbl r" x="996" y="386">escalate</text>
+      <text class="lbl b" x="1101" y="270" text-anchor="middle">allow</text>
+      <text class="lbl b" x="1080" y="414" text-anchor="middle">approved</text>
+      <text class="lbl" x="625" y="634" text-anchor="middle">The agent acts through ERP MCP tools. The ERP stays the final arbiter.</text>
+      <text class="lbl g" x="770" y="574" text-anchor="middle">who defines and subscribes to events</text>
+
+      <!-- step badges -->
+      <g class="step" data-p="auto review"><circle cx="168" cy="160" r="11"/><text x="168" y="164">1</text></g>
+      <g class="step" data-p="auto review"><circle cx="336" cy="160" r="11"/><text x="336" y="164">2</text></g>
+      <g class="step" data-p="auto review"><circle cx="494" cy="160" r="11"/><text x="494" y="164">3</text></g>
+      <g class="step" data-p="auto review"><circle cx="681" cy="258" r="11"/><text x="681" y="262">4</text></g>
+      <g class="step" data-p="auto review"><circle cx="864" cy="300" r="11"/><text x="864" y="304">5</text></g>
+      <g class="step" data-p="auto"><circle cx="1101" cy="300" r="11"/><text x="1101" y="304">6</text></g>
+      <g class="step" data-p="review"><circle cx="964" cy="381" r="11"/><text x="964" y="385">6</text></g>
+
+      <!-- nodes -->
+      <g class="node b" data-id="syteline" data-p="auto review" tabindex="0" role="button" aria-label="Syteline">
+        <rect class="box" x="20" y="150" width="120" height="60" rx="8"/>
+        <text class="nm" x="80" y="176" text-anchor="middle">Syteline</text><text class="sb" x="80" y="195" text-anchor="middle">CSI · POs, SOs</text></g>
+      <g class="node b" data-id="ft" tabindex="0" role="button" aria-label="FT">
+        <rect class="box" x="20" y="250" width="120" height="60" rx="8"/>
+        <text class="nm" x="80" y="276" text-anchor="middle">FT</text><text class="sb" x="80" y="295" text-anchor="middle">app database</text></g>
+      <g class="node b" data-id="cpq" tabindex="0" role="button" aria-label="CPQ">
+        <rect class="box" x="20" y="350" width="120" height="60" rx="8"/>
+        <text class="nm" x="80" y="376" text-anchor="middle">CPQ</text><text class="sb" x="80" y="395" text-anchor="middle">quotes</text></g>
+
+      <g class="node b" data-id="s3" data-p="auto review" tabindex="0" role="button" aria-label="S3 data lake">
+        <rect class="box" x="196" y="150" width="124" height="60" rx="8"/>
+        <text class="nm" x="258" y="176" text-anchor="middle">Syteline raw</text><text class="sb" x="258" y="195" text-anchor="middle">S3 · batch</text></g>
+      <g class="node b" data-id="s3" tabindex="0" role="button" aria-label="S3 data lake, FT">
+        <rect class="box" x="196" y="250" width="124" height="60" rx="8"/>
+        <text class="nm" x="258" y="276" text-anchor="middle">FT raw</text><text class="sb" x="258" y="295" text-anchor="middle">S3 · batch</text></g>
+      <g class="node b" data-id="s3" tabindex="0" role="button" aria-label="S3 data lake, CPQ">
+        <rect class="box" x="196" y="350" width="124" height="60" rx="8"/>
+        <text class="nm" x="258" y="376" text-anchor="middle">CPQ raw</text><text class="sb" x="258" y="395" text-anchor="middle">S3 · batch</text></g>
+
+      <g class="node b" data-id="ice" data-p="auto review" tabindex="0" role="button" aria-label="Iceberg tables">
+        <rect class="box" x="352" y="150" width="124" height="60" rx="8"/>
+        <text class="nm" x="414" y="176" text-anchor="middle">Syteline</text><text class="sb" x="414" y="195" text-anchor="middle">Iceberg</text></g>
+      <g class="node b" data-id="ice" tabindex="0" role="button" aria-label="Iceberg tables, FT">
+        <rect class="box" x="352" y="250" width="124" height="60" rx="8"/>
+        <text class="nm" x="414" y="276" text-anchor="middle">FT</text><text class="sb" x="414" y="295" text-anchor="middle">Iceberg</text></g>
+      <g class="node b" data-id="ice" tabindex="0" role="button" aria-label="Iceberg tables, CPQ">
+        <rect class="box" x="352" y="350" width="124" height="60" rx="8"/>
+        <text class="nm" x="414" y="376" text-anchor="middle">CPQ</text><text class="sb" x="414" y="395" text-anchor="middle">Iceberg</text></g>
+
+      <g class="node b" data-id="canonical" data-p="auto review" tabindex="0" role="button" aria-label="Canonical model">
+        <rect class="box" x="512" y="140" width="150" height="270" rx="10"/>
+        <text class="nm" x="587" y="166" text-anchor="middle">Canonical entities</text>
+        <rect class="chip" x="530" y="182" width="114" height="32" rx="6"/><text class="chiptx" x="587" y="203" text-anchor="middle">PO</text>
+        <rect class="chip" x="530" y="222" width="114" height="32" rx="6"/><text class="chiptx" x="587" y="243" text-anchor="middle">SO</text>
+        <rect class="chip" x="530" y="262" width="114" height="32" rx="6"/><text class="chiptx" x="587" y="283" text-anchor="middle">Vendor</text>
+        <rect class="chip" x="530" y="302" width="114" height="32" rx="6"/><text class="chiptx" x="587" y="323" text-anchor="middle">Item</text>
+        <rect class="chip" x="530" y="342" width="114" height="32" rx="6"/><text class="chiptx" x="587" y="363" text-anchor="middle">Quote</text>
+        <text class="sb" x="587" y="398" text-anchor="middle">one shape, all sources</text></g>
+
+      <g class="node g" data-id="events" data-p="auto review" tabindex="0" role="button" aria-label="Event hub">
+        <rect class="box" x="700" y="208" width="130" height="144" rx="44"/>
+        <text class="nm" x="765" y="274" text-anchor="middle">Event hub</text><text class="sb" x="765" y="294" text-anchor="middle">PO.changed</text><text class="sb" x="765" y="310" text-anchor="middle">SO.created …</text></g>
+
+      <g class="node g" data-id="dev" tabindex="0" role="button" aria-label="DEV">
+        <rect class="box" x="640" y="500" width="80" height="44" rx="8"/><text class="nm" x="680" y="527" text-anchor="middle">DEV</text></g>
+      <g class="node g" data-id="fde" tabindex="0" role="button" aria-label="FDE">
+        <rect class="box" x="730" y="500" width="80" height="44" rx="8"/><text class="nm" x="770" y="527" text-anchor="middle">FDE</text></g>
+      <g class="node g" data-id="cust" tabindex="0" role="button" aria-label="CUST">
+        <rect class="box" x="820" y="500" width="80" height="44" rx="8"/><text class="nm" x="860" y="527" text-anchor="middle">CUST</text></g>
+
+      <g class="node r" data-id="rules" data-p="auto review" tabindex="0" role="button" aria-label="Rules and ontology">
+        <rect class="box" x="900" y="96" width="170" height="72" rx="10"/>
+        <text class="nm" x="985" y="126" text-anchor="middle">Rules ✱</text><text class="sb" x="985" y="146" text-anchor="middle">ontology · Drools</text></g>
+
+      <g class="node r" data-id="erx" data-p="auto review" tabindex="0" role="button" aria-label="ERX">
+        <ellipse class="box" cx="985" cy="280" rx="88" ry="62"/>
+        <text class="nm" x="985" y="276" text-anchor="middle" style="font-size:18px">ERX</text><text class="sb" x="985" y="296" text-anchor="middle">decide on each event</text></g>
+
+      <g class="node r" data-id="hitl" data-p="review" tabindex="0" role="button" aria-label="Human in the loop">
+        <rect class="box" x="915" y="420" width="140" height="56" rx="8"/>
+        <text class="nm" x="985" y="444" text-anchor="middle">HITL</text><text class="sb" x="985" y="463" text-anchor="middle">human review</text></g>
+
+      <g class="node b" data-id="agent" data-p="auto review" tabindex="0" role="button" aria-label="Agent">
+        <circle class="box" cx="1170" cy="280" r="40"/>
+        <text class="nm" x="1170" y="285" text-anchor="middle" style="font-size:18px">A</text></g>
+      <text class="sb" x="1170" y="236" text-anchor="middle">AI agent</text>
+
+      <g class="node n" data-id="erpmcp" data-p="auto review" tabindex="0" role="button" aria-label="ERP MCP tools">
+        <rect class="box" x="1115" y="418" width="110" height="44" rx="8"/>
+        <text class="nm" x="1170" y="445" text-anchor="middle">ERP MCP</text></g>
+    </svg>
+    </div>
+
+    <p class="trace-note" id="trace-note" hidden></p>
+
+    <div class="detail" id="detail" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="walk">
+  <div class="head">
+    <h2>One purchase order, start to finish</h2>
+    <p>The numbers match the steps in the diagram. The rule is the one from the component map's dry run: an agent may approve up to $10,000 when the vendor's risk score is below 3. PO numbers, vendors and amounts are illustrative.</p>
+  </div>
+  <ol class="walk col">
+    <li><div><span class="where b">Syteline → S3 data lake</span><h3>A buyer changes PO 4521 in Syteline</h3><p>The extract lands the changed rows in the raw S3 zone. This store is complete and cheap, and slow to query, so nothing reasons over it directly.</p></div></li>
+    <li><div><span class="where b">S3 → Iceberg tables</span><h3>The rows are curated into an Iceberg table</h3><p>Iceberg gives versioned snapshots and fast reads. Each commit is a point in time the next layers can rely on.</p></div></li>
+    <li><div><span class="where b">Iceberg → canonical model</span><h3>The canonical PO entity updates</h3><p>Syteline, FT and CPQ each name things differently. The canonical model gives one PO, one SO and one vendor shape. IQ reads only this, through Compass, as the person or agent asking.</p></div></li>
+    <li><div><span class="where g">Canonical model → event hub</span><h3><span class="num">PO.changed</span> is published</h3><p>The event goes out after the commit, so the change is already queryable when someone reacts to it. The component map lists this guarantee as still awaiting IDF's confirmation.</p></div></li>
+    <li><div><span class="where r">Event hub → ERX ↔ rules</span><h3>ERX evaluates the event against the rules</h3><p>The rules and ontology define what "open", "at risk" and "within the agent limit" mean. ERX records the decision before it replies. The outcome is AUTHORIZED, DENIED or REQUIRES_ESCALATION.</p></div></li>
+    <li><div><span class="where n">ERX → agent → ERP MCP, or ERX → HITL</span><h3>The PO takes one of two paths</h3><p>IQ never changes the ERP itself. An authorised agent acts through ERP MCP tools. Anything outside the agent's limits goes to a person first.</p></div></li>
+  </ol>
+  <div class="fork">
+    <div>
+      <span class="eyebrow">PO 4521 · Acme</span>
+      <p class="num">$8,000 · vendor risk 2</p>
+      <span class="verdict yes">AUTHORIZED</span>
+      <p class="muted">Under the $10,000 agent limit and below risk 3. The agent approves the PO through ERP MCP tools. The ERP can still refuse.</p>
+    </div>
+    <div>
+      <span class="eyebrow">PO 4540 · Gamma</span>
+      <p class="num">$78,000 · vendor risk 2</p>
+      <span class="verdict esc">REQUIRES_ESCALATION</span>
+      <p class="muted">Over the agent limit and over the purchasing manager's $50,000. It goes to HITL for the VP of procurement. Once approved, the agent carries it out.</p>
+    </div>
+  </div>
+</section>
+
+<section id="read">
+  <div class="head">
+    <h2>Reading the board</h2>
+    <p>Every mark on the whiteboard, and how this page interprets it. Interpretations are flagged so they can be corrected.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>On the board</th><th>What it shows</th><th>Read as</th></tr></thead>
+    <tbody>
+      <tr><td class="mark b">Syteline · FT · CPQ</td><td>Three database cylinders on the left</td><td>The source ERP and application databases. Syteline is CloudSuite Industrial. FT is not expanded on the board.</td></tr>
+      <tr><td class="mark b">Vertical dashed line</td><td>Separates the sources from everything else</td><td>The extract boundary. Sources stay the system of record. Everything to the right is a copy.</td></tr>
+      <tr><td class="mark b">DL · S3 · Slow</td><td>One cylinder per source</td><td>Raw landing zone in the data lake on S3. Complete, but slow to query.</td></tr>
+      <tr><td class="mark b">Iceberg tables · Faster</td><td>Second cylinder per source</td><td>Curated Iceberg tables. Versioned and fast enough to serve the next layer.</td></tr>
+      <tr><td class="mark b">Canonical Model ↑</td><td>Arrow up from the Iceberg tables</td><td>One standard shape for entities across all sources.</td></tr>
+      <tr><td class="mark b">PO · SO</td><td>Dashed arrows off the Syteline Iceberg table</td><td>The first canonical entities: purchase orders and sales orders.</td></tr>
+      <tr><td class="mark r">Red dashed arc</td><td>Curves from the data lake around the Iceberg tables up to the rules</td><td>Interpretation: the scope IQ reasons over, from canonical data to rules.</td></tr>
+      <tr><td class="mark g">Event (green)</td><td>Hub collecting arrows from all three Iceberg tables</td><td>The event hub. Data changes become events.</td></tr>
+      <tr><td class="mark g">DEV · FDE · CUST</td><td>Green branch feeding the event hub from below</td><td>Interpretation: developers, forward-deployed engineers and customers define and subscribe to events.</td></tr>
+      <tr><td class="mark g">Events →</td><td>Green arrow from the hub into ERX</td><td>ERX is driven by events.</td></tr>
+      <tr><td class="mark r">Rules ✱</td><td>Red bubble with a star, two-way arrow to ERX</td><td>Rules and ontology. The star marks it as the key piece. ERX consults it on every decision.</td></tr>
+      <tr><td class="mark b">ERX</td><td>Large circle on the right</td><td>Interpretation: the decision point for each event. The board does not expand the name.</td></tr>
+      <tr><td class="mark b">HITL</td><td>Line down from ERX</td><td>Human in the loop: people decide what ERX will not.</td></tr>
+      <tr><td class="mark b">→ A</td><td>Arrow from ERX to a small circle</td><td>The agent that carries out the action.</td></tr>
+      <tr><td class="mark b">DONS · MATE</td><td>Above ERX, and cut off at the bottom right</td><td>Not readable with confidence. Listed under open questions.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="compare">
+  <div class="head">
+    <h2>Board and component map, side by side</h2>
+    <p>The component map summarises the ratified design (ADR-001, August 2026). Where the two disagree, the map is the current design and the board is the direction under discussion.</p>
+  </div>
+  <div class="compare">
+    <div class="cmp"><div class="top"><h3>Where data comes from</h3><span class="pill differs">Differs</span></div>
+      <div class="two"><div><b>Board</b>S3 data lake, then Iceberg tables, then the canonical model.</div><div><b>Component map</b>The data warehouse is the only canonical source today. Data Lake and Data Lake+ come later.</div></div></div>
+    <div class="cmp"><div class="top"><h3>First product</h3><span class="pill differs">Differs</span></div>
+      <div class="two"><div><b>Board</b>Syteline, FT and CPQ.</div><div><b>Component map</b>CSD goes first, over the CSD warehouse.</div></div></div>
+    <div class="cmp"><div class="top"><h3>How IQ reads data</h3><span class="pill match">Matches</span></div>
+      <div class="two"><div><b>Board</b>Rules read the canonical model, never the source databases.</div><div><b>Component map</b>Compass SQL over canonical datasets, run under the caller's identity.</div></div></div>
+    <div class="cmp"><div class="top"><h3>What triggers work</h3><span class="pill match">Matches</span></div>
+      <div class="two"><div><b>Board</b>Changes flow through the event hub into ERX.</div><div><b>Component map</b>IDF delta-change events trigger agents. Event-after-commit is still unconfirmed.</div></div></div>
+    <div class="cmp"><div class="top"><h3>Rules</h3><span class="pill match">Matches</span></div>
+      <div class="two"><div><b>Board</b>A separate rules store that ERX consults both ways.</div><div><b>Component map</b>Ontology in Fuseki, with Drools for rules and SHACL for constraints, inside iiq-ontology.</div></div></div>
+    <div class="cmp"><div class="top"><h3>Who acts</h3><span class="pill differs">Differs in emphasis</span></div>
+      <div class="two"><div><b>Board</b>ERX hands off to the agent.</div><div><b>Component map</b>IQ only authorises. The agent acts through ERP MCP tools, and nothing yet proves to the ERP that IQ approved (signed token deferred, IIQ-196).</div></div></div>
+    <div class="cmp"><div class="top"><h3>Human review</h3><span class="pill board">Board adds detail</span></div>
+      <div class="two"><div><b>Board</b>HITL is a named part of the design.</div><div><b>Component map</b>REQUIRES_ESCALATION exists as an outcome, but when escalation applies is not defined.</div></div></div>
+    <div class="cmp"><div class="top"><h3>Who shapes the model</h3><span class="pill board">Board adds detail</span></div>
+      <div class="two"><div><b>Board</b>DEV, FDE and CUST feed the event hub.</div><div><b>Component map</b>CloudSuite teams deliver product ontologies. Stewards curate each tenant's overlay.</div></div></div>
+  </div>
+</section>
+
+<section id="open">
+  <div class="head">
+    <h2>Open questions</h2>
+    <p>Confirm these with whoever drew the board before this page is shared further.</p>
+  </div>
+  <ul class="qs col">
+    <li><code>ERX</code> What does it stand for, and is it the same thing as IQ's authorise service, or a separate runtime that calls it?</li>
+    <li><code>FT</code> Which application is this?</li>
+    <li><code>DONS</code> The word above ERX. Is it a team, a system, or a label for that area?</li>
+    <li><code>MATE</code> Cut off at the bottom right. What does it connect to?</li>
+    <li><code>Iceberg</code> Does the board mean Iceberg replaces the data warehouse as IQ's canonical source, and on what timeline?</li>
+    <li><code>HITL</code> Which outcomes go to a person, and where do they review them: the Data Fabric UI, or a review center?</li>
+  </ul>
+</section>
+
+<footer>
+  <span>Sources: the whiteboard photo from the architecture session, and the Infor IQ Component Map (an unofficial summary of the IIQ and IDFADS wiki spaces).</span>
+  <span>Not an official design document. Readings marked "interpretation" are this page's, not the board author's.</span>
+</footer>
+</div>
+
+<script>
+const ST = { match: 'Matches component map', differs: 'Differs from component map', board: 'Board only', map: 'Added from the component map' };
+const N = {
+  syteline: { name: 'Syteline', mark: 'Syteline (blue cylinder)', st: 'differs',
+    what: 'Infor CloudSuite Industrial. The system of record for purchase and sales orders on the board.',
+    map: 'CSI is one of the CloudSuites whose app team delivers an ontology. The component map says CSD goes first, so starting with Syteline is a sequencing change.' },
+  ft: { name: 'FT', mark: 'FT (small cylinder)', st: 'board',
+    what: 'A second source application database. The board does not expand the name.',
+    map: 'Not named in the component map.' },
+  cpq: { name: 'CPQ', mark: 'CPQ (cylinder)', st: 'board',
+    what: 'Configure, price, quote. The source of quotes that turn into sales orders.',
+    map: 'Not named in the component map.' },
+  s3: { name: 'S3 data lake', mark: 'DL · S3 · Slow', st: 'differs',
+    what: 'The raw landing zone. One area per source, batch loaded. Complete and cheap, and too slow to reason over directly.',
+    map: 'Data Lake is listed as a later canonical source. Today the data warehouse is the only one.' },
+  ice: { name: 'Iceberg tables', mark: 'Iceberg tables · Faster', st: 'board',
+    what: 'Curated, versioned tables built from the raw zone. Fast reads and point-in-time snapshots.',
+    map: 'Iceberg is not named. The closest entry is Data Lake+ / Delta Lake, listed as later.' },
+  canonical: { name: 'Canonical model', mark: 'Canonical Model · PO · SO', st: 'match',
+    what: 'One standard shape for each business entity, whichever source it came from. PO and SO are drawn first.',
+    map: 'Canonical datasets in Infor Data Fabric, read through Compass SQL. Compass applies the caller\'s dataset, row and column security. Column masking is unconfirmed.' },
+  events: { name: 'Event hub', mark: 'Event (green blob)', st: 'match',
+    what: 'Collects changes from the canonical layer and from the producers below, and passes them to ERX.',
+    map: 'IDF delta-change events trigger autonomous agents. The event-after-commit guarantee still needs IDF\'s confirmation.' },
+  dev: { name: 'DEV', mark: 'DEV (green, bottom)', st: 'board',
+    what: 'Interpretation: product developers who define events and their meaning.',
+    map: 'CloudSuite app teams deliver each product ontology, identity patterns and join metadata.' },
+  fde: { name: 'FDE', mark: 'FDE (green, bottom)', st: 'board',
+    what: 'Interpretation: forward-deployed engineers who add events for a specific customer.',
+    map: 'No direct equivalent. Closest is tenant-specific additions in the overlay.' },
+  cust: { name: 'CUST', mark: 'CUST (green, bottom)', st: 'board',
+    what: 'Interpretation: customers who subscribe to events or name their own fields.',
+    map: 'Stewards curate the tenant overlay: labels, hierarchy, exposed properties and business definitions.' },
+  rules: { name: 'Rules and ontology', mark: 'Rules ✱ (red bubble)', st: 'match',
+    what: 'What business terms mean and which rules apply. ERX consults it on every decision. The star marks it as the key piece.',
+    map: 'iiq-ontology holds Core, product and tenant layers. Jena ARQ evaluates queries, Drools runs rules, SHACL checks constraints. Tenant rule overrides are concept only.' },
+  erx: { name: 'ERX', mark: 'ERX (large circle)', st: 'differs',
+    what: 'The decision point. It takes each event, checks it against the rules and decides: let the agent act, deny, or escalate to a person.',
+    map: 'The nearest match is /action/authorize, which returns AUTHORIZED, DENIED or REQUIRES_ESCALATION and records the decision first. IQ authorises but never executes. The name ERX is not in the map.' },
+  hitl: { name: 'Human in the loop', mark: 'HITL (below ERX)', st: 'board',
+    what: 'A person reviews what ERX will not decide alone, such as a PO above every automatic limit.',
+    map: 'REQUIRES_ESCALATION is a defined outcome. When escalation applies is not defined in the pages reviewed.' },
+  agent: { name: 'Agent', mark: '→ A (small circle)', st: 'match',
+    what: 'The AI agent that carries out an allowed action.',
+    map: 'Infor GenAI Assistant and Supervisor Agent, with AI Studio as a proposed consumer.' },
+  erpmcp: { name: 'ERP MCP tools', mark: 'Not on the board', st: 'map',
+    what: 'How the agent actually changes the ERP. Added so the loop back to the source is visible.',
+    map: 'The agent runs the action through these tools, outside IQ and IDF. The ERP stays the final arbiter. A signed decision token is deferred (IIQ-196).' }
+};
+const TRACE = {
+  auto: '<b>PO 4521, $8,000, vendor risk 2.</b> Steps 1 to 5 carry the change to ERX. The rules allow it, so in step 6 the agent approves the PO through ERP MCP tools.',
+  review: '<b>PO 4540, $78,000, vendor risk 2.</b> Steps 1 to 5 are the same. The amount is over every automatic limit, so in step 6 ERX escalates to HITL. Once a person approves, the agent carries it out.'
+};
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const svg = $('#arch');
+
+function show(id) {
+  const n = N[id]; if (!n) return;
+  svg.querySelectorAll('.node').forEach(g => g.classList.toggle('sel', g.dataset.id === id));
+  $('#detail').innerHTML = `<div class="who"><span class="board-mark">On the board: ${esc(n.mark)}</span><h3 style="font-size:22px">${esc(n.name)}</h3><span class="pill ${n.st}">${esc(ST[n.st])}</span></div>
+    <dl><div><dt>What it does</dt><dd>${esc(n.what)}</dd></div><div><dt>In the component map</dt><dd>${esc(n.map)}</dd></div></dl>`;
+}
+svg.querySelectorAll('.node').forEach(g => {
+  g.addEventListener('click', () => show(g.dataset.id));
+  g.addEventListener('focus', () => show(g.dataset.id));
+  g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(g.dataset.id); } });
+});
+
+$('#seg').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+  $('#seg').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  const t = b.dataset.t, note = $('#trace-note');
+  svg.classList.toggle('trace', t !== 'none');
+  svg.querySelectorAll('[data-p]').forEach(el => el.classList.toggle('on', t !== 'none' && el.dataset.p.split(' ').includes(t)));
+  note.hidden = t === 'none';
+  if (t !== 'none') { note.innerHTML = TRACE[t]; show(t === 'auto' ? 'agent' : 'hitl'); }
+}));
+
+$('#theme').addEventListener('click', () => {
+  const r = document.documentElement;
+  const dark = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  r.dataset.theme = dark ? 'light' : 'dark';
+});
+show('erx');
+</script>
