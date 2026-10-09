@@ -382,7 +382,13 @@
   /* flows */
   .flows { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
   .flow { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); min-width: 0; }
-  .flow:nth-child(1) { --c: var(--s6); } .flow:nth-child(2) { --c: var(--s1); } .flow:nth-child(3) { --c: var(--s5); }
+  /* Flow cards keep the original component-map look in both themes: white card, blue accent */
+  .flow { --surface: #ffffff; --line: #d8dee8; --fg: #18202c; --muted: #596678; --c: #1f5fd1; --purple-soft: #e3edfc; --purple: #1f5fd1;
+          background: #ffffff; color: #18202c; border-color: #d8dee8; box-shadow: 0 1px 2px rgba(20,30,50,.06), 0 6px 20px rgba(20,30,50,.06); }
+  .flow header h3 { color: #18202c !important; }
+  .flow ol.tl li::before { border-radius: 50%; background: #1f5fd1; }
+  .flow ol.tl li::after { background: #d8dee8; }
+  .flow .pill, .flow .pill.gold, .flow .pill.vio, .flow .pill.grn { background: #e3edfc; color: #1f5fd1; }
   .flow header { border-bottom: 1px solid var(--line); margin-bottom: 14px; padding-bottom: 10px; display: grid; gap: 4px; }
   .flow header h3 { color: var(--c); }
   .flow header small { color: var(--muted); }
