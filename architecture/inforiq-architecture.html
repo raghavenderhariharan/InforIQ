@@ -79,7 +79,8 @@
   .eyebrow::before { content: ""; width: 30px; height: 3px; border-radius: 2px; background: var(--grad); }
 
   /* ---------- hero ---------- */
-  header.hero { display: grid; gap: 18px; padding-block: clamp(40px, 7vw, 84px) clamp(44px, 6vw, 72px); }
+  header.hero { display: grid; gap: 18px; padding-block: clamp(40px, 7vw, 84px) clamp(20px, 3vw, 32px); }
+  header.hero + section { border-top: 0; padding-top: 0; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip { font: 500 .72rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; padding: 7px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: var(--surface); }
   .chip.red { color: var(--red); border-color: color-mix(in srgb, var(--red) 40%, var(--line)); }
