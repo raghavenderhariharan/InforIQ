@@ -92,7 +92,7 @@
   .theme { flex: none; display: inline-flex; align-items: center; gap: 8px; font: 500 .8rem/1 var(--f-body); color: var(--fg); background: var(--glass); border: 1px solid var(--btn-line); border-radius: 999px; padding: 7px 12px 7px 9px; cursor: pointer; }
   .theme:hover { border-color: var(--purple); }
   .theme svg { width: 16px; height: 16px; }
-  @media (max-width: 900px) { .toplinks { display: none; } .theme { margin-left: auto; } }
+  @media (max-width: 1180px) { .toplinks { display: none; } .theme { margin-left: auto; } }
   @media (max-width: 460px) { .brand-sub { display: none; } }
 
   /* ---------- page + sections ---------- */
@@ -203,12 +203,12 @@
 
   /* ---------- tables ---------- */
   .tbl { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
-  table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: .95rem; }
-  th, td { text-align: left; vertical-align: top; padding: 12px 16px; border-bottom: 1px solid var(--line); }
-  tr:last-child td { border-bottom: 0; }
-  th { font: 500 .72rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
-  td { color: var(--muted); }
-  td:last-child { color: var(--fg); }
+  .tbl table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: .95rem; }
+  .tbl th, .tbl td { text-align: left; vertical-align: top; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .tbl tr:last-child td { border-bottom: 0; }
+  .tbl th { font: 500 .72rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
+  .tbl td { color: var(--muted); }
+  .tbl td:last-child { color: var(--fg); }
   td.mark { font: 500 .88rem/1.4 var(--f-mono); white-space: nowrap; }
   td.mark.b { color: var(--blue); } td.mark.g { color: var(--green); } td.mark.r { color: var(--red); }
 
@@ -227,13 +227,167 @@
   ul.qs code { font: 600 .9rem var(--f-mono); color: var(--magenta); margin-right: 6px; }
   footer { font: 400 .78rem/1.5 var(--f-mono); color: var(--muted); display: grid; gap: 6px; border-top: 1px solid var(--hair); padding-top: 22px; }
 
+
+  /* ---------- component-map content (KYR look) ---------- */
+  .sub { color: var(--muted); max-width: 66ch; font-size: 1.08rem; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; box-shadow: var(--shadow); display: grid; gap: 12px; align-content: start; min-width: 0; }
+  .card p { color: var(--muted); }
+  .card p b { color: var(--fg); }
+  .what { display: grid; gap: 14px; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+  @media (max-width: 900px) { .what { grid-template-columns: 1fr; } }
+  .def { font: 600 clamp(1.2rem, 2.2vw, 1.5rem)/1.35 var(--f-display); color: var(--fg) !important; letter-spacing: -.01em; }
+  .three { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+  .three div { background: var(--surface-2); border-radius: 12px; padding: 12px 14px; font-size: .9rem; color: var(--muted); box-shadow: inset 0 3px 0 var(--c); }
+  .three div:nth-child(1) { --c: var(--s1); } .three div:nth-child(2) { --c: var(--s2); } .three div:nth-child(3) { --c: var(--s3); }
+  .three b { display: block; color: var(--fg); margin-bottom: 4px; }
+  .isnot { display: flex; flex-wrap: wrap; gap: 8px; }
+  .isnot span { background: var(--glass); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: .85rem; }
+  .isnot span b { color: var(--red); margin-right: 4px; }
+  .ask { font: 600 1.05rem/1.4 var(--f-display); color: var(--fg); }
+  .bigask { background: linear-gradient(135deg, #460DAF, #7B45F0 60%, #C2137F); color: #fff; border-radius: 14px 14px 14px 4px; padding: 14px 18px; justify-self: start; max-width: 100%; }
+  .ba { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 760px) { .ba { grid-template-columns: 1fr; } }
+  .ba .card { box-shadow: inset 0 4px 0 var(--red), var(--shadow); } .ba .card.yes { box-shadow: inset 0 4px 0 var(--ok), var(--shadow); }
+  .ba ul { margin: 0; padding-left: 20px; font-size: .95rem; color: var(--muted); display: grid; gap: 5px; }
+  .ba .tagline { font: 500 .74rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--red); } .ba .yes .tagline { color: var(--ok); }
+  .note { font-size: .86rem; color: var(--muted); }
+  .note b { color: var(--fg); }
+
+  .gloss { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+  .gloss div { background: var(--glass); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-size: .92rem; color: var(--muted); box-shadow: inset 4px 0 0 var(--c); }
+  .gloss div:nth-child(6n+1) { --c: var(--s1); } .gloss div:nth-child(6n+2) { --c: var(--s2); } .gloss div:nth-child(6n+3) { --c: var(--s3); }
+  .gloss div:nth-child(6n+4) { --c: var(--s4); } .gloss div:nth-child(6n+5) { --c: var(--s5); } .gloss div:nth-child(6n) { --c: var(--s6); }
+  .gloss b { display: block; color: var(--fg); font-family: var(--f-display); font-size: 1.05rem; margin-bottom: 2px; }
+
+  .take { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .take div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 6px; align-content: start; transition: transform .3s, border-color .3s; }
+  .take div:hover { transform: translateY(-3px); border-color: var(--c); }
+  .take div:nth-child(1) { --c: var(--s1); } .take div:nth-child(2) { --c: var(--s2); } .take div:nth-child(3) { --c: var(--s3); } .take div:nth-child(4) { --c: var(--s4); } .take div:nth-child(5) { --c: var(--s5); }
+  .take .n { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--c); color: #fff; font: 600 .95rem/1 var(--f-mono); box-shadow: 0 10px 22px -10px var(--c); margin-bottom: 4px; }
+  .take b { font-family: var(--f-display); font-size: 1.1rem; }
+  .take span:not(.n) { font-size: .9rem; color: var(--muted); }
+
+  .stats { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 8px; }
+  .stat { --c: var(--purple); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; box-shadow: inset 0 4px 0 var(--c); min-width: 0; }
+  .stat:nth-child(1) { --c: var(--s2); } .stat:nth-child(2) { --c: var(--s6); } .stat:nth-child(3) { --c: var(--s3); } .stat:nth-child(4) { --c: var(--ok); } .stat:nth-child(5) { --c: var(--amber); } .stat:nth-child(6) { --c: var(--magenta); }
+  .stat b { display: block; font: 800 2.2rem/1 var(--f-display); color: var(--c); font-variant-numeric: tabular-nums; letter-spacing: -.03em; }
+  .stat span { font: 500 .7rem/1.3 var(--f-mono); color: var(--muted); letter-spacing: .06em; text-transform: uppercase; display: block; margin-top: 8px; }
+
+  /* layered component map */
+  .fbar { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; justify-content: space-between; }
+  .lg-current { background: var(--ok); } .lg-concept { background: repeating-linear-gradient(90deg, var(--amber) 0 5px, transparent 5px 8px); } .lg-proposed { background: repeating-linear-gradient(90deg, var(--magenta) 0 3px, transparent 3px 6px); }
+  .fbar .legend i { width: 22px; }
+  .layers { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  @media (min-width: 980px) { .layers { grid-template-columns: minmax(0, 1fr) 280px; } }
+  .stack { display: flex; flex-direction: column; min-width: 0; }
+  .band { border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px 16px; background: var(--surface); box-shadow: var(--shadow); }
+  .band > h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; font-size: 1.1rem; margin-bottom: 10px; }
+  .band > h3 small { font: 400 .78rem/1.3 var(--f-mono); color: var(--muted); }
+  .band.iq { background: linear-gradient(180deg, var(--red-soft), var(--surface) 65%); border-color: color-mix(in srgb, var(--red) 50%, var(--line)); }
+  .band.idf { background: linear-gradient(180deg, var(--blue-soft), var(--surface) 65%); border-color: color-mix(in srgb, var(--blue) 50%, var(--line)); }
+  .rail .band { margin-bottom: 14px; }
+  .sub-h { font: 500 .7rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 12px 0 8px; }
+  .cards { display: flex; flex-wrap: wrap; gap: 10px; }
+  .arrow { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 6px 0; color: var(--muted); font-size: .82rem; }
+  .arrow::before, .arrow::after { content: ""; width: 2px; height: 22px; background: var(--grad); }
+  .arrow b { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-weight: 500; color: var(--fg); text-align: center; }
+  .arrow.up b::before { content: "▲ "; color: var(--magenta); } .arrow.down b::before { content: "▼ "; color: var(--magenta); }
+  .c { position: relative; flex: 1 1 190px; max-width: 100%; background: var(--surface-2); border: 1px solid var(--line); box-shadow: inset 0 4px 0 var(--ok); border-radius: 12px; padding: 12px 12px 12px; transition: transform .15s, box-shadow .15s, opacity .2s; }
+  .c:hover, .c:focus { transform: translateY(-2px); z-index: 15; outline: none; border-color: var(--purple); }
+  .c:focus-visible { outline: 2px solid var(--purple); }
+  .c.concept { box-shadow: inset 0 4px 0 var(--amber); border-style: dashed; }
+  .c.proposed { box-shadow: inset 0 4px 0 var(--magenta); border-style: dashed; }
+  .c .k { font: 500 .66rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .c.k-os .k { color: var(--blue); } .c.k-iq .k { color: var(--red); } .c.k-infra .k { color: var(--purple); } .c.k-suite .k { color: var(--green); }
+  .c .nm { font-weight: 600; font-size: .9rem; line-height: 1.25; margin: 5px 0 3px; }
+  .c .rl { font-size: .8rem; color: var(--muted); line-height: 1.4; }
+  .c.dim { opacity: .2; filter: grayscale(1); }
+  .pop { display: none; position: absolute; left: 0; top: calc(100% + 6px); width: 320px; max-width: 86vw; background: var(--surface); color: var(--fg); border: 1px solid var(--purple); border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow); font-size: .82rem; line-height: 1.5; z-index: 30; }
+  .rail .pop, .c.r .pop { left: auto; right: 0; }
+  .c:hover .pop, .c:focus .pop { display: block; }
+  .pop .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .tag { font: 500 .68rem/1.4 var(--f-mono); border-radius: 999px; padding: 2px 8px; background: var(--surface-2); color: var(--muted); }
+  .tag.current { background: var(--ok-soft); color: var(--ok); } .tag.concept { background: var(--amber-soft); color: var(--amber); } .tag.proposed { background: var(--magenta-soft); color: var(--magenta); }
+  .pop .src { color: var(--muted); font: 400 .72rem/1.4 var(--f-mono); margin-top: 8px; }
+  @media (hover: none) { .pop { display: block; position: static; width: auto; max-width: none; border: 0; border-top: 1px dashed var(--line); border-radius: 0; box-shadow: none; padding: 8px 0 0; margin-top: 8px; background: transparent; } .c:hover { transform: none; } }
+
+  /* flows */
+  .flows { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .flow { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); min-width: 0; }
+  .flow:nth-child(1) { --c: var(--s6); } .flow:nth-child(2) { --c: var(--s1); } .flow:nth-child(3) { --c: var(--s5); }
+  .flow header { border-bottom: 1px solid var(--line); margin-bottom: 14px; padding-bottom: 10px; display: grid; gap: 4px; }
+  .flow header h3 { color: var(--c); }
+  .flow header small { color: var(--muted); }
+  ol.tl { list-style: none; counter-reset: s; margin: 0; padding: 0; position: relative; }
+  ol.tl li { counter-increment: s; position: relative; padding: 0 0 16px 46px; }
+  ol.tl li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 9px; background: var(--c); color: #fff; display: grid; place-items: center; font: 600 .8rem/1 var(--f-mono); z-index: 1; }
+  ol.tl li::after { content: ""; position: absolute; left: 14px; top: 30px; bottom: 0; width: 2px; background: var(--line); }
+  ol.tl li:last-child::after { display: none; }
+  ol.tl b { display: block; font-size: .95rem; }
+  ol.tl p { font-size: .85rem; color: var(--muted); margin: 2px 0 8px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 4px; }
+  .pill { background: var(--purple-soft); color: var(--purple); font-style: normal; }
+  .pills .pill { font-size: .7rem; padding: 3px 9px; }
+  .pill.gold { background: var(--amber-soft); color: var(--amber); } .pill.vio { background: var(--magenta-soft); color: var(--magenta); } .pill.grn { background: var(--ok-soft); color: var(--ok); }
+
+  /* dry runs */
+  .caps { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .cap { background: var(--glass); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+  .cap b { font-family: var(--f-display); font-size: 1.02rem; } .cap span { font-size: .85rem; color: var(--muted); }
+  .runs { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 1000px) { .runs { grid-template-columns: 1fr 1fr; } .runs .wide { grid-column: 1 / -1; } }
+  .run { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; min-width: 0; }
+  .run::before { content: ""; display: block; height: 3px; background: var(--grad); }
+  .run > header { padding: 16px 20px 12px; border-bottom: 1px solid var(--line); background: var(--surface-2); display: grid; gap: 8px; }
+  .run > header .row { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; justify-content: space-between; }
+  .run > header h3 { font-size: 1.15rem; }
+  .run .body { padding: 16px 20px 10px; flex: 1; display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .run .basis { padding: 12px 20px 16px; font: 400 .74rem/1.55 var(--f-mono); color: var(--muted); border-top: 1px dashed var(--line); }
+  .run .basis b { color: var(--purple); }
+  .run h3 + .checks { margin-top: 0; }
+  .chev { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .chev li { background: var(--purple-soft); color: var(--fg); border-radius: 10px; padding: 6px 10px; font-size: .82rem; position: relative; margin-right: 12px; }
+  .chev li:not(:last-child)::after { content: "›"; position: absolute; right: -13px; top: 50%; transform: translateY(-52%); color: var(--magenta); font-weight: 700; font-size: 1.1rem; }
+  .chev li b { color: var(--magenta); margin-right: 4px; font-family: var(--f-mono); }
+  .tw { overflow-x: auto; }
+  .tw table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  .tw th, .tw td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .tw th { color: var(--muted); font: 500 .68rem/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; }
+  .tw td.v { text-align: center; font: 600 .74rem/1.3 var(--f-mono); }
+  .tw td.v small { display: block; font: 400 .7rem/1.3 var(--f-body); opacity: .85; }
+  .tw td.yes { background: var(--ok-soft); color: var(--ok); } .tw td.no { background: var(--red-soft); color: var(--red); } .tw td.mut { background: var(--surface-2); color: var(--muted); }
+  .tw td.chg { box-shadow: inset 0 0 0 2px var(--purple); }
+  .run .two { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .mini-card { background: var(--surface-2); border-radius: 12px; padding: 12px 14px; font-size: .86rem; color: var(--muted); }
+  .mini-card b { display: block; margin-bottom: 4px; color: var(--fg); }
+  .mini-card.best { box-shadow: inset 0 0 0 2px var(--ok); }
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .checks li { font-size: .86rem; padding-left: 26px; position: relative; color: var(--muted); }
+  .checks li::before { content: "☐"; position: absolute; left: 0; color: var(--magenta); }
+  pre.out { background: var(--surface-2); border-radius: 10px; padding: 12px 14px; font: 400 .8rem/1.6 var(--f-mono); overflow-x: auto; margin: 0; white-space: pre-wrap; color: var(--green); }
+  .nots { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .nots div { padding: 12px 14px; background: var(--red-soft); color: var(--fg); border-radius: 10px; font-size: .9rem; box-shadow: inset 4px 0 0 var(--red); }
+
+  /* then / now */
+  .tn { display: grid; gap: 8px; }
+  .tn .r { display: grid; grid-template-columns: 120px 1fr 28px 1.2fr; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; font-size: .92rem; }
+  .tn .r > :first-child { font: 500 .72rem/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--purple); }
+  .tn .then { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--red) 60%, transparent); }
+  .tn .ar { color: var(--magenta); font-weight: 700; text-align: center; } .tn .now { font-weight: 600; }
+  @media (max-width: 720px) { .tn .r { grid-template-columns: 1fr; gap: 4px; } .tn .ar { display: none; } }
+  .gaps { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .gap { background: var(--surface); border: 1px solid var(--line); box-shadow: inset 0 4px 0 var(--amber); border-radius: 12px; padding: 16px; font-size: .9rem; color: var(--muted); }
+  .gap b { display: block; margin-bottom: 4px; color: var(--fg); font-family: var(--f-display); font-size: 1.05rem; }
+  footer p b { color: var(--fg); }
+  footer ul { margin: 4px 0 0; padding-left: 18px; display: grid; gap: 3px; }
+
   @media (max-width: 720px) {
     .detail { grid-template-columns: 1fr; }
     .cmp .two { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     .glow::after, .topbar::after { animation: none; }
-    .arch .e, .arch .node .box, .cmp, .btn { transition: none; }
+    .arch .e, .arch .node .box, .cmp, .btn, .c, .take div { transition: none; }
   }
 </style>
 
@@ -243,7 +397,7 @@
     <a class="brand" href="#top">Infor<span>IQ</span></a>
     <span class="brand-sub">Event-to-action architecture</span>
     <nav class="toplinks" aria-label="Sections">
-      <a href="#diagram">Diagram</a><a href="#walk">One PO</a><a href="#read">Reading the board</a><a href="#compare">Board vs map</a><a href="#open">Open questions</a>
+      <a href="#what">What is IQ</a><a href="#terms">Terms</a><a href="#diagram">Whiteboard</a><a href="#compare">Board vs map</a><a href="#picture">Components</a><a href="#flows">Flows</a><a href="#dryrun">Dry runs</a><a href="#thennow">Then and now</a><a href="#gaps">Dependencies</a>
     </nav>
     <button class="theme" id="theme" type="button" aria-label="Switch theme">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -257,7 +411,7 @@
 <header class="hero">
   <div class="chips"><span class="chip red">Whiteboard session</span><span class="chip pu">Ontology and rules</span><span class="chip mg">Event driven</span></div>
   <h1>From ERP change to <span class="g">governed action</span></h1>
-  <p class="tagline">How InforIQ turns a data change into a decision an agent is allowed to act on.</p>
+  <p class="tagline">What Infor IQ is, how the whiteboard design turns a data change into a governed action, and which Infor OS components it relies on.</p>
   <p class="lead">Data leaves Syteline, FT and CPQ, lands in the S3 data lake, is curated into Iceberg tables and shaped into the canonical model. Changes become events. ERX checks each event against the rules, then either lets an agent act or hands the decision to a person.</p>
   <div class="ink" aria-label="What the board's marker colours mean">
     <span style="--c:var(--blue)"><i></i>Blue ink: the data path</span>
@@ -266,14 +420,88 @@
   </div>
   <div class="cta">
     <a class="btn primary" href="#diagram">Explore the diagram <span aria-hidden="true">→</span></a>
-    <a class="btn ghost" href="#walk">Follow one PO</a>
+    <a class="btn ghost" href="#what">What is Infor IQ?</a>
+    <a class="btn ghost" href="#picture">All components</a>
   </div>
-  <p class="foot-note">Redrawn from the whiteboard · checked against the Infor IQ Component Map</p>
+  <div class="stats" id="stats"></div>
+  <p class="foot-note">Redrawn from the whiteboard, combined with the Infor IQ Component Map: an unofficial summary of Infor wiki pages (spaces IIQ and IDFADS), not an official design document. Every component is tagged with how well the wiki supports it.</p>
 </header>
+
+<section id="what">
+  <div class="what">
+    <div class="card">
+      <span class="eyebrow">Start here</span>
+      <h2>What is Infor IQ?</h2>
+      <p class="def">Infor IQ is a layer that teaches AI what Infor's business data means, and checks what an AI agent is allowed to do. It holds no business data itself.</p>
+      <div class="three">
+        <div><b>It knows the meaning</b>A defined map of business ideas: purchase order, vendor, “at risk”, and how they connect.</div>
+        <div><b>It answers precisely</b>It turns a question into exact queries, runs them as the person asking, and says where each answer came from.</div>
+        <div><b>It governs actions</b>Before an agent approves a PO, IQ checks the rules and records a decision. The agent does the action itself.</div>
+      </div>
+      <div class="isnot">
+        <span><b>Not</b>a database</span><span><b>Not</b>an AI model</span><span><b>Not</b>an ERP replacement</span><span><b>Not</b>what runs the actions</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>An analogy</h3>
+      <p>Picture an office building. The <b>directory</b> says what every room is and how the rooms connect. The <b>security desk</b> checks your badge before you go in. Neither does the work inside the rooms.</p>
+      <p>IQ is the directory and the security desk for Infor's data and for AI agents. The data stays in the rooms (Data Fabric). The agents still do the work.</p>
+      <h3 style="margin-top:6px">Who uses it</h3>
+      <p>AI agents and assistants ask it questions. Stewards curate each customer's own terms. CloudSuite teams supply their product models.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:10px">The same question, with and without IQ</h3>
+  <div class="ask bigask">“Which open POs are at risk of late delivery?”</div>
+  <div class="ba">
+    <div class="card"><span class="tagline">Without IQ</span>
+      <ul><li>The agent guesses which tables and columns hold POs and vendors.</li><li>“At risk” means whatever the model assumes this time.</li><li>Two runs can give two different answers.</li><li>There is no record of how the answer was reached.</li><li>Security depends on each tool the agent happens to use.</li></ul></div>
+    <div class="card yes"><span class="tagline">With IQ</span>
+      <ul><li>“Open PO” and “at risk” are defined terms and a defined rule.</li><li>The query is built from that definition, not guessed.</li><li>It runs as the person asking, so their data security applies.</li><li>The same data gives the same answer.</li><li>The result carries provenance: where each piece came from.</li></ul></div>
+  </div>
+  <p class="note">The contrast follows the IQ concept page's own “without grounding” and “with grounding” framing.</p>
+</section>
+
+<section id="terms">
+  <div class="head">
+    <span class="eyebrow">Plain words</span>
+    <h2>Eleven terms you will meet</h2>
+    <p>Skim these once and the rest of the page reads easily.</p>
+  </div>
+  <div class="gloss">
+    <div><b>Ontology</b>A defined map of business concepts and how they relate. A PO belongs to a vendor. A PO has lines.</div>
+    <div><b>Infor Data Fabric (IDF)</b>Infor's data platform. IQ is now a component inside it.</div>
+    <div><b>Canonical dataset</b>Infor's standardised copy of ERP data, held in Data Fabric. IQ reads this, not the live ERP.</div>
+    <div><b>Compass</b>The SQL service IQ uses to read canonical data. It applies the asking user's security.</div>
+    <div><b>SPARQL</b>A query language for linked concepts. IQ turns its patterns into SQL for Compass.</div>
+    <div><b>Virtual knowledge graph</b>The linked view of the data, built on demand from SQL and never stored.</div>
+    <div><b>Tenant overlay</b>One customer's own field names and terms, layered over the shared product model.</div>
+    <div><b>Reasoning engines</b>Rules, constraint checks and class logic that classify things and explain why. No AI guessing.</div>
+    <div><b>Grounding</b>Tying an AI answer to defined terms and real records, so it cannot invent what words mean.</div>
+    <div><b>MCP</b>A standard way for AI agents to call tools. ERP MCP tools are how an agent actually performs an action.</div>
+    <div><b>ADR and Kiro spec</b>The design decision record, and the written specification the team approved. They are the main sources for “current design”.</div>
+  </div>
+</section>
+
+<section id="takeaways">
+<div class="head">
+    <span class="eyebrow">Remember</span>
+    <h2>Five things to take away</h2>
+    <p>If you read nothing else.</p>
+  </div>
+<div class="take">
+  <div><span class="n">1</span><b>Data Fabric is the backbone</b><span>Compass and canonical datasets are IQ's only path to Infor data.</span></div>
+  <div><span class="n">2</span><b>Identity travels with the query</b><span>TenantId and Identity2 reach Compass, which enforces security.</span></div>
+  <div><span class="n">3</span><b>CloudSuite teams own the model</b><span>Each product team delivers its ontology. CSD goes first.</span></div>
+  <div><span class="n">4</span><b>Application APIs were dropped</b><span>IQ reads instance data from canonical datasets. The current role of ION, Birst and PI is unconfirmed.</span></div>
+  <div><span class="n">5</span><b>Actions happen elsewhere</b><span>IQ authorises. The agent acts through ERP MCP tools.</span></div>
+</div>
+</section>
+
 
 <section id="diagram">
   <div class="head">
-    <span class="eyebrow">The system</span>
+    <span class="eyebrow">The whiteboard</span>
     <h2>The architecture</h2>
     <p>Redrawn from the board and checked against the Infor IQ component map. Select any box to see what the board says, what it means, and how the component map describes it. Follow a PO to see which path it takes.</p>
   </div>
@@ -541,9 +769,193 @@
   </div>
 </section>
 
+<section id="picture">
+  <div class="head">
+    <span class="eyebrow">The big picture</span>
+    <h2>Every component, in its layer</h2>
+    <p>Questions flow down, data flows up. Hover or tab to a card for detail. The dashed boxes are not part of the current design.</p>
+  </div>
+  <div class="fbar">
+    <div class="seg" id="filt" role="group" aria-label="Highlight components">
+      <button type="button" data-f="all" aria-pressed="true">All components</button>
+      <button type="button" data-f="os" aria-pressed="false">Infor OS only</button>
+      <button type="button" data-f="current" aria-pressed="false">Current design only</button>
+    </div>
+    <div class="legend"><span><i class="lg-current"></i>Current design</span><span><i class="lg-concept"></i>Original May concept</span><span><i class="lg-proposed"></i>Proposed or adjacent</span></div>
+  </div>
+  <div class="layers">
+    <div class="stack" id="stack"></div>
+    <div class="rail" id="rail"></div>
+  </div>
+</section>
+
+<section id="flows">
+  <div class="head">
+    <span class="eyebrow">How they work together</span>
+    <h2>Three flows, start to finish</h2>
+    <p>Each step names the components involved.</p>
+  </div>
+  <div class="flows" id="flowbox"></div>
+</section>
+
+<section id="dryrun">
+  <div class="head">
+    <span class="eyebrow">Dry runs</span>
+    <h2>What Infor IQ will be able to do</h2>
+    <p>Eight capabilities, then five worked examples. Everything is shown at once. The data is invented. The rules and flows come from the wiki pages, and each example states how solid its basis is.</p>
+  </div>
+  <div class="caps">
+    <div class="cap"><b>Answer with provenance</b><span>Evaluates SPARQL, traversal, context, classify and explain over the tenant's ontology. Results carry provenance.</span><i class="pill grn">Current design</i></div>
+    <div class="cap"><b>Classify and explain</b><span>Applies business rules and shows the evidence chain.</span><i class="pill grn">Current design</i></div>
+    <div class="cap"><b>Authorise actions (advisory)</b><span>Checks preconditions and policy, then returns a decision. No signed token yet, so nothing stops an agent that skips IQ.</span><i class="pill grn">Current design</i></div>
+    <div class="cap"><b>Tenant fields and mappings</b><span>A customer names its own fields (user1 becomes “Project Code”) by rebinding to existing columns.</span><i class="pill grn">Current design</i></div>
+    <div class="cap"><b>Rule and threshold overrides</b><span>A tenant redefining a rule, such as the high-value PO limit.</span><i class="pill gold">Concept, outside the editable surface</i></div>
+    <div class="cap"><b>Certified glossary and metrics</b><span>Business terms and metric formulas looked up before querying.</span><i class="pill gold">Concept (v4.0)</i></div>
+    <div class="cap"><b>Survive product upgrades</b><span>Conflict flags exist now. Per-tenant migration reports are concept.</span><i class="pill gold">Partly concept</i></div>
+    <div class="cap"><b>Link across products</b><span>One question across, say, HR and Payroll, without copying data.</span><i class="pill vio">Draft, future</i></div>
+  </div>
+
+  <div class="runs">
+    <article class="run">
+      <header><div class="row"><h3>1 · A grounded question</h3><i class="pill grn">Current design, part concept</i></div><div class="ask">“Which of my open POs are at risk of late delivery?”</div></header>
+      <div class="body">
+        <ul class="chev">
+          <li><b>1</b>Look up “open” and “at risk” in the ontology</li>
+          <li><b>2</b>Ontology becomes SQL</li>
+          <li><b>3</b>Compass runs it as the caller</li>
+          <li><b>4</b>Rule scores each PO</li>
+        </ul>
+        <div class="tw"><table><tr><th>PO</th><th>Vendor</th><th>Amount</th><th>Risk</th><th>Evidence</th></tr>
+          <tr><td>4521</td><td>Acme</td><td>$45,000</td><td class="v no">HIGH</td><td>Vendor averaging 8 days late over the last 5 deliveries</td></tr>
+          <tr><td>4533</td><td>Beta</td><td>$12,000</td><td class="v no">HIGH</td><td>2 of 4 lines on backorder</td></tr>
+          <tr><td>4540</td><td>Gamma</td><td>$78,000</td><td class="v no">HIGH</td><td>Due in 3 days and the vendor is 35% late this quarter</td></tr>
+          <tr><td>4502</td><td>Delta</td><td>$20,000</td><td class="v yes">OK</td><td>No rule fired</td></tr></table></div>
+        <p class="note">Rule: HIGH if the vendor's average delivery time exceeds the days until due, or its late rate is above 20%, or lines are on backorder. Results carry provenance. Same data, same answer, nothing stored.</p>
+      </div>
+      <div class="basis"><b>Basis:</b> the v4.0 worked example, run over the current canonical-data path. Provenance on results is in the current design. Per-field lineage to source columns and a certified glossary are v4.0 concept, and the current design pages do not mention them. Names, amounts and thresholds are the page's illustrative values.</div>
+    </article>
+
+    <article class="run">
+      <header><div class="row"><h3>2 · A governed action</h3><i class="pill grn">Current design, advisory</i></div><div class="ask">“Approve this purchase order.” <small style="font-weight:400;color:var(--muted)">(PO pending approval)</small></div></header>
+      <div class="body">
+        <div class="tw"><table id="matrix"></table></div>
+        <p class="note">Rules: AI agent up to $10,000 and vendor risk below 3. Purchasing manager up to $50,000. VP procurement has no limit. If the PO is already approved, everyone is denied.</p>
+        <p class="note"><b>What happens next:</b> on AUTHORIZED, IQ records the decision first, then the agent approves the PO itself through ERP MCP tools. IQ changes nothing, and the ERP can still refuse. On DENIED, nothing happens in the ERP and the reply names the role that could approve.</p>
+        <p class="note"><b>Advisory today.</b> The current spec returns the decision without a signed token (deferred to IIQ-196), and the decision ledger belongs to iiq-govern in a separate epic. IQ's authorisation is a policy gate, not proof the ERP can check.</p>
+      </div>
+      <div class="basis"><b>Basis:</b> the v4.0 action definition and denial example, plus the current rule that IQ only authorises. The current design lists three outcomes (AUTHORIZED, DENIED, REQUIRES_ESCALATION). The pages reviewed do not say when escalation applies, so a refusal follows the v4.0 behaviour.</div>
+    </article>
+
+    <article class="run">
+      <header><div class="row"><h3>3 · Same question, two tenants</h3><i class="pill gold">Part concept</i></div><div class="ask">“Is this PO a high-value PO?”</div></header>
+      <div class="body">
+        <div class="tw"><table id="tenants"></table></div>
+        <div class="two">
+          <div class="mini-card"><b>Base product (any tenant)</b>orderNumber, totalAmount, isOpen, belongsToVendor. Fields user1 to user9 exist but carry no meaning.</div>
+          <div class="mini-card best"><b>Acme's overlay adds (current)</b>projectCode (user1) and estimatedWeight (user6), by rebinding to existing columns, plus net-new elements such as a ProjectApproval table and an AcmeHighRiskVendor class.</div>
+        </div>
+        <p class="note">Three layers: shared Core, product base, tenant overlay. The overlay changes things for that tenant only. The base is never edited. <b>The $100,000 threshold column is concept:</b> the current rules let a tenant rebind fields and add new elements, and stewards curate labels, hierarchy, exposed properties and business definitions. Redefining a rule is not on that list.</p>
+      </div>
+      <div class="basis"><b>Basis:</b> the v4.0 layering example, checked against the Revised Architecture (decision D-IDF-11). Field rebinding and additions are current. The threshold override is v4.0 concept only. Removed or renamed base references, and redefining a base column's type, are hard conflicts.</div>
+    </article>
+
+    <article class="run">
+      <header><div class="row"><h3>4 · Across two products</h3><i class="pill vio">Draft, future</i></div><div class="ask">“Show this employee's HR events and their gross pay.”</div></header>
+      <div class="body">
+        <ul class="chev">
+          <li><b>1</b>Find the golden ID in the cross-reference</li>
+          <li><b>2</b>Query HR as the caller</li>
+          <li><b>3</b>Query Payroll as the caller</li>
+          <li><b>4</b>Join in memory</li>
+        </ul>
+        <pre class="out">golden id 88213
+  HR       person 1042     → 3 employment events
+  Payroll  employee PR-771 → gross pay per statement</pre>
+        <p class="note"><b>Security composes by construction.</b> If the agent cannot see Payroll, that query returns nothing and those rows drop out of the join. No “same person” fact is stored. It exists only for the life of the query. The IRI each side mints must match exactly, or the join finds nothing.</p>
+      </div>
+      <div class="basis"><b>Basis:</b> the cross-product layering blueprint (draft, future work). The first delivery is a single product on the CSD warehouse, so this is not in its scope.</div>
+    </article>
+
+    <article class="run wide">
+      <header><div class="row"><h3>5 · The AI Studio connection</h3><i class="pill vio">Proposal, not in the wiki</i></div><div class="ask">AI Studio requirement: “Automatically approve low-risk purchase orders up to the agent limit, and send the rest for review.”</div></header>
+      <div class="body">
+        <ul class="chev">
+          <li><b>1</b>Architect takes the requirement</li>
+          <li><b>2</b>Advisor ranks: keep rules outside the flow</li>
+          <li><b>3</b>RPA Analyst resolves terms against IQ's ontology</li>
+          <li><b>4</b>You confirm the plan</li>
+          <li><b>5</b>RPA Developer builds a flow that asks IQ first</li>
+          <li><b>6</b>Bot calls IQ, then approves or files an exception</li>
+        </ul>
+        <div class="tw"><table id="studio"></table></div>
+        <p class="note">Highlighted cells change when the limit moves from $10,000 to $25,000. Rule: amount up to the limit and vendor risk score below 3.</p>
+        <div class="two">
+          <div class="mini-card best"><b>Rules in IQ policy: change the limit</b>Edit the policy and the bot is untouched. Where tenant action policies are authored is not defined in the pages reviewed, and decisions go to a ledger owned by iiq-govern, in a separate epic.</div>
+          <div class="mini-card"><b>Rules inside the RPA flow: change the limit</b>Ask AI Studio for an update. The Analyst needs the complete flow restated, the Developer republishes it, and you confirm again.</div>
+        </div>
+        <h3 style="margin-top:6px">Needed before this works</h3>
+        <ul class="checks">
+          <li>IQ reachable from AI Studio's agents through the IDF gateway. The pages show no such design.</li>
+          <li>The bot registered as an agent identity in IQ's policy.</li>
+          <li>The tenant's PO and vendor data in IDF canonical datasets (CSD warehouse first).</li>
+          <li>AI Studio's owners agreeing that Analysts may call a reference service.</li>
+          <li>Accepting that IQ checks canonical data while the ERP stays the final arbiter.</li>
+        </ul>
+        <h3 style="margin-top:6px">Not yet in the IQ design</h3>
+        <ul class="checks">
+          <li>A signed decision token. Without it, a bot that skips IQ is not stopped (deferred to IIQ-196).</li>
+          <li>A decision ledger inside the current epic. It belongs to iiq-govern (IIQ-195), a separate epic.</li>
+          <li>A defined place to author tenant action policies, such as the agent limit.</li>
+        </ul>
+      </div>
+      <div class="basis"><b>Basis:</b> a proposal, not taken from the wiki. No page reviewed designs this connection. It is assembled from AI Studio's onboarding rules, IQ's /action/authorize contract, and the template workbook's lockbox lesson that validation belongs outside the RPA flow. The limits and PO list are invented, and the "needed" list is unvalidated.</div>
+    </article>
+  </div>
+
+  <h3 style="margin-top:6px">What it will not do</h3>
+  <div class="nots">
+    <div>Run actions in the ERP. The agent does that.</div>
+    <div>Call application APIs for Infor data. It reads canonical data.</div>
+    <div>Reason probabilistically or predict. Infor's AI platforms do.</div>
+    <div>Hold an LLM in its deterministic core.</div>
+    <div>Copy ERP data into a separate store.</div>
+  </div>
+</section>
+
+<section id="thennow">
+  <div class="head">
+    <span class="eyebrow">What changed</span>
+    <h2>Then and now</h2>
+    <p>The May concept page (v4.0) and the ratified design (ADR-001, August 2026) differ. Read the concept page with this beside it.</p>
+  </div>
+  <div class="tn">
+    <div class="r"><span>Position</span><span class="then">A standalone platform</span><span class="ar">→</span><span class="now">A component inside Infor Data Fabric</span></div>
+    <div class="r"><span>Data source</span><span class="then">ION REST, Birst, IDW, Data Lake, PI, per-app connectors</span><span class="ar">→</span><span class="now">Canonical datasets through Compass SQL only</span></div>
+    <div class="r"><span>Actions</span><span class="then">IQ executes them with workflows through ION</span><span class="ar">→</span><span class="now">IQ authorises and records. The agent executes through ERP MCP tools.</span></div>
+    <div class="r"><span>Instances</span><span class="then">Partly stored in the graph, cached in Redis</span><span class="ar">→</span><span class="now">Virtual. Ontop builds them from SQL on demand.</span></div>
+    <div class="r"><span>Identity</span><span class="then">Keycloak and OPA inside IQ</span><span class="ar">→</span><span class="now">Identity passed to Compass as connection parameters</span></div>
+    <div class="r"><span>State</span><span class="then">PostgreSQL, Redis, Kafka</span><span class="ar">→</span><span class="now">S3, DynamoDB, Valkey. Kafka only for Fuseki replication and decisions.</span></div>
+  </div>
+</section>
+
+<section id="gaps">
+  <div class="head">
+    <span class="eyebrow">Open items</span>
+    <h2>Where other Infor OS teams are still needed</h2>
+    <p>Items the wiki pages state. Each depends on a component owned outside the IQ team.</p>
+  </div>
+  <div class="gaps">
+    <div class="gap"><b>Compass</b>Column masking is unconfirmed, and the Compass-to-Ontop SQL fit needed a spike (IIQ-186).</div>
+    <div class="gap"><b>IDF events</b>The event-after-commit guarantee still needs IDF's confirmation.</div>
+    <div class="gap"><b>IDF gateway</b>Must carry agent identity to IQ, or IQ needs its own identity filter.</div>
+    <div class="gap"><b>IDF / MDM</b>Cross-product linking needs xref datasets. Ownership and match-confidence rules are open.</div>
+    <div class="gap"><b>CloudSuite app teams</b>Each must deliver its ontology, identity patterns and join metadata. This gates coverage.</div>
+  </div>
+</section>
+
 <section id="open">
   <div class="head">
-    <span class="eyebrow">Still to confirm</span>
+    <span class="eyebrow">Still to confirm on the board</span>
     <h2>Open questions</h2>
     <p>Confirm these with whoever drew the board before this page is shared further.</p>
   </div>
@@ -558,7 +970,15 @@
 </section>
 
 <footer>
-  <span>Sources: the whiteboard photo from the architecture session, and the Infor IQ Component Map (an unofficial summary of the IIQ and IDFADS wiki spaces).</span>
+  <p><b>How reliable is this?</b> Each component is tagged <i>Stated in wiki</i> or <i>Inferred, not in the wiki</i> in its hover card. Pages reviewed in full: the main concept page, ADR-001, the Revised Architecture (with its addenda), the layering blueprint, the Microservices Blueprint (draft v2.5, June) and the semantic-search page. Other pages were search excerpts only. Not reviewed: ADR-002, the Kiro spec itself (its decisions.md and requirements), and Jira story statuses. Where the older pages and ADR-001 disagree, ADR-001 and the Revised Architecture addenda are followed.</p>
+  <ul>
+    <li>Infor IQ: A Deterministic Layer for Reasoning, Execution, and Governance over CloudSuites (IIQ, v4.0, May 2026)</li>
+    <li>ADR-001: Infor IQ within Infor Data Fabric (IIQ, accepted, amended August 2026)</li>
+    <li>Ontology Layering and Cross-Product Consolidation Blueprint (IIQ, draft)</li>
+    <li>Predictive, Probabilistic and Agentic Reasoning: Infor AI Platforms, Not the Fabric (IIQ)</li>
+    <li>Ontology-based semantic search to remove hallucination (IDFADS)</li>
+  </ul>
+  <span>Also drawn from: the whiteboard photo from the architecture session.</span>
   <span>Not an official design document. Readings marked "interpretation" are this page's, not the board author's.</span>
 </footer>
 </div>
@@ -646,4 +1066,161 @@ const themeLabel = () => { $('#theme-lbl').textContent = isDark() ? 'Light' : 'D
 $('#theme').addEventListener('click', () => { document.documentElement.dataset.theme = isDark() ? 'light' : 'dark'; themeLabel(); });
 themeLabel();
 show('erx');
+
+/* ---------- component map (from the Infor IQ Component Map page) ---------- */
+const el = (id) => document.getElementById(id);
+
+const KINDS = { os: 'Infor OS component', iq: 'IQ service', infra: 'IQ infrastructure', suite: 'CloudSuite or ERP tool' };
+const KSHORT = { os: 'Infor OS', iq: 'IQ service', infra: 'IQ infrastructure', suite: 'CloudSuite' };
+const STATUS = { current: 'Current design', concept: 'Original concept', proposed: 'Proposed or adjacent' };
+const EV = { stated: 'Stated in wiki', inferred: 'Inferred, not in the wiki' };
+
+// id, kind, status, evidence, name, role, detail, source
+const C = [
+ ['genai','os','current','stated','Infor GenAI Assistant and Supervisor Agent','Asks questions and requests authorisation for actions.','The AI plane sits above IQ. Model training and serving, LLM hosting, agent planning loops, prompt management and RAG are explicitly outside it. IQ gives the agent grounded facts, rules and a governance decision.','Infor IQ main page; Predictive, Probabilistic and Agentic Reasoning page'],
+ ['ai','os','current','stated','Infor AI, Industry AI Agents, Decision Manager, AIaaS','Predictive and probabilistic reasoning live here, not in IQ.','IQ stays deterministic and symbolic. Fuzzy or ML reasoning would be an edge service that reads from IQ and never writes to the ERP directly.','Predictive, Probabilistic and Agentic Reasoning page; main page comments'],
+ ['aistudio','os','proposed','inferred','AI Studio','A natural consumer. Not stated in the IQ pages.','It could call the ontology tools and /action/authorize to ground its agents. Jira DF-5627 asks for a Data Fabric agent and MCP tools for AI Studio\'s initial use case. How AI Studio would connect to IQ is not designed in any page reviewed.','Inferred; Jira DF-5627 (title only)'],
+ ['mcp','iq','concept','stated','isf-mcp (natural-language MCP server)','Turns questions into structured queries with an LLM, outside the deterministic core.','Called isf-nl-query in v4.0 and renamed isf-mcp on 28 May. It is still listed in the June Microservices Blueprint (draft v2.5). Neither ADR-001 nor the Revised Architecture mentions it: agents call the structured endpoints through the IDF gateway. Its place in the current design is unconfirmed.','Infor IQ main page; Microservices Blueprint v2.5'],
+
+ ['ont','iq','current','stated','iiq-ontology service','Ontology API, SPARQL and reasoning, steward UI backend, and /action/authorize.','Kept as a single deployable. It resolves the effective ontology as Core, the tenant\'s product and the Tenant overlay, and evaluates each query in memory over a bounded slice. Cross-product resolution is future work. It has no side effects and calls no application APIs.','ADR-001; Revised Architecture; layering blueprint'],
+ ['ingest','iq','current','stated','iiq-ingest','Derives ontology layers and source bindings from the canonical model.','Publishes in a fixed order: S3 bindings and metadata, then the Fuseki ontology, then the DynamoDB version. It never touches the cache. Its publishing contract (IIQ-192) is tracked outside the main epic.','ADR-001'],
+ ['gov','iq','proposed','stated','iiq-govern (decision ledger)','Audit and decision mining for every authorisation.','Moved to a separate epic (IIQ-195). ADR-001 described Kafka to OpenSearch to S3. A later ADR-002 is reported to make write-once S3 the system of record with no broker. ADR-002 was not reviewed.','ADR-001; Agentic ERP Data Governance plan (excerpt)'],
+ ['engines','iq','current','stated','Jena ARQ, Drools, SHACL','The reasoning engines.','ARQ evaluates each SPARQL query, splitting its patterns between the ontology held in Fuseki and instance data pushed to Compass. Drools holds business rules and derived classifications. SHACL validates constraints and shapes. Joining across products is future work.','Infor IQ main page; Revised Architecture addendum (D-IDF-22)'],
+ ['ontop','iq','current','stated','Ontop (virtual knowledge graph)','Translates query patterns into SQL so instances are never copied.','Compiled offline from three inputs: the ontology slice, a binding profile and a physical-schema file. It is used per query pattern through a Jena StageGenerator hook. The whole-query rewrite path was built but never wired in (D-IDF-22). The Compass-to-Ontop SQL fit was a rollout gate, tested in spike IIQ-186.','ADR-001; Revised Architecture addendum (D-IDF-22)'],
+ ['fuseki','iq','current','stated','Fuseki (ontology store)','Holds the ontology only. Never instance data.','Source-agnostic, so the same ontology can point at another source by swapping the binding profile. A tenant\'s first build reads it live. It is replicated for availability through one ordered Kafka topic.','ADR-001'],
+ ['s3','infra','current','stated','S3','Versioned binding profiles and physical-schema files.','One binding profile per source profile, for example the Compass data warehouse.','ADR-001'],
+ ['dynamo','infra','current','stated','DynamoDB','Version pointers, tenant version pins, conflict flags, overlay revision.','Read per request behind a short in-process cache. It replaced a Kafka invalidation broadcast in Wave 3.5.','ADR-001 (D-IDF-9, D-IDF-14)'],
+ ['valkey','infra','current','stated','Valkey and in-process caches','Cache compilation inputs and compiled repositories.','Keys include the product version and overlay revision, so a stale read is structurally impossible. The ontology service owns the cache.','ADR-001 (D-IDF-14)'],
+ ['kafka','infra','current','stated','Kafka / MSK','Fuseki replication and decision events.','No longer used for cache invalidation. The decision ledger\'s final storage design may change under ADR-002.','ADR-001'],
+
+ ['idf','os','current','stated','Infor Data Fabric (IDF)','The platform IQ now sits inside.','Executive direction made IQ a component within IDF. IQ reuses the IDF gateway and takes all instance data from IDF canonical datasets.','ADR-001'],
+ ['compass','os','current','stated','Compass (SQL / JDBC)','IQ\'s only data path to Infor data.','Enforces dataset, object, column and row security under the caller\'s identity. Column masking by Compass is still unconfirmed.','ADR-001'],
+ ['canonical','os','current','stated','Canonical datasets (data warehouse first)','The data IQ reasons over.','The data warehouse is the only canonical source today. Data Lake, Source Data Access and Data Lake+ / Delta Lake come later. The first target is the CSD ontology over the CSD warehouse. IQ reads a replicated store, not the system of record.','ADR-001 (D1, D9, D10)'],
+ ['events','os','current','stated','IDF delta-change events','Trigger autonomous agents.','ADR-001 assumes an event-after-commit guarantee, so the triggering change is queryable when the agent calls IQ. IDF has not yet confirmed this (open item).','ADR-001 (D10, open item 5)'],
+ ['gw','os','current','stated','IDF gateway','Routes agent calls to IQ.','Replaces a dedicated IQ gateway. Depends on it carrying agent identity through to IQ. If it cannot, a thin IQ-side identity filter is still needed.','ADR-001 (D5)'],
+ ['mdm','os','proposed','stated','IDF / MDM matching','Would link the same person or item across products.','Needed only for the cross-product consolidation blueprint (draft, future work). Ownership of the xref datasets and match-confidence handling are open program dependencies.','Layering blueprint'],
+ ['ui','os','current','stated','Data Fabric UI and IQ UX','Where stewards review and tune the tenant layer.','A GraphQL UI saves overlay diffs that re-apply over each re-derivation. Stewards curate labels, hierarchy, which properties are exposed and business definitions, not free-form mappings. Edits are validated on save. UX pages sketch views from Raw to Canonical to Ontology to Analytical.','ADR-001 (D2); Revised Architecture §3; Infor IQ UX pages (excerpts)'],
+ ['metagraph','os','proposed','stated','IDF Metagraph','Evaluated as a visualisation layer for the ontology.','The page excerpt says IQ builds its own ontology visualisation (Cytoscape). The page\'s conclusion was not reviewed.','IDF Metagraph page (excerpt)'],
+
+ ['suites','suite','current','stated','CloudSuites: CSD, CSI, M3, LN, WMS','Source systems, and owners of their product ontologies.','App teams deliver each CloudSuite\'s ontology, including the identity pattern and the join metadata. IQ coverage is gated by that delivery. CSD goes first.','ADR-001 (D9)'],
+ ['erpmcp','suite','current','stated','ERP MCP tools','Where actions actually happen.','After IQ authorises, the same calling agent runs the action through these tools, outside IQ and IDF. IQ never invokes them. The ERP remains the final arbiter.','ADR-001 (D3, D10)'],
+ ['ion','os','concept','stated','ION (REST APIs, BODs, message bus)','In v4.0, read entity state and wrote actions.','ADR-001 removes application APIs from IQ\'s data path and ends execution, and IDF delta events replace BOD listening. ION\'s remaining role in IQ is not stated in the pages reviewed.','Infor IQ main page; ADR-001'],
+ ['birst','os','concept','stated','Birst and IDW','In v4.0, a source of star schemas, metrics and history.','Not mentioned in ADR-001. Whether IQ still reads these directly is not confirmed.','Infor IQ main page'],
+ ['pi','os','concept','stated','Infor PI (Process Intelligence)','In v4.0, a source of process models, logs and KPIs.','Not mentioned in ADR-001. Current status is not confirmed.','Infor IQ main page'],
+
+ ['identity','os','current','stated','Infor OS identity (TenantId and Identity2)','Carries who is asking, all the way to Compass.','Passed as native JDBC connection parameters, fixed for the life of the connection. IQ enforces no data security itself. v4.0\'s Keycloak and OPA design is replaced for data access.','ADR-001 (D8, D-IDF-6)'],
+ ['dgi','os','proposed','stated','Data Governance Inflow','A proposed agentic data-governance plan (M3 first).','It would build on IQ\'s decision ledger. The page says: proposed plan, not yet committed.','Agentic ERP Data Governance plan (excerpt)']
+].map(a => ({ id: a[0], kind: a[1], status: a[2], ev: a[3], name: a[4], role: a[5], detail: a[6], src: a[7] }));
+const byId = Object.fromEntries(C.map(c => [c.id, c]));
+
+const FLOWS = [
+  { title: 'Answering a question', sub: '“Which open POs are at risk of late delivery?”', steps: [
+    ['Agent asks', 'It calls a structured endpoint: SPARQL, traverse, context, classify or explain. A natural-language MCP layer was planned, but the current design pages do not include it.', ['genai', 'mcp']],
+    ['Request enters through the Data Fabric', 'The IDF gateway passes the call to IQ with the agent\'s identity.', ['gw', 'identity']],
+    ['Ontology is resolved', 'Core, the tenant\'s product and the Tenant overlay are stacked. Versions come from DynamoDB, compiled repositories from cache or Fuseki.', ['ont', 'fuseki', 'dynamo', 'valkey']],
+    ['Query is compiled', 'Ontop combines the ontology slice, the S3 binding profile and the schema file into a SQL-writing repository.', ['ontop', 's3']],
+    ['SQL runs in Compass', 'Instance patterns are pushed down as SQL under the caller\'s TenantId and Identity2. Compass applies its own row and column security.', ['compass', 'identity']],
+    ['Canonical data answers', 'Compass reads the canonical datasets, today the data warehouse, fed from the CloudSuites.', ['canonical', 'suites']],
+    ['Reasoning and answer', 'ARQ combines the ontology patterns with the instance rows from Compass, Drools classifies and SHACL validates. The answer carries provenance. Nothing is stored.', ['ont', 'engines']]
+  ]},
+  { title: 'Authorising an action', sub: '“Approve PO 4521”', steps: [
+    ['Something prompts the agent', 'An IDF delta-change event, or a user request, makes an agent propose an action.', ['events', 'genai']],
+    ['Agent asks for authorisation', 'It calls /action/authorize with the target and a justification, through the IDF gateway.', ['genai', 'gw', 'identity']],
+    ['IQ checks the rules', 'The action exists, preconditions hold against canonical data read through Compass, and the actor is permitted.', ['ont', 'compass', 'canonical']],
+    ['Decision is recorded', 'Emitted before the reply goes out. The call fails closed if the bus is unreachable. The ledger belongs to iiq-govern, in a separate epic.', ['kafka', 'gov']],
+    ['Disposition returns', 'AUTHORIZED, DENIED or REQUIRES_ESCALATION goes back to the agent. IQ has changed nothing anywhere.', ['ont', 'genai']],
+    ['The agent acts on its own', 'If authorised, the same agent runs the action through ERP MCP tools, outside IQ and IDF. The ERP still decides, and nothing yet proves to it that IQ approved (signed token deferred, IIQ-196).', ['erpmcp', 'suites']]
+  ]},
+  { title: 'Onboarding a product release', sub: 'A CloudSuite ships a new version, or a customer changes a field', steps: [
+    ['App team delivers the model', 'Product ontology, identity patterns and join metadata. CSD goes first.', ['suites']],
+    ['IQ derives the layers', 'iiq-ingest derives product and tenant layers from the canonical model and emits the bindings.', ['ingest', 'canonical']],
+    ['Publish in a fixed order', 'Bindings and schema to S3, then the ontology to Fuseki, then the new version to DynamoDB.', ['s3', 'fuseki', 'dynamo']],
+    ['Stewards curate the tenant layer', 'Only the tenant layer is editable. Changes save as an overlay diff, validated before saving.', ['ui', 'ont']],
+    ['Caches move on by themselves', 'Keys contain the version, so old entries become unreachable. No invalidation broadcast.', ['dynamo', 'valkey']]
+  ]}
+];
+
+const money = (n) => '$' + n.toLocaleString('en-US');
+
+function card(id, right) {
+  const c = byId[id];
+  return `<div class="c ${c.status} k-${c.kind} ${right ? 'r' : ''}" data-id="${id}" tabindex="0">
+    <div class="k">${esc(KSHORT[c.kind])}</div><div class="nm">${esc(c.name)}</div><div class="rl">${esc(c.role)}</div>
+    <div class="pop"><div class="tags"><span class="tag ${c.status}">${esc(STATUS[c.status])}</span><span class="tag">${esc(KINDS[c.kind])}</span><span class="tag">${esc(EV[c.ev])}</span></div>${esc(c.detail)}<div class="src">Source: ${esc(c.src)}</div></div></div>`;
+}
+const row = (ids, right) => `<div class="cards">${ids.map((i, n) => card(i, right || (ids.length > 3 && n === ids.length - 1))).join('')}</div>`;
+
+function buildDiagram() {
+  el('stack').innerHTML = `
+    <div class="band"><h3>Who asks <small>Agents and AI platforms that consume IQ</small></h3>${row(['genai', 'ai', 'aistudio', 'mcp'])}</div>
+    <div class="arrow down"><b>Questions and authorisation requests, with the caller's identity</b></div>
+    <div class="band iq"><h3>Infor IQ <small>Ontology, reasoning and governance</small></h3>
+      <div class="sub-h">Services</div>${row(['ont', 'ingest', 'gov'])}
+      <div class="sub-h">Engines and stores</div>${row(['engines', 'ontop', 'fuseki'])}
+      <div class="sub-h">Infrastructure</div>${row(['s3', 'dynamo', 'valkey', 'kafka'])}</div>
+    <div class="arrow down"><b>SQL, run as the caller</b></div>
+    <div class="band idf"><h3>Infor Data Fabric <small>The data plane IQ now lives in</small></h3>${row(['idf', 'compass', 'canonical', 'events', 'gw', 'mdm', 'ui', 'metagraph'])}</div>
+    <div class="arrow up"><b>Canonical data, fed from the sources</b></div>
+    <div class="band"><h3>Sources <small>Where the data originates</small></h3>${row(['suites', 'ion', 'birst', 'pi'])}</div>`;
+  el('rail').innerHTML = `
+    <div class="band"><h3>Identity and governance <small>Cross-cutting</small></h3>${row(['identity', 'dgi'], true)}</div>
+    <div class="band"><h3>Execution <small>Outside IQ and IDF</small></h3>${row(['erpmcp'], true)}
+      <p class="note" style="margin-top:8px">The agent runs the action itself, after IQ authorises it.</p></div>`;
+}
+
+function buildStats() {
+  const n = (f) => C.filter(f).length;
+  el('stats').innerHTML = [
+    [C.length, 'components named'], [n(c => c.kind === 'os' && c.ev === 'stated'), 'Infor OS, stated in the wiki'], [n(c => c.ev === 'inferred'), 'inferred, not in the wiki (AI Studio)'],
+    [n(c => c.status === 'current'), 'in the current design'], [n(c => c.status === 'concept'), 'original concept only'], [n(c => c.status === 'proposed'), 'proposed or adjacent']
+  ].map(([v, l]) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
+}
+
+function buildFlows() {
+  const cls = ['', 'gold', 'vio', 'grn'];
+  el('flowbox').innerHTML = FLOWS.map((f, fi) => `<article class="flow"><header><h3>${esc(f.title)}</h3><small>${esc(f.sub)}</small></header>
+    <ol class="tl">${f.steps.map(s => `<li><b>${esc(s[0])}</b><p>${esc(s[1])}</p><div class="pills">${s[2].map(id => `<span class="pill ${cls[fi + 1] || ''}">${esc(byId[id].name)}</span>`).join('')}</div></li>`).join('')}</ol></article>`).join('');
+}
+
+function buildFilter() {
+  el('filt').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    el('filt').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    const f = b.dataset.f;
+    document.querySelectorAll('.c').forEach(el => {
+      const c = byId[el.dataset.id];
+      el.classList.toggle('dim', f === 'os' ? c.kind !== 'os' : f === 'current' ? c.status !== 'current' : false);
+    });
+  }));
+}
+
+/* ---------- dry-run tables, computed from the rules ---------- */
+function decide(actor, amount, risk) {
+  if (actor === 'agent') { if (amount > 10000) return [false, 'over $10K limit']; if (risk >= 3) return [false, 'vendor risk 3 or more']; return [true, 'within limit']; }
+  if (actor === 'pm') return amount > 50000 ? [false, 'needs vp_procurement'] : [true, 'within $50K'];
+  return [true, 'no limit'];
+}
+function buildMatrix() {
+  const amts = [8000, 45000, 250000];
+  const rows = [['AI agent, low-risk vendor', 'agent', 2], ['AI agent, high-risk vendor', 'agent', 4], ['Purchasing manager', 'pm', 2], ['VP procurement', 'vp', 2]];
+  el('matrix').innerHTML = `<tr><th>Who is asking</th>${amts.map(a => `<th style="text-align:center">${money(a)}</th>`).join('')}</tr>` +
+    rows.map(([l, a, r]) => `<tr><td><b>${esc(l)}</b></td>${amts.map(m => { const [ok, why] = decide(a, m, r); return `<td class="v ${ok ? 'yes' : 'no'}">${ok ? 'AUTHORIZED' : 'DENIED'}<small>${esc(why)}</small></td>`; }).join('')}</tr>`).join('');
+}
+function buildTenants() {
+  const pos = [45000, 75000, 120000];
+  const t = [['Base product', 50000], ['Acme overlay (concept)', 100000]];
+  el('tenants').innerHTML = `<tr><th>PO amount</th>${t.map(([n, th]) => `<th style="text-align:center">${esc(n)}<br>threshold ${money(th)}</th>`).join('')}</tr>` +
+    pos.map(p => `<tr><td><b>${money(p)}</b></td>${t.map(([, th]) => { const hv = p > th; return `<td class="v ${hv ? 'yes' : 'mut'}">${hv ? 'High-value PO' : 'Not high-value'}</td>`; }).join('')}</tr>`).join('');
+}
+function buildStudio() {
+  const POS = [[4521, 8000, 2], [4533, 12000, 2], [4540, 78000, 2], [4502, 9500, 4]];
+  const ok = (a, r, lim) => a <= lim && r < 3;
+  el('studio').innerHTML = `<tr><th>PO</th><th>Amount</th><th>Vendor risk</th><th style="text-align:center">With a $10,000 limit</th><th style="text-align:center">With a $25,000 limit</th></tr>` +
+    POS.map(([po, a, r]) => {
+      const x = ok(a, r, 10000), y = ok(a, r, 25000), chg = x !== y;
+      const cell = (v, ch) => `<td class="v ${v ? 'yes' : 'no'} ${ch ? 'chg' : ''}">${v ? 'AUTHORIZED' : 'DENIED'}<small>${v ? 'bot approves' : 'exception to Review Center'}</small></td>`;
+      return `<tr><td>${po}</td><td>${money(a)}</td><td>${r}</td>${cell(x, chg)}${cell(y, chg)}</tr>`;
+    }).join('');
+}
+
+buildStats(); buildDiagram(); buildFlows(); buildFilter(); buildMatrix(); buildTenants(); buildStudio();
 </script>
