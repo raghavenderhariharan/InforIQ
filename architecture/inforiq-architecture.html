@@ -7,14 +7,13 @@
      flourish, soft drifting glows. Layout: sticky top bar, then sections separated by hairlines.
      The whiteboard's marker inks still carry meaning: blue = data path, teal-green = events, red = rules. */
   :root {
-    /* Default is light, as on the Infor deck: white-grey neutrals with Infor red and purple. Dark is the KYR deep-purple ground. */
-    --bg: #F4F4F6; --surface: #FFFFFF; --surface-2: #EFEFEF; --line: #D9D9D9; --hair: #E4E4E7; --fg: #1A1A1A; --muted: #6B6B6B; --blue: #2563EB; --blue-soft: #E5EDFD; --green: #0A8F86; --green-soft: #DEF4F1; --red: #ED0C0C; --red-soft: #FDE6E6; --amber: #D9530C; --amber-soft: #FDEDE2; --ok: #14905A; --ok-soft: #DFF3E8; --purple: #460DAF; --purple-soft: #F3EEFC; --magenta: #C2137F; --magenta-soft: #FBE7F3; --glass: #FFFFFF; --btn-line: #D9D9D9; --shadow: 0 1px 2px rgba(26,26,26,.06), 0 12px 30px -14px rgba(26,26,26,.22); --glow-op: .38; --top-glow: rgba(70,13,175,.06);
-    --s1: var(--red); --s2: var(--purple); --s3: var(--magenta); --s4: var(--amber); --s5: var(--green); --s6: var(--blue); --grad: linear-gradient(100deg, #ED0C0C 0%, #C2137F 36%, #7B45F0 68%, #460DAF 100%); --grad-loop: linear-gradient(100deg, #ED0C0C, #C2137F 17%, #7B45F0 33%, #460DAF 50%, #7B45F0 67%, #C2137F 83%, #ED0C0C); --f-display: "Source Sans 3", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif; --f-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif; --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-    color-scheme: light;
-  }
-  :root[data-theme="dark"] {
-    --bg: #1A0848; --surface: #24125C; --surface-2: #15063D; --line: #3B2A7C; --hair: rgba(255,255,255,.06); --fg: #F5F1FF; --muted: #BEB4E2; --blue: #7FA8FF; --blue-soft: #1F2A78; --green: #3CD2C4; --green-soft: #123E55; --red: #FF4747; --red-soft: #4A1030; --amber: #FF8A4D; --amber-soft: #47203A; --ok: #3CC787; --ok-soft: #133C47; --purple: #B497FF; --purple-soft: #2F1A6E; --magenta: #F45DB8; --magenta-soft: #4A1250; --glass: rgba(255,255,255,.04); --btn-line: rgba(255,255,255,.22); --shadow: 0 1px 2px rgba(0,0,0,.3), 0 18px 40px -16px rgba(0,0,0,.7); --glow-op: 1; --top-glow: rgba(123,69,240,.22);
+    /* Default is dark: the KYR deep-purple ground. Light uses the Infor deck neutrals with Infor red and purple. */
+    --bg: #1A0848; --surface: #24125C; --surface-2: #15063D; --line: #3B2A7C; --hair: rgba(255,255,255,.06); --fg: #F5F1FF; --muted: #BEB4E2; --blue: #7FA8FF; --blue-soft: #1F2A78; --green: #3CD2C4; --green-soft: #123E55; --red: #FF4747; --red-soft: #4A1030; --amber: #FF8A4D; --amber-soft: #47203A; --ok: #3CC787; --ok-soft: #133C47; --purple: #B497FF; --purple-soft: #2F1A6E; --magenta: #F45DB8; --magenta-soft: #4A1250; --glass: rgba(255,255,255,.04); --btn-line: rgba(255,255,255,.22); --shadow: 0 1px 2px rgba(0,0,0,.3), 0 18px 40px -16px rgba(0,0,0,.7); --glow-op: 1; --top-glow: rgba(123,69,240,.22); --s1: var(--red); --s2: var(--purple); --s3: var(--magenta); --s4: var(--amber); --s5: var(--green); --s6: var(--blue); --grad: linear-gradient(100deg, #ED0C0C 0%, #C2137F 36%, #7B45F0 68%, #460DAF 100%); --grad-loop: linear-gradient(100deg, #ED0C0C, #C2137F 17%, #7B45F0 33%, #460DAF 50%, #7B45F0 67%, #C2137F 83%, #ED0C0C); --f-display: "Source Sans 3", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Arial, sans-serif; --f-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif; --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
     color-scheme: dark;
+  }
+  :root[data-theme="light"] {
+    --bg: #F4F4F6; --surface: #FFFFFF; --surface-2: #EFEFEF; --line: #D9D9D9; --hair: #E4E4E7; --fg: #1A1A1A; --muted: #6B6B6B; --blue: #2563EB; --blue-soft: #E5EDFD; --green: #0A8F86; --green-soft: #DEF4F1; --red: #ED0C0C; --red-soft: #FDE6E6; --amber: #D9530C; --amber-soft: #FDEDE2; --ok: #14905A; --ok-soft: #DFF3E8; --purple: #460DAF; --purple-soft: #F3EEFC; --magenta: #C2137F; --magenta-soft: #FBE7F3; --glass: #FFFFFF; --btn-line: #D9D9D9; --shadow: 0 1px 2px rgba(26,26,26,.06), 0 12px 30px -14px rgba(26,26,26,.22); --glow-op: .38; --top-glow: rgba(70,13,175,.06);
+    color-scheme: light;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg) radial-gradient(70% 45% at 50% 0%, var(--top-glow), transparent 70%) no-repeat; color: var(--fg); font: 400 1rem/1.6 var(--f-body); -webkit-font-smoothing: antialiased; }
@@ -1113,7 +1112,7 @@ $('#seg').querySelectorAll('button').forEach(b => b.addEventListener('click', ()
   if (t !== 'none') { note.innerHTML = TRACE[t]; show(t === 'auto' ? 'agent' : 'hitl'); }
 }));
 
-const isDark = () => document.documentElement.dataset.theme === 'dark';
+const isDark = () => document.documentElement.dataset.theme !== 'light';
 const themeLabel = () => { $('#theme-lbl').textContent = isDark() ? 'Light' : 'Dark'; };
 $('#theme').addEventListener('click', () => { document.documentElement.dataset.theme = isDark() ? 'light' : 'dark'; themeLabel(); });
 themeLabel();
